@@ -1,8 +1,8 @@
 package main;
 
-import view.NhanVien.FrmNhanVien;
-import view.Quanly.FrmQuanLy;
-import views.FrmDangNhap;
+import view.giaodien.FrmGiaoDien;
+
+
 
 /**
  *
@@ -14,8 +14,8 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmDangNhap().setVisible(true);
-//                new FrmNhanVien().setVisible(true);
+                new FrmGiaoDien().setVisible(true);
+
             }
         });
     }
