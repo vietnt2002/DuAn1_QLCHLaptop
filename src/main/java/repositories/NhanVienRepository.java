@@ -178,6 +178,23 @@ public class NhanVienRepository implements INhanVienRepository {
         }
     }
 
+    public String setQuyen(String ten) {
+        try {
+
+            Connection connection = DBConnection.getConnection();
+            String sql = "Select CV.Ten From dbo.ChucVu CV Join NhanVien NV On NV.IdCV=CV.id WHERE NV.Ho+' '+ NV.tenDem +' '+ NV.Ten Like N'%" + ten +"%'";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String cv = rs.getString("Ten");
+                return cv;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public List<String> getChucVu() {
         List<String> list = new ArrayList<>();
@@ -250,7 +267,6 @@ public class NhanVienRepository implements INhanVienRepository {
                 String ho = rs.getString("Ho");
                 String tenDem = rs.getString("TenDem");
                 String ten = rs.getString("Ten");
-
                 nhanVien.setHo(ho);
                 nhanVien.setTenDem(tenDem);
                 nhanVien.setTen(ten);
@@ -261,7 +277,7 @@ public class NhanVienRepository implements INhanVienRepository {
             return null;
         }
     }
-    
+
     @Override
     public NhanVien getHoTenById(String id) {
         try {
@@ -917,5 +933,14 @@ public class NhanVienRepository implements INhanVienRepository {
         } catch (Exception e) {
             return null;
         }
-    } 
+    }
+
+    public static void main(String[] args) {
+        NhanVienRepository nv = new NhanVienRepository();
+        String list = nv.setQuyen("Trần Văn Thái");
+
+        System.out.println(list.toString());
+
+    }
+
 }

@@ -443,7 +443,7 @@ public class JplNhanVien extends javax.swing.JPanel {
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
         jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
-        cboLocChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thủ kho", "Nhân viên", "Quản lý" }));
+        cboLocChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nhân viên", "Quản lý" }));
         cboLocChucVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboLocChucVuActionPerformed(evt);
@@ -851,12 +851,9 @@ public class JplNhanVien extends javax.swing.JPanel {
                 List<NhanVien> list2 = iNhanVienSV.locChucVuNVNghi(chucVu);
                 loadDataNhanVienDanglam(list1);
                 loadDataNhanVienDaNghi(list2);
-            } else if (cboLocChucVu.getSelectedItem().toString().equals("Thủ kho")) {
-                chucVu = "Thủ kho";
-                List<NhanVien> list1 = iNhanVienSV.locChucVuNVLam(chucVu);
-                List<NhanVien> list2 = iNhanVienSV.locChucVuNVNghi(chucVu);
-                loadDataNhanVienDanglam(list1);
-                loadDataNhanVienDaNghi(list2);
+            } else  {
+                loadDataNhanVienDanglam(iNhanVienSV.getAllDangLam());
+                loadDataNhanVienDaNghi(iNhanVienSV.getAllDaNghi());
             }
         }
     }//GEN-LAST:event_cboLocChucVuActionPerformed

@@ -62,7 +62,7 @@ public class NhanVienService implements INhanVienService {
     public NhanVien getHoTenByMa(String ma) {
         return iNhanVienRepo.getHoTenByMa(ma);
     }
-    
+
     @Override
     public NhanVien getHoTenById(String id) {
         return iNhanVienRepo.getHoTenById(id);
@@ -105,7 +105,7 @@ public class NhanVienService implements INhanVienService {
 
     @Override
     public List<NhanVien> sapXepTenTangNVNghi() {
-           return iNhanVienRepo.sapXepTenTangNVNghi();
+        return iNhanVienRepo.sapXepTenTangNVNghi();
     }
 
     @Override
@@ -115,6 +115,12 @@ public class NhanVienService implements INhanVienService {
 
     @Override
     public List<NhanVien> locChucVuNVNghi(String chucVu1) {
-         return iNhanVienRepo.locChucVuNVNghi(chucVu1);  }
+        return iNhanVienRepo.locChucVuNVNghi(chucVu1);
+    }
+
+    @Override
+    public String setQuyen(String ten) {
+        return iNhanVienRepo.setQuyen(ten);
+    }
 
 }

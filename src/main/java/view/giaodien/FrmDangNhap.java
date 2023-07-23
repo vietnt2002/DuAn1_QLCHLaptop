@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import services.NhanVienService;
 import utilities.UserInfo;
 
-
 /**
  *
  * @author Hello
@@ -182,12 +181,15 @@ public class FrmDangNhap extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // Đăng nhập
         try {
-            if(txtUsername.getText().equals("")){
+            String user = txtUsername.getText();
+            String pass = String.valueOf(txtPassword.getPassword());
+
+            if (user.equals("")) {
                 lblMessUser.setText(" ( * ) Vui lòng nhập vào tên tài khoản!");
                 txtUsername.requestFocus();
                 return;
             }
-            if(txtPassword.getText().equals("")){
+            if (pass.equals("")) {
                 lblMessPass.setText(" ( * ) Vui lòng nhập vào mật khẩu!");
                 lblMessUser.setText("");
                 txtPassword.requestFocus();
@@ -205,31 +207,11 @@ public class FrmDangNhap extends javax.swing.JFrame {
                 lblMessUser.setText("");
                 return;
             } else {
-                switch (lstTKNhanVien.getIdCV()) {
-                    case "Quản lý":
-                        lblMessPass.setText("");
-                        UserInfo.tenTK = txtUsername.getText();
-                        JOptionPane.showMessageDialog(this, "Đăng nhập thành công tài khoản quản lý");
-                       // new FrmQuanLy().setVisible(true);
-                        this.dispose();
-                        break;
-                    case "Thủ kho":
-                        lblMessPass.setText("");
-                        UserInfo.tenTK = txtUsername.getText();
-                        JOptionPane.showMessageDialog(this, "Đăng nhập thành công tài khoản thủ kho");
-                        //new FrmThuKho().setVisible(true);
-                        this.dispose();
-                        break;
-                    case "Nhân viên":
-                        lblMessPass.setText("");
-                        UserInfo.tenTK = txtUsername.getText();
-                        JOptionPane.showMessageDialog(this, "Đăng nhập thành công tài khoản nhân viên bán hàng");
-                       // new FrmNhanVien().setVisible(true);
-                        this.dispose();
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
+                lblMessPass.setText("");
+                UserInfo.tenTK = txtUsername.getText();
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+                new FrmGiaoDien().setVisible(true);
+                this.dispose();
             }
 
         } catch (Exception e) {

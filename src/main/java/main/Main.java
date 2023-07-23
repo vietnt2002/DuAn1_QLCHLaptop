@@ -1,5 +1,6 @@
 package main;
 
+import view.giaodien.FrmDangNhap;
 import view.giaodien.FrmGiaoDien;
 
 
@@ -14,7 +15,7 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmGiaoDien().setVisible(true);
+                new FrmDangNhap().setVisible(true);
 
             }
         });

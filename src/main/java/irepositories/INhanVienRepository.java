@@ -46,10 +46,12 @@ public interface INhanVienRepository {
     List<NhanVien> sapXepTenTangNVNghi();
 
     NhanVien getHoTenByMa(String ma);
-    
+
     NhanVien getHoTenById(String id);
 
     List<NhanVien> locChucVuNVLam(String chucVu1);
 
     List<NhanVien> locChucVuNVNghi(String chucVu1);
+
+    String setQuyen(String ten);
 }

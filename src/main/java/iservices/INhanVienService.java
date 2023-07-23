@@ -31,7 +31,7 @@ public interface INhanVienService {
     List<String> getTenChucVu();
 
     NhanVien getHoTenByMa(String ma);
-    
+
     NhanVien getHoTenById(String id);
 
     List<NhanVien> getAllDangLam();
@@ -53,4 +53,6 @@ public interface INhanVienService {
     List<NhanVien> locChucVuNVLam(String chucVu1);
 
     List<NhanVien> locChucVuNVNghi(String chucVu1);
+
+    String setQuyen(String ten);
 }

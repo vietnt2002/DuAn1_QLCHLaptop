@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import utilities.DBConnection;
-import viewmodel.viewChiTietHoaDon;
 import viewmodel.viewThongKeDT;
 import viewmodel.viewThongKeSP;
 
@@ -23,38 +22,40 @@ public class ThongKeRepository {
 
     private Connection con = DBConnection.getConnection();
 
-    public List<String> getSLDonHangNgay() {
-        List<String> list = new ArrayList<>();
+    public int getSLDonHangNgay() {
+        int sl;
         String sql = "select Count(id) as 'SoLuong' From HoaDon Where Day(NgayThanhToan) = day(GetDate())";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
             while (RS.next()) {
-                list.add(RS.getString("SoLuong"));
+                sl = RS.getInt("SoLuong");
+                return sl;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return list;
+        return 0;
     }
 
-    public List<String> getSLKhachHangNgay() {
-        List<String> list = new ArrayList<>();
+    public int getSLKhachHangNgay() {
+        int sl;
         String sql = "select Count(Idkh) as 'SoLuong' From HoaDon Where  Day(NgayThanhToan) = day(GetDate())";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
             while (RS.next()) {
-                list.add(RS.getString("SoLuong"));
+                sl = RS.getInt("SoLuong");
+                return sl;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return list;
+        return 0;
     }
 
-    public List<String> getDoanhThuNgay() {
-        List<String> list = new ArrayList<>();
+    public int getDoanhThuNgay() {
+        int sl;
         String sql = "Select Sum(ThanhTien) AS 'ThanhTien' from ChiTietHD\n"
                 + " Join hoadon on HoaDon.Id = ChiTietHD.IdHD\n"
                 + " Where Day(NgayThanhToan) = day(GetDate())";
@@ -62,13 +63,13 @@ public class ThongKeRepository {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
             while (RS.next()) {
-                list.add(RS.getString("ThanhTien"));
+                sl = RS.getInt("ThanhTien");
+                return sl;
             }
         } catch (Exception e) {
         }
-        return list;
+        return 0;
     }
-
 
     public static void main(String[] args) {
 //        ThongKeRepository tk = new ThongKeRepository();
