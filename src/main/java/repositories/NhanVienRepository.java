@@ -99,7 +99,7 @@ public class NhanVienRepository implements INhanVienRepository {
 
     @Override
     public Integer them(NhanVien nhanVien) {
-        String sql = "Insert into NhanVien (idCV,Ma,Ten,tenDem,Ho,GioiTinh,NgaySinh,Sdt,DiaChi,Email,MatKhau,TrangThai) values (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "Insert into NhanVien (idCV,Ma,Ten,tenDem,Ho,GioiTinh,NgaySinh,Sdt,DiaChi,Email,MatKhau,TrangThai) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, nhanVien.getIdCV());
@@ -178,17 +178,17 @@ public class NhanVienRepository implements INhanVienRepository {
         }
     }
 
-    public String setQuyen(String ten) {
+    public String setQuyen(String ma) {
         try {
 
-            Connection connection = DBConnection.getConnection();
-            String sql = "Select CV.Ten From dbo.ChucVu CV Join NhanVien NV On NV.IdCV=CV.id WHERE NV.Ho+' '+ NV.tenDem +' '+ NV.Ten Like N'%" + ten +"%'";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            String sql = "Select CV.Ten From dbo.ChucVu CV Join NhanVien NV On NV.IdCV=CV.id WHERE NV.Ma Like '" + ma + "'";
+            PreparedStatement PS = con.prepareStatement(sql);
+            ResultSet rs = PS.executeQuery();
             while (rs.next()) {
                 String cv = rs.getString("Ten");
                 return cv;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -198,7 +198,7 @@ public class NhanVienRepository implements INhanVienRepository {
     @Override
     public List<String> getChucVu() {
         List<String> list = new ArrayList<>();
-        String sql = "Select ten from ChucVu";
+        String sql = "Select Ten from ChucVu";
         try (PreparedStatement Ps = con.prepareStatement(sql)) {
             ResultSet Rs = Ps.executeQuery();
             while (Rs.next()) {
@@ -937,7 +937,7 @@ public class NhanVienRepository implements INhanVienRepository {
 
     public static void main(String[] args) {
         NhanVienRepository nv = new NhanVienRepository();
-        String list = nv.setQuyen("Trần Văn Thái");
+        String list = nv.setQuyen("NV02");
 
         System.out.println(list.toString());
 

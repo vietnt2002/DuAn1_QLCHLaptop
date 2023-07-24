@@ -119,8 +119,8 @@ public class NhanVienService implements INhanVienService {
     }
 
     @Override
-    public String setQuyen(String ten) {
-        return iNhanVienRepo.setQuyen(ten);
+    public String setQuyen(String ma) {
+        return iNhanVienRepo.setQuyen(ma);
     }
 
 }

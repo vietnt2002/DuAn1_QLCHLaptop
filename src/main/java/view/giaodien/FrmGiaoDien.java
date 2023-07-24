@@ -49,10 +49,9 @@ public class FrmGiaoDien extends javax.swing.JFrame {
         domainmodels.NhanVien nhanVien = nhanVienService.getHoTenByMa(utilities.UserInfo.tenTK);
         String hoTen = nhanVien.getHo() + " " + nhanVien.getTenDem() + " " + nhanVien.getTen();
         lblHoTen.setText(hoTen);
-        String vaiTro = nhanVienService.setQuyen(hoTen);
+        String vaiTro = nhanVienService.setQuyen(utilities.UserInfo.tenTK);
         lblVaiTro.setText(vaiTro);
-        String vaitro = nhanVienService.setQuyen(hoTen);
-        if (vaitro.equals("Nhân viên")) {
+        if (vaiTro.equals("Nhân viên")) {
             jplKhuyenMai.setVisible(false);
             jplThongKe.setVisible(false);
             jplKhachHang.setVisible(false);
@@ -353,8 +352,7 @@ public class FrmGiaoDien extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jplContain, javax.swing.GroupLayout.PREFERRED_SIZE, 1147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jplContain, javax.swing.GroupLayout.DEFAULT_SIZE, 1234, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,11 +478,11 @@ public class FrmGiaoDien extends javax.swing.JFrame {
     }//GEN-LAST:event_lblDoiMatKhauMouseClicked
 
     private void lblDoiMatKhauMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseEntered
-       lblDoiMatKhau.setForeground(Color.red);
+        lblDoiMatKhau.setForeground(Color.red);
     }//GEN-LAST:event_lblDoiMatKhauMouseEntered
 
     private void lblDoiMatKhauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseExited
-       lblDoiMatKhau.setForeground(Color.BLACK);
+        lblDoiMatKhau.setForeground(Color.BLACK);
     }//GEN-LAST:event_lblDoiMatKhauMouseExited
 
     /**

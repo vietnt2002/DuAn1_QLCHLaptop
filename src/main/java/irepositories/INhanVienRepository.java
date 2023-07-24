@@ -53,5 +53,5 @@ public interface INhanVienRepository {
 
     List<NhanVien> locChucVuNVNghi(String chucVu1);
 
-    String setQuyen(String ten);
+    String setQuyen(String ma);
 }

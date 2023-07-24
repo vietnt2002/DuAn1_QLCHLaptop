@@ -5,7 +5,6 @@
 package iservices;
 
 import domainmodels.NhanVien;
-import irepositories.*;
 import java.util.List;
 
 /**
@@ -54,5 +53,5 @@ public interface INhanVienService {
 
     List<NhanVien> locChucVuNVNghi(String chucVu1);
 
-    String setQuyen(String ten);
+    String setQuyen(String ma);
 }
