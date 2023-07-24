@@ -58,6 +58,8 @@ public class FrmGiaoDien extends javax.swing.JFrame {
             jplQLSP.setVisible(false);
         } else {
             jplBanHang.setVisible(false);
+            panel = new JplHoaDon();
+            setPanel(panel);
         }
     }
 
