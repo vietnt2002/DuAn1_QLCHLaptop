@@ -130,6 +130,10 @@ public class FrmGiaoDien extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Vai trò:");
 
+        lblHoTen.setForeground(new java.awt.Color(255, 0, 0));
+
+        lblVaiTro.setForeground(new java.awt.Color(255, 0, 0));
+
         jplBanHang.setLayout(new java.awt.GridLayout(1, 0));
 
         lblBanHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/BanHang.png"))); // NOI18N

@@ -24,7 +24,7 @@ public class ThongKeRepository {
 
     public int getSLDonHangNgay() {
         int sl;
-        String sql = "select Count(id) as 'SoLuong' From HoaDon Where Day(NgayThanhToan) = day(GetDate())";
+        String sql = "select Count(id) as 'SoLuong' From HoaDon Where Day(NgayThanhToan) = day(GetDate()) AND TrangThai = '1' ";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -40,7 +40,7 @@ public class ThongKeRepository {
 
     public int getSLKhachHangNgay() {
         int sl;
-        String sql = "select Count(Idkh) as 'SoLuong' From HoaDon Where  Day(NgayThanhToan) = day(GetDate())";
+        String sql = "select Count(Idkh) as 'SoLuong' From HoaDon Where  Day(NgayThanhToan) = day(GetDate()) AND TrangThai = '1' ";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -57,8 +57,8 @@ public class ThongKeRepository {
     public int getDoanhThuNgay() {
         int sl;
         String sql = "Select Sum(ThanhTien) AS 'ThanhTien' from ChiTietHD\n"
-                + " Join hoadon on HoaDon.Id = ChiTietHD.IdHD\n"
-                + " Where Day(NgayThanhToan) = day(GetDate())";
+                + " Join hoadon HD on HD.Id = ChiTietHD.IdHD\n"
+                + " Where Day(NgayThanhToan) = day(GetDate()) AND HD.TrangThai = '1' ";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -161,7 +161,7 @@ public class ThongKeRepository {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select month(NgayThanhToan) As 'Thang',Sum(ThanhTien) As 'Doanhthu'\n"
                 + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where Year(NgayThanhToan) = ?\n"
+                + " where HD.TrangThai = 1 AND Year(NgayThanhToan) = ?\n"
                 + " Group by month(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -184,6 +184,7 @@ public class ThongKeRepository {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select year(NgayThanhToan) As 'nam',Sum(ThanhTien) As 'Doanhthu'\n"
                 + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
+                + " where HD.TrangThai = 1\n"
                 + " Group by year(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -204,7 +205,7 @@ public class ThongKeRepository {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select day(NgayThanhToan) As 'nam',Sum(ThanhTien) As 'Doanhthu'\n"
                 + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where NgayThanhToan Between ? and ?\n"
+                + " where HD.TrangThai = 1 AND NgayThanhToan Between ? and ?\n"
                 + " Group by day(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -305,7 +306,7 @@ public class ThongKeRepository {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select month(NgayThanhToan) As 'Thang',Sum(ThanhTien) As 'Doanhthu'\n"
                 + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where Year(NgayThanhToan) = ?\n"
+                + " where HD.TrangThai = 1 and Year(NgayThanhToan) = ?\n"
                 + " Group by month(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -328,6 +329,7 @@ public class ThongKeRepository {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select year(NgayThanhToan) As 'nam',Sum(ThanhTien) As 'Doanhthu'\n"
                 + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
+                + "Where HD.TrangThai = 1\n"
                 + " Group by year(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -348,7 +350,7 @@ public class ThongKeRepository {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select day(NgayThanhToan) As 'nam',Sum(ThanhTien) As 'Doanhthu'\n"
                 + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where NgayThanhToan Between ? and ?\n"
+                + " where HD.TrangThai = 1 and NgayThanhToan Between ? and ?\n"
                 + " Group by day(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);

@@ -4,7 +4,6 @@
  */
 package repositories;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,10 +23,10 @@ public class QuanLyHoaDonRepository {
 
     public List<viewChiTietHoaDon> getHoaDon() {
         List<viewChiTietHoaDon> list = new ArrayList<>();
-        String sql = "Select HD.Ma,NV.Ho+' '+ NV.tenDem +' '+ NV.Ten  As 'HoTenNV', KH.Ho+' '+ KH.tenDem +' '+ KH.Ten  As 'HoTenKH',HD.NgayThanhToan\n"
+        String sql = "Select HD.Ma,NV.Ho+' '+ NV.tenDem +' '+ NV.Ten  As 'HoTenNV', KH.Ho+' '+ KH.tenDem +' '+ KH.Ten  As 'HoTenKH',HD.NgayThanhToan,HD.TrangThai\n"
                 + "From HoaDon HD Join NhanVien NV On HD.idNV = NV.Id\n"
                 + "Join KhachHang KH On HD.IdKH = KH.Id\n"
-                + " Where HD.TrangThai = 1";
+                + "Where HD.TrangThai = '1' OR HD.TrangThai = '2'";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -37,6 +36,7 @@ public class QuanLyHoaDonRepository {
                 hd.setIdNV(RS.getString("HoTenNV"));
                 hd.setIdKH(RS.getString("HoTenKH"));
                 hd.setNgayThanhToan(RS.getDate("NgayThanhToan"));
+                hd.setTrangThai(RS.getInt("TrangThai"));
 
                 list.add(hd);
             }
@@ -63,7 +63,7 @@ public class QuanLyHoaDonRepository {
                 + "ON BH.Id = CTSP.IdBH JOIN dbo.SSD \n"
                 + "ON SSD.Id = CTSP.IdSSD JOIN dbo.HoaDon HD\n"
                 + "ON HD.Id = CTHD.IdHD\n"
-                + "WHERE HD.Ma = ? AND IDB.TrangThai = 1";
+                + "WHERE HD.Ma = ? ";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, ma);
@@ -95,11 +95,11 @@ public class QuanLyHoaDonRepository {
     public List<viewChiTietHoaDon> timHoaDonTheoMa(String tim) {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "Select HD.Ma,NV.Ho+' '+ NV.tenDem +' '+ NV.Ten  As 'HoTenNV', KH.Ho+' '+ KH.tenDem +' '+ KH.Ten  As 'HoTenKH',\n"
-                + "HD.NgayThanhToan\n"
+                + "HD.NgayThanhToan,HD.TrangThai\n"
                 + "From HoaDon HD \n"
                 + "Join NhanVien NV On HD.idNV = NV.Id\n"
                 + "Join KhachHang KH On HD.IdKH = KH.Id\n"
-                + "Where HD.TrangThai = 1 AND HD.Ma Like '%" + tim + "%' OR NV.Ho+' '+ NV.tenDem +' '+ NV.Ten Like N'%" + tim + "%' OR KH.Ho+' '+ KH.tenDem +' '+ KH.Ten Like N'%" + tim + "%' OR KH.SDT like '%" + tim + "%'";
+                + "Where HD.Ma Like '%" + tim + "%' OR KH.Ho+' '+ KH.tenDem +' '+ KH.Ten Like N'%" + tim + "%' OR KH.SDT like '%" + tim + "%'";
 
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -110,7 +110,7 @@ public class QuanLyHoaDonRepository {
                 hd.setIdNV(RS.getString("HoTenNV"));
                 hd.setIdKH(RS.getString("HoTenKH"));
                 hd.setNgayThanhToan(RS.getDate("NgayThanhToan"));
-
+                hd.setTrangThai(RS.getInt("TrangThai"));
                 list.add(hd);
             }
 
@@ -122,10 +122,10 @@ public class QuanLyHoaDonRepository {
 
     public List<viewChiTietHoaDon> getTimHoaDonTheoNgay(LocalDate dau, LocalDate cuoi) {
         List<viewChiTietHoaDon> list = new ArrayList<>();
-        String sql = "Select HD.Ma,NV.Ho+' '+ NV.tenDem +' '+ NV.Ten  As 'HoTenNV', KH.Ho+' '+ KH.tenDem +' '+ KH.Ten  As 'HoTenKH',HD.NgayThanhToan\n"
+        String sql = "Select HD.Ma,NV.Ho+' '+ NV.tenDem +' '+ NV.Ten  As 'HoTenNV', KH.Ho+' '+ KH.tenDem +' '+ KH.Ten  As 'HoTenKH',HD.NgayThanhToan,HD.TrangThai\n"
                 + "From HoaDon HD Join NhanVien NV On HD.idNV = NV.Id\n"
                 + "Join KhachHang KH On HD.IdKH = KH.Id\n"
-                + "Where HD.TrangThai = 1 AND ngaythanhtoan between ? and ?";
+                + "Where HD.TrangThai = '1' OR HD.TrangThai = '2' AND ngaythanhtoan between ? and ?";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, dau);
@@ -137,12 +137,38 @@ public class QuanLyHoaDonRepository {
                 hd.setIdNV(RS.getString("HoTenNV"));
                 hd.setIdKH(RS.getString("HoTenKH"));
                 hd.setNgayThanhToan(RS.getDate("NgayThanhToan"));
+                hd.setTrangThai(RS.getInt("TrangThai"));
 
                 list.add(hd);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<viewChiTietHoaDon> locHoaDon(int trangThai) {
+        List<viewChiTietHoaDon> list = new ArrayList<>();
+        String sql = "Select HD.Ma,NV.Ho+' '+ NV.tenDem +' '+ NV.Ten  As 'HoTenNV', KH.Ho+' '+ KH.tenDem +' '+ KH.Ten  As 'HoTenKH',HD.NgayThanhToan,HD.TrangThai\n"
+                + "From HoaDon HD Join NhanVien NV On HD.idNV = NV.Id\n"
+                + "Join KhachHang KH On HD.IdKH = KH.Id Where HD.TrangThai =" + trangThai;
+
+        try {
+            PreparedStatement PS = con.prepareStatement(sql);
+            ResultSet RS = PS.executeQuery();
+            while (RS.next()) {
+                viewChiTietHoaDon hd = new viewChiTietHoaDon();
+                hd.setMa(RS.getString("Ma"));
+                hd.setIdNV(RS.getString("HoTenNV"));
+                hd.setIdKH(RS.getString("HoTenKH"));
+                hd.setNgayThanhToan(RS.getDate("NgayThanhToan"));
+                hd.setTrangThai(RS.getInt("TrangThai"));
+
+                list.add(hd);
+            }
+
+        } catch (Exception e) {
         }
         return list;
     }

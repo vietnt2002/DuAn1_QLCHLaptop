@@ -31,11 +31,13 @@ public class viewChiTietHoaDon {
     private double canNang;
     private String moTa;
     private BigDecimal giaBan;
+    private int trangThai;
+    private String ghiChu;
 
     public viewChiTietHoaDon() {
     }
 
-    public viewChiTietHoaDon(String ma, String imei, String idKH, String idNV, int thanhTien, Date ngayThanhToan, String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, BigDecimal giaBan) {
+    public viewChiTietHoaDon(String ma, String imei, String idKH, String idNV, int thanhTien, Date ngayThanhToan, String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, BigDecimal giaBan, int trangThai, String ghiChu) {
         this.ma = ma;
         this.imei = imei;
         this.idKH = idKH;
@@ -54,6 +56,18 @@ public class viewChiTietHoaDon {
         this.canNang = canNang;
         this.moTa = moTa;
         this.giaBan = giaBan;
+        this.trangThai = trangThai;
+        this.ghiChu = ghiChu;
+    }
+
+    public String getTrangThaiString() {
+        if (trangThai == 0) {
+            return "Chờ thanh toán";
+        } else if (trangThai == 1) {
+            return "Đã hoàn thành";
+        } else {
+            return "Đã huỷ";
+        }
     }
 
     public String getMa() {
@@ -200,16 +214,25 @@ public class viewChiTietHoaDon {
         this.giaBan = giaBan;
     }
 
-    @Override
-    public String toString() {
-        return "viewChiTietHoaDon{" + "ma=" + ma + ", imei=" + imei + ", idKH=" + idKH + ", idNV=" + idNV + ", thanhTien=" + thanhTien + ", ngayThanhToan=" + ngayThanhToan + ", tenSP=" + tenSP + ", NSX=" + NSX + ", MauSac=" + MauSac + ", DongSP=" + DongSP + ", CPU=" + CPU + ", RAM=" + RAM + ", SSD=" + SSD + ", ManHinh=" + ManHinh + ", BaoHanh=" + BaoHanh + ", canNang=" + canNang + ", moTa=" + moTa + ", giaBan=" + giaBan + '}';
+    public int getTrangThai() {
+        return trangThai;
     }
 
-   
-    
-    
-    
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
 
-   
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+
+    @Override
+    public String toString() {
+        return "viewChiTietHoaDon{" + "ma=" + ma + ", imei=" + imei + ", idKH=" + idKH + ", idNV=" + idNV + ", thanhTien=" + thanhTien + ", ngayThanhToan=" + ngayThanhToan + ", tenSP=" + tenSP + ", NSX=" + NSX + ", MauSac=" + MauSac + ", DongSP=" + DongSP + ", CPU=" + CPU + ", RAM=" + RAM + ", SSD=" + SSD + ", ManHinh=" + ManHinh + ", BaoHanh=" + BaoHanh + ", canNang=" + canNang + ", moTa=" + moTa + ", giaBan=" + giaBan + ", trangThai=" + trangThai + ", ghiChu=" + ghiChu + '}';
+    }
 
 }

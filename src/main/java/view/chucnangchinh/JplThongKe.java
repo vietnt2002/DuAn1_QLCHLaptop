@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
@@ -32,10 +33,12 @@ public class JplThongKe extends javax.swing.JPanel {
 
     public JplThongKe() {
         initComponents();
-        lblDoanhThu.setText(String.valueOf(thongke.getDoanhThuNgay()));
+        lblDoanhThu.setText(String.valueOf(thongke.getDoanhThuNgay()) + " VND");
         lblTongHoaDon.setText(String.valueOf(thongke.getSLDonHangNgay()));
         lblKhachHang.setText(String.valueOf(thongke.getSLKhachHangNgay()));
         getNgay();
+        jdateNgayDau.setDate(new Date());
+        jDateNgayCuoi.setDate(new Date());
     }
 
     public void getNgay() {
@@ -258,7 +261,7 @@ public class JplThongKe extends javax.swing.JPanel {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Doanh thu_1.png"))); // NOI18N
 
-        lblDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblDoanhThu.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblDoanhThu.setText("jLabel8");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -297,7 +300,7 @@ public class JplThongKe extends javax.swing.JPanel {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/khach hang.png"))); // NOI18N
 
-        lblKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblKhachHang.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblKhachHang.setText("jLabel10");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -338,7 +341,7 @@ public class JplThongKe extends javax.swing.JPanel {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/don hang.png"))); // NOI18N
 
-        lblTongHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTongHoaDon.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblTongHoaDon.setText("jLabel9");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -410,7 +413,7 @@ public class JplThongKe extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 105, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -718,6 +721,22 @@ public class JplThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jYearPropertyChange
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Date ngBD = jdateNgayDau.getDate();
+        Date ngKT = jDateNgayCuoi.getDate();
+
+        if (ngBD == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày bắt đầu trước khi tìm!");
+            return;
+        } else if (ngKT == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày kết thúc trước khi tìm!");
+            return;
+        }
+
+        if (ngBD.getTime() > ngKT.getTime()) {
+            JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước ngày kết thúc!");
+            return;
+        }
+
         if (cboloc.getSelectedItem().equals("Ngày")) {
             LocalDateTime ngayDau = jdateNgayDau.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(LocalTime.of(0, 0, 0));
             LocalDateTime ngayCuoi = jDateNgayCuoi.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(LocalTime.of(23, 59, 59));
@@ -725,6 +744,7 @@ public class JplThongKe extends javax.swing.JPanel {
             setDataToDoanhThuTKNNgay(bieudoDT, ngayDau, ngayCuoi);
             loadDataBangSPTK(thongke.getBangSPTKNgay(ngayDau, ngayCuoi));
             loadDataBangDTTK(thongke.getBangDTTKNgay(ngayDau, ngayCuoi));
+
         } else if (cboloc.getSelectedItem().equals("Tháng")) {
             int month = jMonth.getMonth() + 1;
             int year = jYear.getYear();
@@ -733,6 +753,7 @@ public class JplThongKe extends javax.swing.JPanel {
             setDataToDoanhThuTKThang(bieudoDT, year);
             loadDataBangSPTK(thongke.getBangSPTKThang(month, year));
             loadDataBangDTTK(thongke.getBangDTTKThang(year));
+
         } else {
             int year = jYear.getYear();
             System.out.println("năm: " + year);
