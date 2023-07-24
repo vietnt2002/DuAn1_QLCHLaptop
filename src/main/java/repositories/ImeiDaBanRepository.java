@@ -174,7 +174,7 @@ public class ImeiDaBanRepository implements IImeiDaBanRepository{
             String sql = "SELECT IMei FROM dbo.IMeiDaBan JOIN dbo.ChiTietHD\n" +
                         "ON ChiTietHD.Id = IMeiDaBan.IdChiTietHD JOIN dbo.ChiTietSP CTSP\n" +
                         "ON CTSP.Id = ChiTietHD.IdChiTietSP\n" +
-                        "WHERE IMeiDaBan.TrangThai = 0 AND IdHD = ?";
+                        "WHERE IMeiDaBan.TrangThai = 1 AND IdHD = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, idHD);
             ResultSet rs = ps.executeQuery();
@@ -185,7 +185,6 @@ public class ImeiDaBanRepository implements IImeiDaBanRepository{
                 imeiDaBan.setImei(imei);
                 
                 lstIMeiDaBan.add(imeiDaBan);
-                System.out.println("lstImeiDB Repo: "+lstIMeiDaBan);
             }
             rs.close();
             ps.close();

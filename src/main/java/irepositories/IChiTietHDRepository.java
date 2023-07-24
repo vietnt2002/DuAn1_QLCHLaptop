@@ -23,6 +23,7 @@ public interface IChiTietHDRepository {
     String getIdByIdCTSP_IdHD(String idCtsp, String idHD);
     Integer themSoLuong(String idHD, String idChiTietSP);
     Integer botSoLuong(String idHD, String IdChiTietSP);
+    Integer xoaSoLuong(String idHD);
     Integer updateTrangThai(String trangThai, String idHD);
     Integer updateThanhTien(BigDecimal thanhTien, String idHD, String idCtsp);
 }

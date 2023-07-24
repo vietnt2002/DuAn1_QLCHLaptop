@@ -617,7 +617,7 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
         try {
             Integer result = 0;
             Connection connection = DBConnection.getConnection();
-            String sql = "UPDATE dbo.ChiTietHD SET SoLuong = SoLuong - ? WHERE Ma = ?";
+            String sql = "UPDATE dbo.ChiTietSP SET SoLuongTon = SoLuongTon - ? WHERE Ma = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, soLuong);
             ps.setString(2, ma);

@@ -204,14 +204,15 @@ public class HoaDonRepository implements IHoaDonRepository{
     }
 
     @Override
-    public Integer updateTrangThai(String trangThai, String idHD) {
+    public Integer updateTrangThai(String trangThai, String lyDo, String idHD) {
         try {
             Integer result = 0;
             Connection connection = DBConnection.getConnection();
-            String sql = "UPDATE dbo.HoaDon SET TrangThai = ? WHERE Id = ?";
+            String sql = "UPDATE dbo.HoaDon SET NgayThanhToan = GETDATE(), TrangThai = ?, LyDo = ? WHERE Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, trangThai);
-            ps.setString(2, idHD);
+            ps.setString(2, lyDo);
+            ps.setString(3, idHD);
             
             result = ps.executeUpdate();
             ps.close();

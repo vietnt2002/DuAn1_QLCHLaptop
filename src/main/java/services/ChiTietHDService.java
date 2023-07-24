@@ -73,4 +73,9 @@ public class ChiTietHDService implements IChiTietHDService{
         return chiTietHDRepo.updateThanhTien(thanhTien, idHD, idCtsp);
     }
 
+    @Override
+    public Integer xoaSoLuong(String idHD) {
+        return chiTietHDRepo.xoaSoLuong(idHD);
+    }
+
 }
