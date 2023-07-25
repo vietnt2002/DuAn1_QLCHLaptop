@@ -58,10 +58,10 @@ public class JplHoaDon extends javax.swing.JPanel {
                 hd.getRAM(),
                 hd.getSSD(),
                 hd.getManHinh(),
-                hd.getCanNang(),
-                hd.getBaoHanh(),
+                hd.getCanNang()+" KG",
+                hd.getBaoHanh()+" Tháng",
                 hd.getMoTa(),
-                hd.getGiaBan()
+                hd.getGiaBan()+" VND"
             });
         }
     }
