@@ -87,10 +87,9 @@ public class FrmCPU extends javax.swing.JFrame {
         radHet = new javax.swing.JRadioButton();
         pnlCPUbtn = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
-        btnShow = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnHide = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
         txtMa = new javax.swing.JTextField();
         txtTen = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -128,15 +127,6 @@ public class FrmCPU extends javax.swing.JFrame {
             }
         });
 
-        btnShow.setBackground(new java.awt.Color(255, 51, 0));
-        btnShow.setForeground(new java.awt.Color(255, 255, 255));
-        btnShow.setText("Hiện");
-        btnShow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowActionPerformed(evt);
-            }
-        });
-
         btnEdit.setBackground(new java.awt.Color(255, 51, 0));
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Sửa");
@@ -155,12 +145,12 @@ public class FrmCPU extends javax.swing.JFrame {
             }
         });
 
-        btnHide.setBackground(new java.awt.Color(255, 51, 0));
-        btnHide.setForeground(new java.awt.Color(255, 255, 255));
-        btnHide.setText("Ẩn");
-        btnHide.addActionListener(new java.awt.event.ActionListener() {
+        btnClose.setBackground(new java.awt.Color(255, 51, 0));
+        btnClose.setForeground(new java.awt.Color(255, 255, 255));
+        btnClose.setText("Thoát");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHideActionPerformed(evt);
+                btnCloseActionPerformed(evt);
             }
         });
 
@@ -171,33 +161,30 @@ public class FrmCPU extends javax.swing.JFrame {
             .addGroup(pnlCPUbtnLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(pnlCPUbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnHide)
+                    .addComponent(btnClose)
                     .addComponent(btnDelete)
                     .addComponent(btnEdit)
-                    .addComponent(btnShow)
                     .addComponent(btnAdd))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlCPUbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnDelete, btnEdit, btnHide, btnShow});
+        pnlCPUbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnClose, btnDelete, btnEdit});
 
         pnlCPUbtnLayout.setVerticalGroup(
             pnlCPUbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCPUbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnShow)
-                .addGap(18, 18, 18)
-                .addComponent(btnHide)
-                .addGap(18, 18, 18)
                 .addComponent(btnAdd)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete)
+                .addGap(18, 18, 18)
+                .addComponent(btnClose)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlCPUbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnDelete, btnEdit, btnHide, btnShow});
+        pnlCPUbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClose, btnDelete, btnEdit});
 
         txtTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,12 +205,12 @@ public class FrmCPU extends javax.swing.JFrame {
                         .addComponent(jLabel28)))
                 .addGap(40, 40, 40)
                 .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(txtMa)
                     .addGroup(pnlCPUInfoLayout.createSequentialGroup()
                         .addComponent(radCon)
                         .addGap(35, 35, 35)
-                        .addComponent(radHet))
-                    .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                    .addComponent(txtMa))
+                        .addComponent(radHet)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(pnlCPUbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -238,7 +225,7 @@ public class FrmCPU extends javax.swing.JFrame {
                 .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -251,7 +238,7 @@ public class FrmCPU extends javax.swing.JFrame {
             .addGroup(pnlCPUInfoLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(pnlCPUbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlCPUInfoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtMa, txtTen});
@@ -292,7 +279,7 @@ public class FrmCPU extends javax.swing.JFrame {
                 .addComponent(pnlCPUInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -346,15 +333,14 @@ public class FrmCPU extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here:
         try {
-            filltableCPU();
-            showdetailCPU(0);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnShowActionPerformed
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
@@ -403,18 +389,6 @@ public class FrmCPU extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHideActionPerformed
-        // TODO add your handling code here:
-        try {
-            modelCPU.setRowCount(0);
-            txtMa.setText("");
-            txtTen.setText("");
-            radCon.setSelected(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnHideActionPerformed
 
     private void txtTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenActionPerformed
         // TODO add your handling code here:
@@ -468,10 +442,9 @@ public class FrmCPU extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgCPU;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnHide;
-    private javax.swing.JButton btnShow;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel38;

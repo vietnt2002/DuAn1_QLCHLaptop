@@ -88,10 +88,9 @@ public class FrmNSX extends javax.swing.JFrame {
         radHet4 = new javax.swing.JRadioButton();
         pnlNSXbtn = new javax.swing.JPanel();
         btnAdd4 = new javax.swing.JButton();
-        btnShow4 = new javax.swing.JButton();
         btnEdit4 = new javax.swing.JButton();
         btnDelete4 = new javax.swing.JButton();
-        btnHide4 = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
         txtMa4 = new javax.swing.JTextField();
         txtTen4 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -132,15 +131,6 @@ public class FrmNSX extends javax.swing.JFrame {
             }
         });
 
-        btnShow4.setBackground(new java.awt.Color(255, 51, 0));
-        btnShow4.setForeground(new java.awt.Color(255, 255, 255));
-        btnShow4.setText("Hiện");
-        btnShow4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShow4ActionPerformed(evt);
-            }
-        });
-
         btnEdit4.setBackground(new java.awt.Color(255, 51, 0));
         btnEdit4.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit4.setText("Sửa");
@@ -159,12 +149,12 @@ public class FrmNSX extends javax.swing.JFrame {
             }
         });
 
-        btnHide4.setBackground(new java.awt.Color(255, 51, 0));
-        btnHide4.setForeground(new java.awt.Color(255, 255, 255));
-        btnHide4.setText("Ẩn");
-        btnHide4.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setBackground(new java.awt.Color(255, 51, 0));
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setText("Thoát");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHide4ActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -175,33 +165,30 @@ public class FrmNSX extends javax.swing.JFrame {
             .addGroup(pnlNSXbtnLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(pnlNSXbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnHide4)
+                    .addComponent(btnExit)
                     .addComponent(btnDelete4)
                     .addComponent(btnEdit4)
-                    .addComponent(btnShow4)
                     .addComponent(btnAdd4))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlNSXbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4, btnShow4});
+        pnlNSXbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnExit});
 
         pnlNSXbtnLayout.setVerticalGroup(
             pnlNSXbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNSXbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnShow4)
-                .addGap(18, 18, 18)
-                .addComponent(btnHide4)
-                .addGap(18, 18, 18)
                 .addComponent(btnAdd4)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit4)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete4)
+                .addGap(18, 18, 18)
+                .addComponent(btnExit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlNSXbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4, btnShow4});
+        pnlNSXbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnExit});
 
         txtTen4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,13 +213,13 @@ public class FrmNSX extends javax.swing.JFrame {
                             .addComponent(jLabel42))))
                 .addGap(27, 27, 27)
                 .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtMa4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                    .addComponent(txtTen4)
+                    .addComponent(txtQG)
                     .addGroup(pnlNSXinfoLayout.createSequentialGroup()
                         .addComponent(radCon4)
                         .addGap(18, 18, 18)
-                        .addComponent(radHet4))
-                    .addComponent(txtMa4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                    .addComponent(txtTen4)
-                    .addComponent(txtQG))
+                        .addComponent(radHet4)))
                 .addGap(50, 50, 50)
                 .addComponent(pnlNSXbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -362,16 +349,6 @@ public class FrmNSX extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdd4ActionPerformed
 
-    private void btnShow4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShow4ActionPerformed
-        // TODO add your handling code here:
-        try {
-            filltableNSX();
-            showdetailNSX(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnShow4ActionPerformed
-
     private void btnEdit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit4ActionPerformed
         // TODO add your handling code here:
         try {
@@ -420,18 +397,14 @@ public class FrmNSX extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDelete4ActionPerformed
 
-    private void btnHide4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHide4ActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
         try {
-            modelNSX.setRowCount(0);
-            txtMa4.setText("");
-            txtTen4.setText("");
-            txtQG.setText("");
-            radCon4.setSelected(true);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnHide4ActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
     private void txtTen4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTen4ActionPerformed
         // TODO add your handling code here:
@@ -487,8 +460,7 @@ public class FrmNSX extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd4;
     private javax.swing.JButton btnDelete4;
     private javax.swing.JButton btnEdit4;
-    private javax.swing.JButton btnHide4;
-    private javax.swing.JButton btnShow4;
+    private javax.swing.JButton btnExit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel42;

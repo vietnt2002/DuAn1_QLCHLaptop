@@ -89,10 +89,9 @@ public class FrmDongSP extends javax.swing.JFrame {
         radHet1 = new javax.swing.JRadioButton();
         pnlDSPbtn = new javax.swing.JPanel();
         btnAdd1 = new javax.swing.JButton();
-        btnShow1 = new javax.swing.JButton();
         btnEdit1 = new javax.swing.JButton();
         btnDelete1 = new javax.swing.JButton();
-        btnHide1 = new javax.swing.JButton();
+        btnClose1 = new javax.swing.JButton();
         txtMa1 = new javax.swing.JTextField();
         txtTen1 = new javax.swing.JTextField();
 
@@ -147,15 +146,6 @@ public class FrmDongSP extends javax.swing.JFrame {
             }
         });
 
-        btnShow1.setBackground(new java.awt.Color(255, 51, 0));
-        btnShow1.setForeground(new java.awt.Color(255, 255, 255));
-        btnShow1.setText("Hiện");
-        btnShow1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShow1ActionPerformed(evt);
-            }
-        });
-
         btnEdit1.setBackground(new java.awt.Color(255, 51, 0));
         btnEdit1.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit1.setText("Sửa");
@@ -174,12 +164,12 @@ public class FrmDongSP extends javax.swing.JFrame {
             }
         });
 
-        btnHide1.setBackground(new java.awt.Color(255, 51, 0));
-        btnHide1.setForeground(new java.awt.Color(255, 255, 255));
-        btnHide1.setText("Ẩn");
-        btnHide1.addActionListener(new java.awt.event.ActionListener() {
+        btnClose1.setBackground(new java.awt.Color(255, 51, 0));
+        btnClose1.setForeground(new java.awt.Color(255, 255, 255));
+        btnClose1.setText("Thoát");
+        btnClose1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHide1ActionPerformed(evt);
+                btnClose1ActionPerformed(evt);
             }
         });
 
@@ -190,33 +180,30 @@ public class FrmDongSP extends javax.swing.JFrame {
             .addGroup(pnlDSPbtnLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(pnlDSPbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnHide1)
+                    .addComponent(btnClose1)
                     .addComponent(btnDelete1)
                     .addComponent(btnEdit1)
-                    .addComponent(btnShow1)
                     .addComponent(btnAdd1))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlDSPbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd1, btnDelete1, btnEdit1, btnHide1, btnShow1});
+        pnlDSPbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd1, btnClose1, btnDelete1, btnEdit1});
 
         pnlDSPbtnLayout.setVerticalGroup(
             pnlDSPbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDSPbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnShow1)
-                .addGap(18, 18, 18)
-                .addComponent(btnHide1)
-                .addGap(18, 18, 18)
                 .addComponent(btnAdd1)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit1)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(btnClose1)
+                .addContainerGap())
         );
 
-        pnlDSPbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd1, btnDelete1, btnEdit1, btnHide1, btnShow1});
+        pnlDSPbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd1, btnClose1, btnDelete1, btnEdit1});
 
         txtTen1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,13 +224,13 @@ public class FrmDongSP extends javax.swing.JFrame {
                     .addComponent(jLabel48))
                 .addGap(18, 18, 18)
                 .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtTen1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                    .addComponent(txtMa1)
                     .addGroup(pnlDongInfoLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(radCon1)
                         .addGap(30, 30, 30)
-                        .addComponent(radHet1))
-                    .addComponent(txtTen1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                    .addComponent(txtMa1))
+                        .addComponent(radHet1)))
                 .addGap(42, 42, 42)
                 .addComponent(pnlDSPbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -353,16 +340,6 @@ public class FrmDongSP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdd1ActionPerformed
 
-    private void btnShow1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShow1ActionPerformed
-        // TODO add your handling code here:
-        try {
-            filltableDSP();
-            showdetailDSP(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnShow1ActionPerformed
-
     private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit1ActionPerformed
         // TODO add your handling code here:
         try {
@@ -411,17 +388,14 @@ public class FrmDongSP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDelete1ActionPerformed
 
-    private void btnHide1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHide1ActionPerformed
+    private void btnClose1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose1ActionPerformed
         // TODO add your handling code here:
         try {
-            modelDSP.setRowCount(0);
-            txtMa1.setText("");
-            txtTen1.setText("");
-            radCon1.setSelected(true);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnHide1ActionPerformed
+    }//GEN-LAST:event_btnClose1ActionPerformed
 
     private void txtTen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTen1ActionPerformed
         // TODO add your handling code here:
@@ -476,10 +450,9 @@ public class FrmDongSP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgDSP;
     private javax.swing.JButton btnAdd1;
+    private javax.swing.JButton btnClose1;
     private javax.swing.JButton btnDelete1;
     private javax.swing.JButton btnEdit1;
-    private javax.swing.JButton btnHide1;
-    private javax.swing.JButton btnShow1;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel48;

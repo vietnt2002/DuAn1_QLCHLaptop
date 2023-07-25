@@ -87,7 +87,6 @@ public class FrmSanPham extends javax.swing.JFrame {
         radHet5 = new javax.swing.JRadioButton();
         pnlSPbtn = new javax.swing.JPanel();
         btnAdd5 = new javax.swing.JButton();
-        btnShow5 = new javax.swing.JButton();
         btnEdit5 = new javax.swing.JButton();
         btnDelete5 = new javax.swing.JButton();
         btnHide5 = new javax.swing.JButton();
@@ -129,15 +128,6 @@ public class FrmSanPham extends javax.swing.JFrame {
             }
         });
 
-        btnShow5.setBackground(new java.awt.Color(255, 51, 0));
-        btnShow5.setForeground(new java.awt.Color(255, 255, 255));
-        btnShow5.setText("Hiện");
-        btnShow5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShow5ActionPerformed(evt);
-            }
-        });
-
         btnEdit5.setBackground(new java.awt.Color(255, 51, 0));
         btnEdit5.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit5.setText("Sửa");
@@ -158,7 +148,7 @@ public class FrmSanPham extends javax.swing.JFrame {
 
         btnHide5.setBackground(new java.awt.Color(255, 51, 0));
         btnHide5.setForeground(new java.awt.Color(255, 255, 255));
-        btnHide5.setText("Ẩn");
+        btnHide5.setText("Thoát");
         btnHide5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHide5ActionPerformed(evt);
@@ -175,30 +165,27 @@ public class FrmSanPham extends javax.swing.JFrame {
                     .addComponent(btnHide5)
                     .addComponent(btnDelete5)
                     .addComponent(btnEdit5)
-                    .addComponent(btnShow5)
                     .addComponent(btnAdd5))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlSPbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd5, btnDelete5, btnEdit5, btnHide5, btnShow5});
+        pnlSPbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd5, btnDelete5, btnEdit5, btnHide5});
 
         pnlSPbtnLayout.setVerticalGroup(
             pnlSPbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSPbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnShow5)
-                .addGap(18, 18, 18)
-                .addComponent(btnHide5)
-                .addGap(18, 18, 18)
                 .addComponent(btnAdd5)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit5)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete5)
+                .addGap(18, 18, 18)
+                .addComponent(btnHide5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlSPbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd5, btnDelete5, btnEdit5, btnHide5, btnShow5});
+        pnlSPbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd5, btnDelete5, btnEdit5, btnHide5});
 
         txtTen5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,7 +240,7 @@ public class FrmSanPham extends javax.swing.JFrame {
                             .addComponent(jLabel43)
                             .addComponent(radCon5)
                             .addComponent(radHet5))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pnlSPInfoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtMa5, txtTen5});
@@ -352,16 +339,6 @@ public class FrmSanPham extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdd5ActionPerformed
 
-    private void btnShow5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShow5ActionPerformed
-        // TODO add your handling code here:
-        try {
-            filltableSP();
-            showdetailSP(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnShow5ActionPerformed
-
     private void btnEdit5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit5ActionPerformed
         // TODO add your handling code here:
         try {
@@ -413,10 +390,7 @@ public class FrmSanPham extends javax.swing.JFrame {
     private void btnHide5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHide5ActionPerformed
         // TODO add your handling code here:
         try {
-            modelSP.setRowCount(0);
-            txtMa5.setText("");
-            txtTen5.setText("");
-            radCon5.setSelected(true);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -477,7 +451,6 @@ public class FrmSanPham extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete5;
     private javax.swing.JButton btnEdit5;
     private javax.swing.JButton btnHide5;
-    private javax.swing.JButton btnShow5;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel43;

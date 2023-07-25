@@ -4,9 +4,11 @@
  */
 package view.chucnangchinh;
 
-import domainmodels.ChiTietSPView;
+import viewmodel.viewCTSP;
 import domainmodels.ChiTietSP;
+import domainmodels.Imei;
 import iservices.IChiTietSPService;
+import iservices.IImeiService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import services.CheckTrungService;
 import services.ChiTietSPService;
+import services.ImeiService;
 import utilities.ULHelper;
 import view.quanlysp.FrmCPU;
 import view.quanlysp.FrmDongSP;
@@ -39,8 +42,12 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     private final IChiTietSPService Services = new ChiTietSPService() {
     };
-    List<ChiTietSPView> lstDSP = new ArrayList<>();
-    DefaultTableModel modelDSP = new DefaultTableModel();
+    private final IImeiService Services2 = new ImeiService() {
+    };
+    List<viewCTSP> lstCTSP = new ArrayList<>();
+    DefaultTableModel modelCTSP = new DefaultTableModel();
+    List<Imei> lstIMEI = new ArrayList<>();
+    DefaultTableModel modelIMEI = new DefaultTableModel();
     Map<String, String> ten = new HashMap<>();
     Map<String, String> nsx = new HashMap<>();
     Map<String, String> mau = new HashMap<>();
@@ -55,7 +62,8 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     public JplQuanLySP() {
         initComponents();
-        modelDSP = (DefaultTableModel) tblDSP.getModel();
+        modelCTSP = (DefaultTableModel) tblDSP.getModel();
+        modelIMEI = (DefaultTableModel) tblIMEI.getModel();
         ten = Services.hashMapTenSp();
         nsx = Services.hashMapNoiSx();
         mau = Services.hashMapMauSac();
@@ -67,6 +75,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
         bh = Services.hashMapBaoHanh();
         loadTen();
         filltable();
+        filltableIMEI();
     }
 
     public void loadTen() {
@@ -119,11 +128,25 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     public void filltable() {
         try {
-            modelDSP.setRowCount(0);
-            lstDSP = Services.getAll(ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
-            for (ChiTietSPView a : lstDSP) {
-                modelDSP.addRow(new Object[]{
+            modelCTSP.setRowCount(0);
+            lstCTSP = Services.getAll(ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
+            for (viewCTSP a : lstCTSP) {
+                modelCTSP.addRow(new Object[]{
                     a.getTenSP(), a.getNSX(), a.getMauSac(), a.getDongSP(), a.getCPU(), a.getRAM(), a.getSSD(), a.getManHinh(), a.getBaoHanh(), a.getCanNang(), a.getMoTa(), a.getSoLuongTon(), a.getGiaNhap(), a.getGiaBan(), a.getNgayTao(), a.getNgaySua(), a.getStatus(a.getTrangThai())
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void filltableIMEI() {
+        try {
+            modelIMEI.setRowCount(0);
+            lstIMEI = Services2.getAll();
+            for (Imei a : lstIMEI) {
+                modelIMEI.addRow(new Object[]{
+                    a.getImei(), a.getStatus(a.getTrangThai())
                 });
             }
         } catch (Exception e) {
@@ -133,20 +156,20 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     public void showdetail(int index) {
         try {
-            lblMa.setText(lstDSP.get(index).getMa());
-            cboTenSp.setSelectedItem(lstDSP.get(index).getTenSP());
-            cboNoiSX.setSelectedItem(lstDSP.get(index).getNSX());
-            cbomauSac.setSelectedItem(lstDSP.get(index).getNSX());
-            cboDongsp.setSelectedItem(lstDSP.get(index).getDongSP());
-            cboRAM.setSelectedItem(lstDSP.get(index).getRAM());
-            cboSSD.setSelectedItem(lstDSP.get(index).getSSD());
-            cboMH.setSelectedItem(lstDSP.get(index).getManHinh());
-            cboBH.setSelectedItem(lstDSP.get(index).getBaoHanh());
-            txtCanNang.setText("" + lstDSP.get(index).getSoLuongTon());
-            txtMota.setText(lstDSP.get(index).getMoTa());
-            txtTon.setText("" + lstDSP.get(index).getSoLuongTon());
-            txtNhap.setText("" + lstDSP.get(index).getGiaNhap());
-            txtBan.setText("" + lstDSP.get(index).getGiaBan());
+            lblMa.setText(lstCTSP.get(index).getMa());
+            cboTenSp.setSelectedItem(lstCTSP.get(index).getTenSP());
+            cboNoiSX.setSelectedItem(lstCTSP.get(index).getNSX());
+            cbomauSac.setSelectedItem(lstCTSP.get(index).getNSX());
+            cboDongsp.setSelectedItem(lstCTSP.get(index).getDongSP());
+            cboRAM.setSelectedItem(lstCTSP.get(index).getRAM());
+            cboSSD.setSelectedItem(lstCTSP.get(index).getSSD());
+            cboMH.setSelectedItem(lstCTSP.get(index).getManHinh());
+            cboBH.setSelectedItem(lstCTSP.get(index).getBaoHanh());
+            txtCanNang.setText("" + lstCTSP.get(index).getSoLuongTon());
+            txtMota.setText(lstCTSP.get(index).getMoTa());
+            txtTon.setText("" + lstCTSP.get(index).getSoLuongTon());
+            txtNhap.setText("" + lstCTSP.get(index).getGiaNhap());
+            txtBan.setText("" + lstCTSP.get(index).getGiaBan());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -219,7 +242,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblIMEI = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnTang1 = new javax.swing.JButton();
         btnGiam1 = new javax.swing.JButton();
@@ -361,17 +384,18 @@ public class JplQuanLySP extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cboDongsp, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboDongsp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                    .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboDongsp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -721,7 +745,10 @@ public class JplQuanLySP extends javax.swing.JPanel {
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
                         .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlDongInfoLayout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlDongInfoLayout.createSequentialGroup()
                                 .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -745,10 +772,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel11)
-                                    .addComponent(txtBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDongInfoLayout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(pnlDSPbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0))
         );
@@ -847,18 +871,18 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
         pnlDSPsrcLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel17, jTextField1});
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblIMEI.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "IMEI", "Trạng thái"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblIMEI);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TÌM KIẾM", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 51, 0))); // NOI18N
@@ -1006,7 +1030,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
             if (ULHelper.checknull(txtBan, "Không được để tên trống!")) {
                 return;
             }
-            ChiTietSPView dsp = new ChiTietSPView(cboTenSp.getSelectedItem() + "",
+            viewCTSP dsp = new viewCTSP(cboTenSp.getSelectedItem() + "",
                     cboNoiSX.getSelectedItem() + "",
                     cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem() + "", cboCPU.getSelectedItem() + "", cboRAM.getSelectedItem() + "", cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", cboBH.getSelectedItem() + "", Double.parseDouble(txtCanNang.getText()), txtMota.getText(), Integer.parseInt(txtTon.getText()), BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), date, date, 1);
             int thongBao = Services.them(dsp, ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
@@ -1051,11 +1075,11 @@ public class JplQuanLySP extends javax.swing.JPanel {
             if (ULHelper.checknull(txtBan, "Không được để tên trống!")) {
                 return;
             }
-            lstDSP = Services.getAll(ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
+            lstCTSP = Services.getAll(ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
 
-            Date tao = lstDSP.get(index).getNgayTao();
-            String id = lstDSP.get(index).getId();
-            ChiTietSPView dsp = new ChiTietSPView(cboTenSp.getSelectedItem() + "",
+            Date tao = lstCTSP.get(index).getNgayTao();
+            String id = lstCTSP.get(index).getId();
+            viewCTSP dsp = new viewCTSP(cboTenSp.getSelectedItem() + "",
                     cboNoiSX.getSelectedItem() + "",
                     cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem() + "", cboCPU.getSelectedItem() + "", cboRAM.getSelectedItem() + "", cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", cboBH.getSelectedItem() + "", Double.parseDouble(txtCanNang.getText()), txtMota.getText(), Integer.parseInt(txtTon.getText()), BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), tao, date, 1);
             int thongBao = Services.sua(dsp, ten, nsx, mau, dong, cpu, ram, ssd, mau, dong, id);
@@ -1230,7 +1254,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblMa;
     private javax.swing.JPanel pnlDSPbtn;
@@ -1238,6 +1261,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
     private javax.swing.JPanel pnlDongInfo;
     private javax.swing.JPanel pnlDongSP;
     private javax.swing.JTable tblDSP;
+    private javax.swing.JTable tblIMEI;
     private javax.swing.JTextField txtBan;
     private javax.swing.JTextField txtCanNang;
     private javax.swing.JTextField txtMota;

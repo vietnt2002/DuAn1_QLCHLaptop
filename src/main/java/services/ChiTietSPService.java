@@ -5,7 +5,7 @@
 package services;
 
 import domainmodels.ChiTietSP;
-import domainmodels.ChiTietSPView;
+import viewmodel.viewCTSP;
 import irepositories.IChiTietSPRepository;
 import iservices.IChiTietSPService;
 import java.math.BigDecimal;
@@ -24,9 +24,9 @@ public class ChiTietSPService implements IChiTietSPService {
     private final IChiTietSPRepository Repository = (IChiTietSPRepository) new ChiTietSPRepository();
 
     @Override
-    public List<ChiTietSPView> getAll(Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh) {
+    public List<viewCTSP> getAll(Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh) {
         List<ChiTietSP> lst = Repository.getAllCTSP();
-        List<ChiTietSPView> lst1 = new ArrayList<>();
+        List<viewCTSP> lst1 = new ArrayList<>();
         for (ChiTietSP a : lst) {
             String tenSp = TenSp.get(a.getIdSP());
             String noiSx = NSX.get(a.getIdNSX());
@@ -37,14 +37,14 @@ public class ChiTietSPService implements IChiTietSPService {
             String ssd = SSD.get(a.getIdSSD());
             String manhinh = ManHinh.get(a.getIdManHinh());
             String baohanh = BaoHanh.get(a.getIdBH());
-            lst1.add(new ChiTietSPView(a.getId(), tenSp, noiSx, mauSac, dongSp, cpu, ram, ssd, manhinh, baohanh, a.getCanNang(), a.getMoTa(), a.getSoLuongTon(), a.getGiaNhap(), a.getGiaBan(), a.getNgayTao(), a.getNgaySua(), a.getTrangThai(), a.getNumOrder(), a.getMa()));
+            lst1.add(new viewCTSP(a.getId(), tenSp, noiSx, mauSac, dongSp, cpu, ram, ssd, manhinh, baohanh, a.getCanNang(), a.getMoTa(), a.getSoLuongTon(), a.getGiaNhap(), a.getGiaBan(), a.getNgayTao(), a.getNgaySua(), a.getTrangThai(), a.getNumOrder(), a.getMa()));
 
         }
         return lst1;
     }
 
     @Override
-    public Integer them(ChiTietSPView sp, Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh) {
+    public Integer them(viewCTSP sp, Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh) {
         Set<String> keyTenSp = TenSp.keySet();
         Set<String> keyNoiSx = NSX.keySet();
         Set<String> keyMauS = MauSac.keySet();
@@ -158,7 +158,7 @@ public class ChiTietSPService implements IChiTietSPService {
     }
 
     @Override
-    public Integer sua(ChiTietSPView sp, Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh, String id) {
+    public Integer sua(viewCTSP sp, Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh, String id) {
         Set<String> keyTenSp = TenSp.keySet();
         Set<String> keyNoiSx = NSX.keySet();
         Set<String> keyMauS = MauSac.keySet();

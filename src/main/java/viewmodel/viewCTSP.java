@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package domainmodels;
+package viewmodel;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author ADMIN
  */
-public class ChiTietSPView {
+public class viewCTSP {
 
     private String id;
     private String tenSP;
@@ -34,10 +34,10 @@ public class ChiTietSPView {
     private int numOrder;
     private String ma;
 
-    public ChiTietSPView() {
+    public viewCTSP() {
     }
 
-    public ChiTietSPView(String id, String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai, int numOrder, String ma) {
+    public viewCTSP(String id, String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai, int numOrder, String ma) {
         this.id = id;
         this.tenSP = tenSP;
         this.NSX = NSX;
@@ -60,7 +60,7 @@ public class ChiTietSPView {
         this.ma = ma;
     }
 
-    public ChiTietSPView(String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai, String ma) {
+    public viewCTSP(String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai, String ma) {
         this.tenSP = tenSP;
         this.NSX = NSX;
         this.MauSac = MauSac;
@@ -81,7 +81,7 @@ public class ChiTietSPView {
         this.ma = ma;
     }
 
-    public ChiTietSPView(String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai) {
+    public viewCTSP(String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai) {
         this.tenSP = tenSP;
         this.NSX = NSX;
         this.MauSac = MauSac;

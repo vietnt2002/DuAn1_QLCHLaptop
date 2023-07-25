@@ -87,7 +87,6 @@ public class FrmManHinh extends javax.swing.JFrame {
         radHet4 = new javax.swing.JRadioButton();
         pnlMHbtn = new javax.swing.JPanel();
         btnAdd4 = new javax.swing.JButton();
-        btnShow4 = new javax.swing.JButton();
         btnEdit4 = new javax.swing.JButton();
         btnDelete4 = new javax.swing.JButton();
         btnHide4 = new javax.swing.JButton();
@@ -131,15 +130,6 @@ public class FrmManHinh extends javax.swing.JFrame {
             }
         });
 
-        btnShow4.setBackground(new java.awt.Color(255, 51, 0));
-        btnShow4.setForeground(new java.awt.Color(255, 255, 255));
-        btnShow4.setText("Hiện");
-        btnShow4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShow4ActionPerformed(evt);
-            }
-        });
-
         btnEdit4.setBackground(new java.awt.Color(255, 51, 0));
         btnEdit4.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit4.setText("Sửa");
@@ -160,7 +150,7 @@ public class FrmManHinh extends javax.swing.JFrame {
 
         btnHide4.setBackground(new java.awt.Color(255, 51, 0));
         btnHide4.setForeground(new java.awt.Color(255, 255, 255));
-        btnHide4.setText("Ẩn");
+        btnHide4.setText("Thoát");
         btnHide4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHide4ActionPerformed(evt);
@@ -177,30 +167,27 @@ public class FrmManHinh extends javax.swing.JFrame {
                     .addComponent(btnHide4)
                     .addComponent(btnDelete4)
                     .addComponent(btnEdit4)
-                    .addComponent(btnShow4)
                     .addComponent(btnAdd4))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlMHbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4, btnShow4});
+        pnlMHbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4});
 
         pnlMHbtnLayout.setVerticalGroup(
             pnlMHbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMHbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnShow4)
-                .addGap(18, 18, 18)
-                .addComponent(btnHide4)
-                .addGap(18, 18, 18)
                 .addComponent(btnAdd4)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit4)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete4)
+                .addGap(18, 18, 18)
+                .addComponent(btnHide4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlMHbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4, btnShow4});
+        pnlMHbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4});
 
         txtDPG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,13 +216,13 @@ public class FrmManHinh extends javax.swing.JFrame {
                     .addComponent(jLabel60, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(pnlMHinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtDPG, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                    .addComponent(txtMa4)
+                    .addComponent(txtInch)
                     .addGroup(pnlMHinfoLayout.createSequentialGroup()
                         .addComponent(radCon4)
                         .addGap(18, 18, 18)
-                        .addComponent(radHet4))
-                    .addComponent(txtDPG, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                    .addComponent(txtMa4)
-                    .addComponent(txtInch))
+                        .addComponent(radHet4)))
                 .addGap(73, 73, 73)
                 .addComponent(pnlMHbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
@@ -265,7 +252,7 @@ public class FrmManHinh extends javax.swing.JFrame {
                     .addGroup(pnlMHinfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pnlMHbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         tblMH.setModel(new javax.swing.table.DefaultTableModel(
@@ -360,16 +347,6 @@ public class FrmManHinh extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdd4ActionPerformed
 
-    private void btnShow4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShow4ActionPerformed
-        // TODO add your handling code here:
-        try {
-            filltableMS();
-            showdetailMS(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnShow4ActionPerformed
-
     private void btnEdit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit4ActionPerformed
         // TODO add your handling code here:
         try {
@@ -421,10 +398,7 @@ public class FrmManHinh extends javax.swing.JFrame {
     private void btnHide4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHide4ActionPerformed
         // TODO add your handling code here:
         try {
-            modelManHinh.setRowCount(0);
-            txtMa4.setText("");
-            txtDPG.setText("");
-            radCon4.setSelected(true);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -489,7 +463,6 @@ public class FrmManHinh extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete4;
     private javax.swing.JButton btnEdit4;
     private javax.swing.JButton btnHide4;
-    private javax.swing.JButton btnShow4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel42;

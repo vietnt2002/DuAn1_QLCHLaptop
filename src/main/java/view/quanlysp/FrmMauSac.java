@@ -86,7 +86,6 @@ public class FrmMauSac extends javax.swing.JFrame {
         radHet4 = new javax.swing.JRadioButton();
         pnlMauSacbtn = new javax.swing.JPanel();
         btnAdd4 = new javax.swing.JButton();
-        btnShow4 = new javax.swing.JButton();
         btnEdit4 = new javax.swing.JButton();
         btnDelete4 = new javax.swing.JButton();
         btnHide4 = new javax.swing.JButton();
@@ -128,15 +127,6 @@ public class FrmMauSac extends javax.swing.JFrame {
             }
         });
 
-        btnShow4.setBackground(new java.awt.Color(255, 51, 0));
-        btnShow4.setForeground(new java.awt.Color(255, 255, 255));
-        btnShow4.setText("Hiện");
-        btnShow4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShow4ActionPerformed(evt);
-            }
-        });
-
         btnEdit4.setBackground(new java.awt.Color(255, 51, 0));
         btnEdit4.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit4.setText("Sửa");
@@ -157,7 +147,7 @@ public class FrmMauSac extends javax.swing.JFrame {
 
         btnHide4.setBackground(new java.awt.Color(255, 51, 0));
         btnHide4.setForeground(new java.awt.Color(255, 255, 255));
-        btnHide4.setText("Ẩn");
+        btnHide4.setText("Thoát");
         btnHide4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHide4ActionPerformed(evt);
@@ -174,30 +164,27 @@ public class FrmMauSac extends javax.swing.JFrame {
                     .addComponent(btnHide4)
                     .addComponent(btnDelete4)
                     .addComponent(btnEdit4)
-                    .addComponent(btnShow4)
                     .addComponent(btnAdd4))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlMauSacbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4, btnShow4});
+        pnlMauSacbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4});
 
         pnlMauSacbtnLayout.setVerticalGroup(
             pnlMauSacbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMauSacbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnShow4)
-                .addGap(18, 18, 18)
-                .addComponent(btnHide4)
-                .addGap(18, 18, 18)
                 .addComponent(btnAdd4)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit4)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete4)
+                .addGap(18, 18, 18)
+                .addComponent(btnHide4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlMauSacbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4, btnShow4});
+        pnlMauSacbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4});
 
         txtTen4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,12 +204,12 @@ public class FrmMauSac extends javax.swing.JFrame {
                     .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtTen4, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                    .addComponent(txtMa4)
                     .addGroup(pnlMauSacinfoLayout.createSequentialGroup()
                         .addComponent(radCon4)
                         .addGap(18, 18, 18)
-                        .addComponent(radHet4))
-                    .addComponent(txtTen4, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                    .addComponent(txtMa4))
+                        .addComponent(radHet4)))
                 .addGap(40, 40, 40)
                 .addComponent(pnlMauSacbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -230,23 +217,22 @@ public class FrmMauSac extends javax.swing.JFrame {
         pnlMauSacinfoLayout.setVerticalGroup(
             pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMauSacinfoLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel37)
-                    .addComponent(txtMa4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel42)
-                    .addComponent(txtTen4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel60)
-                    .addComponent(radCon4)
-                    .addComponent(radHet4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pnlMauSacinfoLayout.createSequentialGroup()
-                .addComponent(pnlMauSacbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 25, Short.MAX_VALUE))
+                .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMauSacinfoLayout.createSequentialGroup()
+                        .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel37)
+                            .addComponent(txtMa4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel42)
+                            .addComponent(txtTen4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel60)
+                            .addComponent(radCon4)
+                            .addComponent(radHet4)))
+                    .addComponent(pnlMauSacbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         tblMauSac.setModel(new javax.swing.table.DefaultTableModel(
@@ -282,8 +268,8 @@ public class FrmMauSac extends javax.swing.JFrame {
             pnlMauSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMauSacLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlMauSacinfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(pnlMauSacinfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -341,16 +327,6 @@ public class FrmMauSac extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdd4ActionPerformed
 
-    private void btnShow4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShow4ActionPerformed
-        // TODO add your handling code here:
-        try {
-            filltableMS();
-            showdetailMS(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnShow4ActionPerformed
-
     private void btnEdit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit4ActionPerformed
         // TODO add your handling code here:
         try {
@@ -402,10 +378,7 @@ public class FrmMauSac extends javax.swing.JFrame {
     private void btnHide4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHide4ActionPerformed
         // TODO add your handling code here:
         try {
-            modelMauSac.setRowCount(0);
-            txtMa4.setText("");
-            txtTen4.setText("");
-            radCon4.setSelected(true);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -466,7 +439,6 @@ public class FrmMauSac extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete4;
     private javax.swing.JButton btnEdit4;
     private javax.swing.JButton btnHide4;
-    private javax.swing.JButton btnShow4;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel60;

@@ -5,7 +5,7 @@
 package iservices;
 
 import domainmodels.ChiTietSP;
-import domainmodels.ChiTietSPView;
+import viewmodel.viewCTSP;
 import irepositories.*;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +26,13 @@ public interface IChiTietSPService {
     
     
     ChiTietSP getIdByMa(String ma);
-    List<ChiTietSPView> getAll(Map<String, String> TenSp,
+    List<viewCTSP> getAll(Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
          Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh);
-    Integer them(ChiTietSPView sp, Map<String, String> TenSp,
+    Integer them(viewCTSP sp, Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
          Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh);
-    Integer sua(ChiTietSPView sp,Map<String, String> TenSp,
+    Integer sua(viewCTSP sp,Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
          Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh, String id);
     Integer xoa(String ma);

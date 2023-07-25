@@ -87,7 +87,6 @@ public class FrmRAM extends javax.swing.JFrame {
         radHet2 = new javax.swing.JRadioButton();
         pnlRAMbtn = new javax.swing.JPanel();
         btnAdd2 = new javax.swing.JButton();
-        btnShow2 = new javax.swing.JButton();
         btnEdit2 = new javax.swing.JButton();
         btnDelete2 = new javax.swing.JButton();
         btnHide2 = new javax.swing.JButton();
@@ -129,15 +128,6 @@ public class FrmRAM extends javax.swing.JFrame {
             }
         });
 
-        btnShow2.setBackground(new java.awt.Color(255, 51, 0));
-        btnShow2.setForeground(new java.awt.Color(255, 255, 255));
-        btnShow2.setText("Hiện");
-        btnShow2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShow2ActionPerformed(evt);
-            }
-        });
-
         btnEdit2.setBackground(new java.awt.Color(255, 51, 0));
         btnEdit2.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit2.setText("Sửa");
@@ -158,7 +148,7 @@ public class FrmRAM extends javax.swing.JFrame {
 
         btnHide2.setBackground(new java.awt.Color(255, 51, 0));
         btnHide2.setForeground(new java.awt.Color(255, 255, 255));
-        btnHide2.setText("Ẩn");
+        btnHide2.setText("Thoát");
         btnHide2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHide2ActionPerformed(evt);
@@ -175,30 +165,27 @@ public class FrmRAM extends javax.swing.JFrame {
                     .addComponent(btnHide2)
                     .addComponent(btnDelete2)
                     .addComponent(btnEdit2)
-                    .addComponent(btnShow2)
                     .addComponent(btnAdd2))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlRAMbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd2, btnDelete2, btnEdit2, btnHide2, btnShow2});
+        pnlRAMbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd2, btnDelete2, btnEdit2, btnHide2});
 
         pnlRAMbtnLayout.setVerticalGroup(
             pnlRAMbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRAMbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnShow2)
-                .addGap(18, 18, 18)
-                .addComponent(btnHide2)
-                .addGap(18, 18, 18)
                 .addComponent(btnAdd2)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit2)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete2)
+                .addGap(18, 18, 18)
+                .addComponent(btnHide2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlRAMbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd2, btnDelete2, btnEdit2, btnHide2, btnShow2});
+        pnlRAMbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd2, btnDelete2, btnEdit2, btnHide2});
 
         txtTen2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,7 +239,7 @@ public class FrmRAM extends javax.swing.JFrame {
                     .addGroup(pnlRAMinfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pnlRAMbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pnlRAMinfoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtMa2, txtTen2});
@@ -357,16 +344,6 @@ public class FrmRAM extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdd2ActionPerformed
 
-    private void btnShow2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShow2ActionPerformed
-        // TODO add your handling code here:
-        try {
-            filltableRAM();
-            showdetailRAM(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnShow2ActionPerformed
-
     private void btnEdit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit2ActionPerformed
         // TODO add your handling code here:
         try {
@@ -418,10 +395,7 @@ public class FrmRAM extends javax.swing.JFrame {
     private void btnHide2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHide2ActionPerformed
         // TODO add your handling code here:
         try {
-            modelRAM.setRowCount(0);
-            txtMa2.setText("");
-            txtTen2.setText("");
-            radCon2.setSelected(true);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -482,7 +456,6 @@ public class FrmRAM extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete2;
     private javax.swing.JButton btnEdit2;
     private javax.swing.JButton btnHide2;
-    private javax.swing.JButton btnShow2;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel52;

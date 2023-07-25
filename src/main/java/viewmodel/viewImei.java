@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package domainmodels;
+package viewmodel;
 
+import domainmodels.*;
 import java.sql.Date;
 
 /**
  *
  * @author ADMIN
  */
-public class Imei {
+public class viewImei {
 
     private String id;
     private String imei;
@@ -19,10 +20,10 @@ public class Imei {
     private Date ngaySua;
     private int trangThai;
 
-    public Imei() {
+    public viewImei() {
     }
 
-    public Imei(String id, String imei, ChiTietSP idChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
+    public viewImei(String id, String imei, ChiTietSP idChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
         this.id = id;
         this.imei = imei;
         this.idChiTietSP = idChiTietSP;
@@ -31,7 +32,7 @@ public class Imei {
         this.trangThai = trangThai;
     }
 
-    public Imei(String imei, ChiTietSP idChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
+    public viewImei(String imei, ChiTietSP idChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
         this.imei = imei;
         this.idChiTietSP = idChiTietSP;
         this.ngayTao = ngayTao;

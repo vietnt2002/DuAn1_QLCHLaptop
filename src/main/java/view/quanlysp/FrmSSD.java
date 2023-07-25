@@ -88,7 +88,6 @@ public class FrmSSD extends javax.swing.JFrame {
         radHet3 = new javax.swing.JRadioButton();
         pnlSSDbtn = new javax.swing.JPanel();
         btnAdd3 = new javax.swing.JButton();
-        btnShow3 = new javax.swing.JButton();
         btnEdit3 = new javax.swing.JButton();
         btnDelete3 = new javax.swing.JButton();
         btnHide3 = new javax.swing.JButton();
@@ -130,15 +129,6 @@ public class FrmSSD extends javax.swing.JFrame {
             }
         });
 
-        btnShow3.setBackground(new java.awt.Color(255, 51, 0));
-        btnShow3.setForeground(new java.awt.Color(255, 255, 255));
-        btnShow3.setText("Hiện");
-        btnShow3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShow3ActionPerformed(evt);
-            }
-        });
-
         btnEdit3.setBackground(new java.awt.Color(255, 51, 0));
         btnEdit3.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit3.setText("Sửa");
@@ -159,7 +149,7 @@ public class FrmSSD extends javax.swing.JFrame {
 
         btnHide3.setBackground(new java.awt.Color(255, 51, 0));
         btnHide3.setForeground(new java.awt.Color(255, 255, 255));
-        btnHide3.setText("Ẩn");
+        btnHide3.setText("Thoát");
         btnHide3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHide3ActionPerformed(evt);
@@ -176,30 +166,27 @@ public class FrmSSD extends javax.swing.JFrame {
                     .addComponent(btnHide3)
                     .addComponent(btnDelete3)
                     .addComponent(btnEdit3)
-                    .addComponent(btnShow3)
                     .addComponent(btnAdd3))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlSSDbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd3, btnDelete3, btnEdit3, btnHide3, btnShow3});
+        pnlSSDbtnLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd3, btnDelete3, btnEdit3, btnHide3});
 
         pnlSSDbtnLayout.setVerticalGroup(
             pnlSSDbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSSDbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnShow3)
-                .addGap(18, 18, 18)
-                .addComponent(btnHide3)
-                .addGap(18, 18, 18)
                 .addComponent(btnAdd3)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit3)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete3)
+                .addGap(18, 18, 18)
+                .addComponent(btnHide3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlSSDbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd3, btnDelete3, btnEdit3, btnHide3, btnShow3});
+        pnlSSDbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd3, btnDelete3, btnEdit3, btnHide3});
 
         txtTen3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,7 +236,7 @@ public class FrmSSD extends javax.swing.JFrame {
                             .addComponent(jLabel56)
                             .addComponent(radCon3)
                             .addComponent(radHet3))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         tblSSD.setModel(new javax.swing.table.DefaultTableModel(
@@ -352,16 +339,6 @@ public class FrmSSD extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdd3ActionPerformed
 
-    private void btnShow3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShow3ActionPerformed
-        // TODO add your handling code here:
-        try {
-            filltableSSD();
-            showdetailSSD(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnShow3ActionPerformed
-
     private void btnEdit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit3ActionPerformed
         // TODO add your handling code here:
         try {
@@ -413,10 +390,7 @@ public class FrmSSD extends javax.swing.JFrame {
     private void btnHide3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHide3ActionPerformed
         // TODO add your handling code here:
         try {
-            modelSSD.setRowCount(0);
-            txtMa3.setText("");
-            txtTen3.setText("");
-            radCon3.setSelected(true);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -477,7 +451,6 @@ public class FrmSSD extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete3;
     private javax.swing.JButton btnEdit3;
     private javax.swing.JButton btnHide3;
-    private javax.swing.JButton btnShow3;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel56;
