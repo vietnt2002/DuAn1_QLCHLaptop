@@ -101,7 +101,11 @@ public class KhuyenMai {
         this.trangThai = trangThai;
     }
 
+    @Override
+    public String toString() {
+        return ma;
+    }
+
   
-    
 
 }

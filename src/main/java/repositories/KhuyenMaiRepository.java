@@ -5,7 +5,9 @@
 package repositories;
 
 import domainmodels.KhuyenMai;
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -126,6 +128,61 @@ public class KhuyenMaiRepository {
         } catch (Exception e) {
         }
         return list;
+    }
+    
+    
+    
+    public List<KhuyenMai> getAllByMa(String maKM){
+        try {
+            List<KhuyenMai> lstKhuyenMai = new ArrayList<>();
+            Connection connection = DBConnection.getConnection();
+            String sql = "SELECT Id, Ma, SoTienGiam, SoLuong, NgayBatDau, NgayKetThuc, TrangThai FROM dbo.KhuyenMai\n" +
+                        "WHERE TrangThai = 0 AND Ma = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, maKM);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String id = rs.getString("Id");
+                String ma = rs.getString("Ma");
+                BigDecimal soTienGiam = rs.getBigDecimal("SoTienGiam");
+                int soLuong = rs.getInt("SoLuong");
+                Date ngayBatDau = rs.getDate("NgayBatDau");
+                Date ngayKetThuc = rs.getDate("NgayKetThuc");
+                int trangThai = rs.getInt("TrangThai");
+                
+                KhuyenMai khuyenMai = new KhuyenMai();
+                khuyenMai.setId(id);
+                khuyenMai.setMa(ma);
+                khuyenMai.setSoTienGiam(soTienGiam);
+                khuyenMai.setSoLuong(soLuong);
+                khuyenMai.setNgayBD(ngayBatDau);
+                khuyenMai.setNgayKT(ngayKetThuc);
+                khuyenMai.setTrangThai(trangThai);
+                
+                lstKhuyenMai.add(khuyenMai);
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+            return lstKhuyenMai;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public Integer updateSoLuong(String ma){
+        Integer result = 0;
+        String sql = "UPDATE dbo.KhuyenMai SET SoLuong = SoLuong - 1 WHERE Ma = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setObject(1, ma);
+            
+            result = ps.executeUpdate();
+            
+            return result;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
 }
