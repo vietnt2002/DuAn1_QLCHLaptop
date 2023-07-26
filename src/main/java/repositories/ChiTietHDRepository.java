@@ -279,7 +279,7 @@ public class ChiTietHDRepository implements IChiTietHDRepository{
         try {
             Integer result = 0;
             Connection connection = DBConnection.getConnection();
-            String sql = "UPDATE dbo.ChiTietHD SET SoLuong = 0 WHERE IdHD = ?";
+            String sql = "UPDATE dbo.ChiTietHD SET SoLuong = 0, ThanhTien = 0 WHERE IdHD = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, idHD);
             

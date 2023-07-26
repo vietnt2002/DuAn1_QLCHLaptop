@@ -4,6 +4,7 @@
  */
 package domainmodels;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -16,6 +17,9 @@ public class HoaDon {
     private String ma;
     private String idKH;
     private String idNV;
+    private String lyDo;
+    private BigDecimal thanhTien;
+    private BigDecimal khuyenMai;
     private Date ngayThanhToan;
     private Date ngayTao;
     private Date ngaySua;
@@ -34,11 +38,14 @@ public class HoaDon {
         }
     }
 
-    public HoaDon(String id, String ma, String idKH, String idNV, Date ngayThanhToan, Date ngayTao, Date ngaySua, int trangThai) {
+    public HoaDon(String id, String ma, String idKH, String idNV, String lyDo, BigDecimal thanhTien, BigDecimal khuyenMai, Date ngayThanhToan, Date ngayTao, Date ngaySua, int trangThai) {
         this.id = id;
         this.ma = ma;
         this.idKH = idKH;
         this.idNV = idNV;
+        this.lyDo = lyDo;
+        this.thanhTien = thanhTien;
+        this.khuyenMai = khuyenMai;
         this.ngayThanhToan = ngayThanhToan;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
@@ -77,6 +84,30 @@ public class HoaDon {
         this.idNV = idNV;
     }
 
+    public String getLyDo() {
+        return lyDo;
+    }
+
+    public void setLyDo(String lyDo) {
+        this.lyDo = lyDo;
+    }
+
+    public BigDecimal getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(BigDecimal thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+
+    public BigDecimal getKhuyenMai() {
+        return khuyenMai;
+    }
+
+    public void setKhuyenMai(BigDecimal khuyenMai) {
+        this.khuyenMai = khuyenMai;
+    }
+
     public Date getNgayThanhToan() {
         return ngayThanhToan;
     }
@@ -111,7 +142,7 @@ public class HoaDon {
 
     @Override
     public String toString() {
-        return "HoaDon{" + "id=" + id + ", ma=" + ma + ", idKH=" + idKH + ", idNV=" + idNV + ", ngayThanhToan=" + ngayThanhToan + ", ngayTao=" + ngayTao + ", ngaySua=" + ngaySua + ", trangThai=" + trangThai + '}';
+        return "HoaDon{" + "id=" + id + ", ma=" + ma + ", idKH=" + idKH + ", idNV=" + idNV + ", lyDo=" + lyDo + ", thanhTien=" + thanhTien + ", khuyenMai=" + khuyenMai + ", ngayThanhToan=" + ngayThanhToan + ", ngayTao=" + ngayTao + ", ngaySua=" + ngaySua + ", trangThai=" + trangThai + '}';
     }
 
     public String getStatus(int trangThai) {

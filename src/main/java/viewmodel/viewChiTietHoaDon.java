@@ -17,7 +17,7 @@ public class viewChiTietHoaDon {
     private String imei;
     private String idKH;
     private String idNV;
-    private int thanhTien;
+    private BigDecimal tongTien;
     private Date ngayThanhToan;
     private String tenSP;
     private String NSX;
@@ -33,16 +33,18 @@ public class viewChiTietHoaDon {
     private BigDecimal giaBan;
     private int trangThai;
     private String ghiChu;
+    private BigDecimal thanhTien;
+    private BigDecimal khuyenMai;
 
     public viewChiTietHoaDon() {
     }
 
-    public viewChiTietHoaDon(String ma, String imei, String idKH, String idNV, int thanhTien, Date ngayThanhToan, String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, BigDecimal giaBan, int trangThai, String ghiChu) {
+    public viewChiTietHoaDon(String ma, String imei, String idKH, String idNV, BigDecimal tongTien, Date ngayThanhToan, String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, BigDecimal giaBan, int trangThai, String ghiChu, BigDecimal thanhTien, BigDecimal khuyenMai) {
         this.ma = ma;
         this.imei = imei;
         this.idKH = idKH;
         this.idNV = idNV;
-        this.thanhTien = thanhTien;
+        this.tongTien = tongTien;
         this.ngayThanhToan = ngayThanhToan;
         this.tenSP = tenSP;
         this.NSX = NSX;
@@ -58,16 +60,8 @@ public class viewChiTietHoaDon {
         this.giaBan = giaBan;
         this.trangThai = trangThai;
         this.ghiChu = ghiChu;
-    }
-
-    public String getTrangThaiString() {
-        if (trangThai == 0) {
-            return "Chờ thanh toán";
-        } else if (trangThai == 1) {
-            return "Đã hoàn thành";
-        } else {
-            return "Đã huỷ";
-        }
+        this.thanhTien = thanhTien;
+        this.khuyenMai = khuyenMai;
     }
 
     public String getMa() {
@@ -102,12 +96,12 @@ public class viewChiTietHoaDon {
         this.idNV = idNV;
     }
 
-    public int getThanhTien() {
-        return thanhTien;
+    public BigDecimal getTongTien() {
+        return tongTien;
     }
 
-    public void setThanhTien(int thanhTien) {
-        this.thanhTien = thanhTien;
+    public void setTongTien(BigDecimal tongTien) {
+        this.tongTien = tongTien;
     }
 
     public Date getNgayThanhToan() {
@@ -230,9 +224,35 @@ public class viewChiTietHoaDon {
         this.ghiChu = ghiChu;
     }
 
+    public BigDecimal getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(BigDecimal thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+
+    public BigDecimal getKhuyenMai() {
+        return khuyenMai;
+    }
+
+    public void setKhuyenMai(BigDecimal khuyenMai) {
+        this.khuyenMai = khuyenMai;
+    }
+
     @Override
     public String toString() {
-        return "viewChiTietHoaDon{" + "ma=" + ma + ", imei=" + imei + ", idKH=" + idKH + ", idNV=" + idNV + ", thanhTien=" + thanhTien + ", ngayThanhToan=" + ngayThanhToan + ", tenSP=" + tenSP + ", NSX=" + NSX + ", MauSac=" + MauSac + ", DongSP=" + DongSP + ", CPU=" + CPU + ", RAM=" + RAM + ", SSD=" + SSD + ", ManHinh=" + ManHinh + ", BaoHanh=" + BaoHanh + ", canNang=" + canNang + ", moTa=" + moTa + ", giaBan=" + giaBan + ", trangThai=" + trangThai + ", ghiChu=" + ghiChu + '}';
+        return "viewChiTietHoaDon{" + "ma=" + ma + ", imei=" + imei + ", idKH=" + idKH + ", idNV=" + idNV + ", tongTien=" + tongTien + ", ngayThanhToan=" + ngayThanhToan + ", tenSP=" + tenSP + ", NSX=" + NSX + ", MauSac=" + MauSac + ", DongSP=" + DongSP + ", CPU=" + CPU + ", RAM=" + RAM + ", SSD=" + SSD + ", ManHinh=" + ManHinh + ", BaoHanh=" + BaoHanh + ", canNang=" + canNang + ", moTa=" + moTa + ", giaBan=" + giaBan + ", trangThai=" + trangThai + ", ghiChu=" + ghiChu + ", thanhTien=" + thanhTien + ", khuyenMai=" + khuyenMai + '}';
+    }
+    
+    public String getTrangThaiString() {
+        if (trangThai == 0) {
+            return "Chờ thanh toán";
+        } else if (trangThai == 1) {
+            return "Đã hoàn thành";
+        } else {
+            return "Đã huỷ";
+        }
     }
 
 }

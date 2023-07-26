@@ -21,5 +21,5 @@ public interface IHoaDonRepository {
     Integer xoa(String ma);
     String getIdByMa(String ma);
     Integer updateIdKH(String idKH, String idHD);
-    Integer updateTrangThai(String trangThai, String lyDo, String idHD);
+    Integer updateTrangThai(String trangThai, String lyDo, String thanhTien, String khuyenMai, String idHD);
 }

@@ -58,8 +58,8 @@ public class HoaDonService implements IHoaDonService{
     }
 
     @Override
-    public Integer updateTrangThai(String trangThai, String lyDo, String idHD) {
-        return hoaDonRepo.updateTrangThai(trangThai, lyDo, idHD);
+    public Integer updateTrangThai(String trangThai, String lyDo, String thanhTien, String khuyenMai, String idHD) {
+        return hoaDonRepo.updateTrangThai(trangThai, lyDo, thanhTien, khuyenMai, idHD);
     }
 
 }

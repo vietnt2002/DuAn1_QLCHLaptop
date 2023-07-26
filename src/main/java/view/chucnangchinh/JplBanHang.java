@@ -1789,7 +1789,9 @@ public class JplBanHang extends javax.swing.JPanel {
 
         //Thanh toán
         //update trạng thái hóa đơn
-        hoaDonService.updateTrangThai("1", "0", idHD);
+        String thanhTien = txtThanhTien.getText();
+        String km = txtSoTienGiam.getText();
+        hoaDonService.updateTrangThai("1", "0", thanhTien, km, idHD);
 
         //update trạng thái chiTietHD
         chiTietHDService.updateTrangThai("1", idHD);
@@ -1853,25 +1855,27 @@ public class JplBanHang extends javax.swing.JPanel {
 
     private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
         // Đồng ý hủy hóa đơn
-        indexHD = tblHoaDon.getSelectedRow();
         String maHD = tblHoaDon.getValueAt(indexHD, 1).toString();
         String idHD = hoaDonService.getIdByMa(maHD);
 
-        String maCTSP = tblGioHang.getValueAt(indexGH, 1).toString();
-        ChiTietSP idCTSP = chiTietSPService.getIdByMa(maCTSP);
-        String idCTHD = chiTietHDService.getIdByIdCTSP_IdHD(idCTSP + "", idHD);
+        List<ChiTietHD> lstChiTietHD = chiTietHDService.getAllByIdHD(idHD);
+        if (!lstChiTietHD.isEmpty()) {
+            String maCTSP = tblGioHang.getValueAt(indexGH, 1).toString();
+            ChiTietSP idCTSP = chiTietSPService.getIdByMa(maCTSP);
+            String idCTHD = chiTietHDService.getIdByIdCTSP_IdHD(idCTSP + "", idHD);
 
-        //Xóa imei đã chọn(bên bảng imei đã bán)
-        imeiDaBanService.xoaAll(idCTHD);
+            //Xóa imei đã chọn(bên bảng imei đã bán)
+            imeiDaBanService.xoaAll(idCTHD);
 
+            //update số lượng chiTietHD
+            chiTietHDService.xoaSoLuong(idHD);
+        }
         //update trạng thái HoaDon
         String lyDo = txtLyDoHuy.getText();
-        hoaDonService.updateTrangThai("2", lyDo, idHD);
+        hoaDonService.updateTrangThai("2", lyDo, "0", "0", idHD);
 
         //update trạng thái ChiTietHD
         chiTietHDService.updateTrangThai("2", idHD);
-        //update số lượng chiTietHD
-        chiTietHDService.xoaSoLuong(idHD);
 
         LoadTableHoaDon();
         model = (DefaultTableModel) tblGioHang.getModel();

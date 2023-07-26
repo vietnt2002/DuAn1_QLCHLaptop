@@ -4,6 +4,10 @@
  */
 package view.chucnangchinh;
 
+import domainmodels.KhachHang;
+import domainmodels.NhanVien;
+import iservices.IKhachHangService;
+import iservices.INhanVienService;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -11,6 +15,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import repositories.QuanLyHoaDonRepository;
+import services.KhachHangService;
+import services.NhanVienService;
 import viewmodel.viewChiTietHoaDon;
 
 /**
@@ -21,6 +27,8 @@ public class JplHoaDon extends javax.swing.JPanel {
 
     DefaultTableModel model = new DefaultTableModel();
     QuanLyHoaDonRepository QLHD = new QuanLyHoaDonRepository();
+    INhanVienService nhanVienService = new NhanVienService();
+    IKhachHangService khachHangService = new KhachHangService();
 
     public JplHoaDon() {
         initComponents();
@@ -33,11 +41,20 @@ public class JplHoaDon extends javax.swing.JPanel {
         model = (DefaultTableModel) tblHoaDon.getModel();
         model.setRowCount(0);
         for (viewChiTietHoaDon hd : list) {
+            NhanVien nhanVien = nhanVienService.getHoTenById(hd.getIdNV());
+            String hoTenNV = nhanVien.getHo()+" "+nhanVien.getTenDem()+" "+nhanVien.getTen();
+            KhachHang khachHang = khachHangService.getHoTenById(hd.getIdKH());
+            String hoTenKH = khachHang.getHo()+" "+khachHang.getTenDem()+" "+khachHang.getTen();
+            if(hoTenKH.equals("null null null")){
+                hoTenKH = "";
+            }
             model.addRow(new Object[]{
                 hd.getMa(),
-                hd.getIdKH(),
+                hoTenKH,
                 hd.getNgayThanhToan(),
-                hd.getIdNV(),
+                hoTenNV,
+                hd.getKhuyenMai(),
+                hd.getThanhTien(),
                 hd.getTrangThaiString(),
                 hd.getGhiChu()
             });
@@ -117,11 +134,11 @@ public class JplHoaDon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã hoá đơn", "Khách hàng ", "Ngày thanh toán", "Thu ngân", "Trạng Thái", "Ghi chú"
+                "Mã hoá đơn", "Khách hàng ", "Ngày thanh toán", "Thu ngân", "Khuyến mãi", "Thành tiền", "Trạng Thái", "Ghi chú"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
