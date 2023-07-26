@@ -9,11 +9,14 @@ import viewmodel.viewCTSP;
 import irepositories.IChiTietSPRepository;
 import iservices.IChiTietSPService;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import repositories.ChiTietSPRepository;
+import utilities.DBConnection;
 
 /**
  *
@@ -21,7 +24,7 @@ import repositories.ChiTietSPRepository;
  */
 public class ChiTietSPService implements IChiTietSPService {
 
-    private final IChiTietSPRepository Repository = (IChiTietSPRepository) new ChiTietSPRepository();
+    private final IChiTietSPRepository Repository = new ChiTietSPRepository();
 
     @Override
     public List<viewCTSP> getAll(Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh) {
@@ -52,6 +55,7 @@ public class ChiTietSPService implements IChiTietSPService {
         Set<String> keyCpu = CPU.keySet();
         Set<String> keyRam = RAM.keySet();
         Set<String> keySsd = SSD.keySet();
+        Set<String> keyManhinh = ManHinh.keySet();
         Set<String> keyBaohanh = BaoHanh.keySet();
         String idSp = "Null";
         String idNSX = "Null";
@@ -60,6 +64,7 @@ public class ChiTietSPService implements IChiTietSPService {
         String idCPU = "Null";
         String idRAM = "Null";
         String idSSD = "Null";
+        String idMH = "Null";
         String idBH = "Null";
         for (String a : keyTenSp) {
             if (sp.getTenSP().equalsIgnoreCase(TenSp.get(a))) {
@@ -83,27 +88,32 @@ public class ChiTietSPService implements IChiTietSPService {
         }
         for (String a : keyCpu) {
             if (sp.getCPU().equalsIgnoreCase(CPU.get(a))) {
-                idDongSp = a;
+                idCPU = a;
             }
         }
         for (String a : keyRam) {
             if (sp.getRAM().equalsIgnoreCase(RAM.get(a))) {
 
-                idDongSp = a;
+                idRAM = a;
             }
         }
         for (String a : keySsd) {
             if (sp.getSSD().equalsIgnoreCase(SSD.get(a))) {
-                idDongSp = a;
+                idSSD = a;
+            }
+        }
+        for (String a : keyManhinh) {
+            if (sp.getManHinh().equalsIgnoreCase(ManHinh.get(a))) {
+                idMH = a;
             }
         }
         for (String a : keyBaohanh) {
             if (sp.getBaoHanh().equalsIgnoreCase(BaoHanh.get(a))) {
-                idDongSp = a;
+                idBH = a;
             }
         }
-        ChiTietSP CtD = new ChiTietSP(idSp, idNSX, idMauSac, idDongSp, idCPU, idRAM, idSSD, idMauSac, idBH, sp.getCanNang(), sp.getMoTa(), sp.getSoLuongTon(), sp.getGiaNhap(), sp.getGiaBan(), sp.getNgayTao(), sp.getNgaySua(), sp.getTrangThai());
-       return Repository.them(CtD);
+        ChiTietSP CtD = new ChiTietSP(idSp, idNSX, idMauSac, idDongSp, idCPU, idRAM, idSSD, idMH, idBH, sp.getCanNang(), sp.getMoTa(), sp.getSoLuongTon(), sp.getGiaNhap(), sp.getGiaBan(), sp.getNgayTao(), sp.getNgaySua(), sp.getTrangThai());
+        return Repository.them(CtD);
 
     }
 
@@ -166,6 +176,7 @@ public class ChiTietSPService implements IChiTietSPService {
         Set<String> keyCpu = CPU.keySet();
         Set<String> keyRam = RAM.keySet();
         Set<String> keySsd = SSD.keySet();
+        Set<String> keyManhinh = ManHinh.keySet();
         Set<String> keyBaohanh = BaoHanh.keySet();
         String idSp = "Null";
         String idNSX = "Null";
@@ -174,6 +185,7 @@ public class ChiTietSPService implements IChiTietSPService {
         String idCPU = "Null";
         String idRAM = "Null";
         String idSSD = "Null";
+        String idMH = "Null";
         String idBH = "Null";
         for (String a : keyTenSp) {
             if (sp.getTenSP().equalsIgnoreCase(TenSp.get(a))) {
@@ -197,26 +209,31 @@ public class ChiTietSPService implements IChiTietSPService {
         }
         for (String a : keyCpu) {
             if (sp.getCPU().equalsIgnoreCase(CPU.get(a))) {
-                idDongSp = a;
+                idCPU = a;
             }
         }
         for (String a : keyRam) {
             if (sp.getRAM().equalsIgnoreCase(RAM.get(a))) {
-                idDongSp = a;
+
+                idRAM = a;
             }
         }
         for (String a : keySsd) {
             if (sp.getSSD().equalsIgnoreCase(SSD.get(a))) {
-                idDongSp = a;
+                idSSD = a;
             }
         }
-
+        for (String a : keyManhinh) {
+            if (sp.getManHinh().equalsIgnoreCase(ManHinh.get(a))) {
+                idMH = a;
+            }
+        }
         for (String a : keyBaohanh) {
             if (sp.getBaoHanh().equalsIgnoreCase(BaoHanh.get(a))) {
-                idDongSp = a;
+                idBH = a;
             }
         }
-       ChiTietSP CtD = new ChiTietSP(idSp, idNSX, idMauSac, idDongSp, idCPU, idRAM, idSSD, idMauSac, idBH, sp.getCanNang(), sp.getMoTa(), sp.getSoLuongTon(), sp.getGiaNhap(), sp.getGiaBan(), sp.getNgayTao(), sp.getNgaySua(), sp.getTrangThai());
+        ChiTietSP CtD = new ChiTietSP(idSp, idNSX, idMauSac, idDongSp, idCPU, idRAM, idSSD, idMH, idBH, sp.getCanNang(), sp.getMoTa(), sp.getSoLuongTon(), sp.getGiaNhap(), sp.getGiaBan(), sp.getNgayTao(), sp.getNgaySua(), sp.getTrangThai());
         return Repository.sua(CtD, id);
     }
 
@@ -268,6 +285,76 @@ public class ChiTietSPService implements IChiTietSPService {
     @Override
     public Map<String, String> hashMapHoaDon() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Integer them(ChiTietSP chiTietSP) {
+        return null;
+    }
+
+    @Override
+    public Integer sua(ChiTietSP chiTietSP) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByTen(String ten) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByMau(String mau) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByDong(String dong) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByMH(String mh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByCPU(String cpu) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByRAM(String ram) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdBySSD(String ssd) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByBH(String bh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<viewCTSP> getAllbyDSP(Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh) {
+        List<ChiTietSP> lst = Repository.getAllCTSP();
+        List<viewCTSP> lst1 = new ArrayList<>();
+        for (ChiTietSP a : lst) {
+            String tenSp = TenSp.get(a.getIdSP());
+            String noiSx = NSX.get(a.getIdNSX());
+            String mauSac = MauSac.get(a.getIdMauSac());
+            String dongSp = DongSp.get(a.getIdDongSP());
+            String cpu = CPU.get(a.getIdCPU());
+            String ram = RAM.get(a.getIdRam());
+            String ssd = SSD.get(a.getIdSSD());
+            String manhinh = ManHinh.get(a.getIdManHinh());
+            String baohanh = BaoHanh.get(a.getIdBH());
+            lst1.add(new viewCTSP(a.getId(), tenSp, noiSx, mauSac, dongSp, cpu, ram, ssd, manhinh, baohanh, a.getCanNang(), a.getMoTa(), a.getSoLuongTon(), a.getGiaNhap(), a.getGiaBan(), a.getNgayTao(), a.getNgaySua(), a.getTrangThai(), a.getNumOrder(), a.getMa()));
+
+        }
+        return lst1;
     }
 
 }

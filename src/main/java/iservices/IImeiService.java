@@ -7,6 +7,7 @@ package iservices;
 import domainmodels.Imei;
 import irepositories.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -21,4 +22,5 @@ public interface IImeiService {
     Integer xoa(String ma);
     Imei getIdByIMei(String im);
     Integer updateTrangThai(String trangThai, String imei);
+    Map<String, String> hashMapMaCTSP();
 }

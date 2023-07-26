@@ -15,7 +15,7 @@ public class viewImei {
 
     private String id;
     private String imei;
-    private ChiTietSP idChiTietSP;
+    private ChiTietSP maChiTietSP;
     private Date ngayTao;
     private Date ngaySua;
     private int trangThai;
@@ -23,18 +23,18 @@ public class viewImei {
     public viewImei() {
     }
 
-    public viewImei(String id, String imei, ChiTietSP idChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
+    public viewImei(String id, String imei, ChiTietSP maChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
         this.id = id;
         this.imei = imei;
-        this.idChiTietSP = idChiTietSP;
+        this.maChiTietSP = maChiTietSP;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
         this.trangThai = trangThai;
     }
 
-    public viewImei(String imei, ChiTietSP idChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
+    public viewImei(String imei, ChiTietSP maChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
         this.imei = imei;
-        this.idChiTietSP = idChiTietSP;
+        this.maChiTietSP = maChiTietSP;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
         this.trangThai = trangThai;
@@ -56,12 +56,12 @@ public class viewImei {
         this.imei = imei;
     }
 
-    public ChiTietSP getIdChiTietSP() {
-        return idChiTietSP;
+    public ChiTietSP getMaChiTietSP() {
+        return maChiTietSP;
     }
 
-    public void setIdChiTietSP(ChiTietSP idChiTietSP) {
-        this.idChiTietSP = idChiTietSP;
+    public void setMaChiTietSP(ChiTietSP maChiTietSP) {
+        this.maChiTietSP = maChiTietSP;
     }
 
     public Date getNgayTao() {
@@ -90,15 +90,15 @@ public class viewImei {
 
     @Override
     public String toString() {
-        return "Imei{" + "id=" + id + ", imei=" + imei + ", idChiTietSP=" + idChiTietSP + ", ngayTao=" + ngayTao + ", ngaySua=" + ngaySua + ", trangThai=" + trangThai + '}';
+        return "Imei{" + "id=" + id + ", imei=" + imei + ", maChiTietSP=" + maChiTietSP + ", ngayTao=" + ngayTao + ", ngaySua=" + ngaySua + ", trangThai=" + trangThai + '}';
     }
 
     public String getStatus(int trangThai) {
         return switch (trangThai) {
             case 0 ->
-                "Hết hàng";
+                "Chưa bán";
             case 1 ->
-                "Còn hàng";
+                "Đã bán";
             default ->
                 "Không rõ";
         };

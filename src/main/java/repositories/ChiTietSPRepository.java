@@ -183,7 +183,7 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
                     + "ON BH.Id = CTSP.IdBH JOIN dbo.DongSP DSP\n"
                     + "ON DSP.Id = CTSP.IdDongSP JOIN dbo.NSX\n"
                     + "ON NSX.Id = CTSP.IdNSX\n"
-                    + "WHERE DSP.Ten = ?";
+                    + "WHERE DSP.Ten = ?\n";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, tenDSP);
             ResultSet rs = ps.executeQuery();
@@ -276,7 +276,8 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
     @Override
     public Integer them(ChiTietSP sp) {
         try {
-            String lenh = "insert into ChiTietSP(IdSP,IdNsx,IdMauSac,IdDongSP,idCPU,idRam,idSSD,idManHinh,idBH,canNang,moTa,SoLuongTon,GiaNhap,GiaBan,ngayTao,ngaySua,trangThai) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String lenh = "insert into [dbo].[ChiTietSP](IdSP,IdNsx,IdMauSac,IdDongSP,idCPU,idRam,idSSD,idManHinh,idBH," + ""
+                    + "canNang,moTa,SoLuongTon,GiaNhap,GiaBan,ngayTao,ngaySua,trangThai) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
             if (sp.getIdSP().equalsIgnoreCase("null")) {
                 st.setString(1, null);
@@ -558,7 +559,7 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
         try {
             Connection con = DBConnection.getConnection();
             List<ChiTietSP> lst = new ArrayList<>();
-            String lenh = "select id,IdSP,IdNsx,IdMauSac,IdDongSP,idCPU,idRam,idSSD,idManHinh,idBH,CanNang,MoTa,SoLuongTon,GiaNhap,GiaBan,ngayTao,ngaySua,trangThai,numOrder,ma from ChiTietSP";
+            String lenh = "select id,IdSP,IdNsx,IdMauSac,IdDongSP,idCPU,idRam,idSSD,idManHinh,idBH,CanNang,MoTa,SoLuongTon,GiaNhap,GiaBan,ngayTao,ngaySua,trangThai,numOrder,ma from ChiTietSP order by numOrder ASC";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
@@ -621,7 +622,7 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, soLuong);
             ps.setString(2, ma);
-            
+
             result = ps.executeUpdate();
             return result;
         } catch (Exception e) {
@@ -632,6 +633,122 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
     @Override
     public Integer updateTrangThai(String trangThai, String ma) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Integer themCTSP(ChiTietSP chiTietSP) {
+        try {
+            Integer result = 0;
+            Connection connection = DBConnection.getConnection();
+            String sql = "insert into ChiTietSP(IdSP,IdNsx,IdMauSac,IdDongSP,idCPU,idRam,idSSD,idManHinh,idBH,canNang,moTa,SoLuongTon,GiaNhap,GiaBan,ngayTao,ngaySua,trangThai) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, chiTietSP.getIdSP());
+            st.setString(2, chiTietSP.getIdNSX());
+            st.setString(3, chiTietSP.getIdMauSac());
+            st.setString(4, chiTietSP.getIdDongSP());
+            st.setString(5, chiTietSP.getIdCPU());
+            st.setString(6, chiTietSP.getIdRam());
+            st.setString(7, chiTietSP.getIdSSD());
+            st.setString(8, chiTietSP.getIdManHinh());
+            st.setString(9, chiTietSP.getIdBH());
+            st.setDouble(10, chiTietSP.getCanNang());
+            st.setString(11, chiTietSP.getMoTa());
+            st.setInt(12, chiTietSP.getSoLuongTon());
+            st.setBigDecimal(13, chiTietSP.getGiaNhap());
+            st.setBigDecimal(14, chiTietSP.getGiaBan());
+            st.setDate(15, chiTietSP.getNgayTao());
+            st.setDate(16, chiTietSP.getNgaySua());
+            st.setInt(17, chiTietSP.getTrangThai());
+            result = st.executeUpdate();
+            return result;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer sua(ChiTietSP chiTietSP) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByTen(String ten) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByMau(String mau) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByDong(String dong) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByMH(String mh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByCPU(String cpu) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByRAM(String ram) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdBySSD(String ssd) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getIdByBH(String bh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<ChiTietSP> getAllCTSPbyDong(String tenDSP) {
+        try {
+            Connection con = DBConnection.getConnection();
+            List<ChiTietSP> lst = new ArrayList<>();
+            String lenh = "select id,IdSP,IdNsx,IdMauSac,IdDongSP,idCPU,idRam,idSSD,idManHinh,idBH,CanNang,MoTa,SoLuongTon,GiaNhap,GiaBan,ngayTao,ngaySua,trangThai,numOrder,ma from ChiTietSP where dongSP = ? and trangThai = 1 order by numOrder ASC";
+            PreparedStatement ps = con.prepareStatement(lenh);
+            ps.setString(1, tenDSP);
+            ResultSet rs = ps.executeQuery(lenh);
+            while (rs.next()) {
+                lst.add(new ChiTietSP(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getDouble(11),
+                        rs.getString(12),
+                        rs.getInt(13),
+                        rs.getBigDecimal(14),
+                        rs.getBigDecimal(15),
+                        rs.getDate(16),
+                        rs.getDate(17),
+                        rs.getInt(18),
+                        rs.getInt(19),
+                        rs.getString(20)));
+            }
+            rs.close();
+            ps.close();
+            con.close();
+            return lst;
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
 }

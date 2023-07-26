@@ -39,6 +39,13 @@ public class Imei {
         this.trangThai = trangThai;
     }
 
+    public Imei(ChiTietSP idChiTietSP, Date ngayTao, Date ngaySua, int trangThai) {
+        this.idChiTietSP = idChiTietSP;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+
     public String getId() {
         return id;
     }
@@ -95,9 +102,9 @@ public class Imei {
     public String getStatus(int trangThai) {
         return switch (trangThai) {
             case 0 ->
-                "Hết hàng";
+                "Chưa bán";
             case 1 ->
-                "Còn hàng";
+                "Đã bán";
             default ->
                 "Không rõ";
         };

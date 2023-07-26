@@ -8,20 +8,22 @@ import domainmodels.Imei;
 import irepositories.IImeiRepository;
 import iservices.IImeiService;
 import java.util.List;
+import java.util.Map;
 import repositories.ImeiRepository;
 
 /**
  *
  * @author ADMIN
  */
-public class ImeiService implements IImeiService{
+public class ImeiService implements IImeiService {
+
     private IImeiRepository imeiRepo = new ImeiRepository();
-    
+
     @Override
     public List<Imei> getAll() {
         return imeiRepo.getAll();
     }
-    
+
     @Override
     public List<Imei> getAllByIdCtsp(String idCtsp) {
         return imeiRepo.getAllByIdCtsp(idCtsp);
@@ -29,7 +31,7 @@ public class ImeiService implements IImeiService{
 
     @Override
     public Integer them(Imei imei) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return imeiRepo.them(imei);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class ImeiService implements IImeiService{
 
     @Override
     public Integer xoa(String ma) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return imeiRepo.xoa(ma);
     }
 
     @Override
@@ -55,5 +57,10 @@ public class ImeiService implements IImeiService{
     @Override
     public Integer updateTrangThai(String trangThai, String imei) {
         return imeiRepo.updateTrangThai(trangThai, imei);
+    }
+
+    @Override
+    public Map<String, String> hashMapMaCTSP() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

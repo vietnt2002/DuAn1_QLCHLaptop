@@ -7,6 +7,7 @@ package irepositories;
 import domainmodels.CPU;
 import domainmodels.Imei;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -21,4 +22,5 @@ public interface IImeiRepository {
     Integer xoa(String ma);
     Imei getIdByIMei(String imei);
     Integer updateTrangThai(String trangThai, String imei);
+    Map<String, String> hashMapMaCTSP();
 }

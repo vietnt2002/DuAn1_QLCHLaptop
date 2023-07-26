@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -45,6 +46,25 @@ public class ULHelper {
         if (c.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(null, mss);
             c.requestFocus();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean checknullLabel(JLabel c, String mss) {
+        if (c.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, mss);
+            c.requestFocus();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean checkNotnullLabel(JLabel c, String mss) {
+        if (c.getText().trim().length() != 0) {
+            JOptionPane.showMessageDialog(null, mss);
             return true;
         } else {
             return false;
