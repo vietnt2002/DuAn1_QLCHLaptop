@@ -6,6 +6,7 @@ package view.chucnangchinh;
 
 import domainmodels.KhuyenMai;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -48,19 +49,40 @@ public class JplKhuyenMai extends javax.swing.JPanel {
         }
     }
 
+//    public int getTrangThai(Date ngayBatDau, Date ngayKetThuc) {
+//        long millis = System.currentTimeMillis();
+//        java.sql.Date homNay = new java.sql.Date(millis);
+//        if (ngayBatDau.equals(homNay) && ngayKetThuc.equals(homNay)) {
+//            return 0;
+//        } else if (ngayBatDau.after(homNay) && ngayKetThuc.after(homNay)) {
+//            return 2;  //Sắp diễn ra
+//        } else if (ngayBatDau.before(homNay) && ngayKetThuc.before(homNay)) {
+//            return 1;  //Đã kết thúc
+//        } else if (ngayBatDau.before(homNay) && ngayKetThuc.after(homNay)) {
+//            return 0;  // Đang diễn ra
+//        }
+//        return 0;
+//    }
+    
     public int getTrangThai(Date ngayBatDau, Date ngayKetThuc) {
-        long millis = System.currentTimeMillis();
-        java.sql.Date homNay = new java.sql.Date(millis);
-        if (ngayBatDau.equals(homNay) && ngayKetThuc.equals(homNay)) {
-            return 0;
-        } else if (ngayBatDau.after(homNay) && ngayKetThuc.after(homNay)) {
-            return 2;  //Sắp diễn ra
-        } else if (ngayBatDau.before(homNay) && ngayKetThuc.before(homNay)) {
-            return 1;  //Đã kết thúc
-        } else if (ngayBatDau.before(homNay) && ngayKetThuc.after(homNay)) {
-            return 0;  // Đang diễn ra
+        //Lấy thời gian hiện tại
+        java.util.Date tgHienTai = new java.util.Date();
+        
+        //Chuyển đổi kiểu thời gian sang java.sql.Date
+        Date thoiGianHienTai = new Date(tgHienTai.getTime());
+        
+        //Thêm 1 ngày vào thời gian kết thúc
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(ngayKetThuc);
+        calendar.add(calendar.DAY_OF_MONTH, 1);
+        
+        if(thoiGianHienTai.before(ngayBatDau)){
+            return 1; //Sắp diễn ra
+        }else if(thoiGianHienTai.after(ngayBatDau) && thoiGianHienTai.before(calendar.getTime())){
+            return 0; // Đang diễn ra
+        }else{
+            return 2; // Đã kết thúc
         }
-        return 0;
     }
 
     private void updateTrangThai() {
@@ -98,10 +120,10 @@ public class JplKhuyenMai extends javax.swing.JPanel {
         txtSL = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rdoSapDienRa = new javax.swing.JRadioButton();
+        rdoDangDienRa = new javax.swing.JRadioButton();
+        rdoTatCa = new javax.swing.JRadioButton();
+        rdoDaKetThuc = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         txtTimKiem = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -225,36 +247,36 @@ public class JplKhuyenMai extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Sắp diễn ra");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdoSapDienRa);
+        rdoSapDienRa.setText("Sắp diễn ra");
+        rdoSapDienRa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                rdoSapDienRaActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Đang diễn ra");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdoDangDienRa);
+        rdoDangDienRa.setText("Đang diễn ra");
+        rdoDangDienRa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                rdoDangDienRaActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Tất cả");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdoTatCa);
+        rdoTatCa.setSelected(true);
+        rdoTatCa.setText("Tất cả");
+        rdoTatCa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rdoTatCaActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setText("Đã kết thúc");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdoDaKetThuc);
+        rdoDaKetThuc.setText("Đã kết thúc");
+        rdoDaKetThuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
+                rdoDaKetThucActionPerformed(evt);
             }
         });
 
@@ -263,26 +285,26 @@ public class JplKhuyenMai extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jRadioButton1)
+                .addGap(14, 14, 14)
+                .addComponent(rdoTatCa)
                 .addGap(40, 40, 40)
-                .addComponent(jRadioButton2)
+                .addComponent(rdoDangDienRa)
                 .addGap(48, 48, 48)
-                .addComponent(jRadioButton3)
+                .addComponent(rdoSapDienRa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jRadioButton4)
-                .addContainerGap())
+                .addComponent(rdoDaKetThuc)
+                .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton4))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(rdoSapDienRa)
+                    .addComponent(rdoDangDienRa)
+                    .addComponent(rdoTatCa)
+                    .addComponent(rdoDaKetThuc))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -361,23 +383,26 @@ public class JplKhuyenMai extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(117, 117, 117)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnThem)
-                            .addComponent(jButton1)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 963, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                        .addGap(102, 102, 102)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton4)
+                                    .addComponent(btnThem, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(251, 251, 251)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 963, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnThem, jButton1, jButton3, jButton4});
@@ -385,27 +410,26 @@ public class JplKhuyenMai extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(btnThem)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
-                        .addGap(61, 61, 61)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                        .addComponent(jButton4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnThem, jButton1, jButton3, jButton4});
@@ -491,30 +515,30 @@ public class JplKhuyenMai extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tblKhuyenMaiMouseClicked
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rdoTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoTatCaActionPerformed
         loadDaTa(khuyenMaiRepository.getAll());
         txtTimKiem.setText("");
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rdoTatCaActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void rdoDangDienRaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDangDienRaActionPerformed
         loadDaTa(khuyenMaiRepository.getAllTrangThai(0));
         txtTimKiem.setText("");
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_rdoDangDienRaActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        loadDaTa(khuyenMaiRepository.getAllTrangThai(2));
+    private void rdoSapDienRaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoSapDienRaActionPerformed
+        loadDaTa(khuyenMaiRepository.getAllTrangThai(1));
         txtTimKiem.setText("");
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_rdoSapDienRaActionPerformed
 
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
         String tim = txtTimKiem.getText().trim();
         loadDaTa(khuyenMaiRepository.timKiem(tim));
     }//GEN-LAST:event_txtTimKiemCaretUpdate
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
-        loadDaTa(khuyenMaiRepository.getAllTrangThai(1));
+    private void rdoDaKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDaKetThucActionPerformed
+        loadDaTa(khuyenMaiRepository.getAllTrangThai(2));
         txtTimKiem.setText("");
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
+    }//GEN-LAST:event_rdoDaKetThucActionPerformed
     private boolean checkValidate() {
         if (utilities.ULHelper.checknull(txtMa, "Không được để trống !")) {
             return false;
@@ -561,11 +585,11 @@ public class JplKhuyenMai extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rdoDaKetThuc;
+    private javax.swing.JRadioButton rdoDangDienRa;
+    private javax.swing.JRadioButton rdoSapDienRa;
+    private javax.swing.JRadioButton rdoTatCa;
     private javax.swing.JTable tblKhuyenMai;
     private javax.swing.JTextField txtMa;
     private com.toedter.calendar.JDateChooser txtNgayBD;
