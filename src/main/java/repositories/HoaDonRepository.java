@@ -20,19 +20,19 @@ import utilities.DBConnection;
  *
  * @author ADMIN
  */
-public class HoaDonRepository implements IHoaDonRepository{
+public class HoaDonRepository implements IHoaDonRepository {
 
     @Override
     public List<HoaDon> getAll() {
         try {
             List<HoaDon> lstHoaDon = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT Id, Ma, IdNV, IdKH, NgayTao, NgaySua, NgayThanhToan, TrangThai FROM dbo.HoaDon\n" +
-                        "WHERE TrangThai = 0\n" +
-                        "ORDER BY Ma DESC";
+            String sql = "SELECT Id, Ma, IdNV, IdKH, NgayTao, NgaySua, NgayThanhToan, TrangThai FROM dbo.HoaDon\n"
+                    + "WHERE TrangThai = 0\n"
+                    + "ORDER BY Ma DESC";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 String id = rs.getString("Id");
                 String ma = rs.getString("Ma");
                 String idKH = rs.getString("IdKH");
@@ -51,7 +51,7 @@ public class HoaDonRepository implements IHoaDonRepository{
                 hoaDon.setNgaySua(ngaySua);
                 hoaDon.setNgayThanhToan(ngayThanhToan);
                 hoaDon.setTrangThai(trangThai);
-                
+
                 lstHoaDon.add(hoaDon);
             }
             rs.close();
@@ -62,22 +62,22 @@ public class HoaDonRepository implements IHoaDonRepository{
             return null;
         }
     }
-    
+
     @Override
     public List<HoaDon> getAllByMa(String maNv) {
         try {
             List<HoaDon> lstHoaDon = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT HD.Id AS 'Id', HD.Ma AS 'Ma', HD.IdKH AS 'IdKH', KH.Ma AS 'MaKH', NV.Id AS 'IdNV', NV.Ma AS 'MaNV', HD.NgayTao AS 'NgayTao', HD.NgaySua AS 'NgaySua', HD.NgayThanhToan AS 'NgayThanhToan', HD.TrangThai AS 'TrangThai' \n" +
-                        "FROM dbo.HoaDon HD JOIN dbo.KhachHang KH\n" +
-                        "ON KH.Id = HD.IdKH JOIN dbo.NhanVien NV\n" +
-                        "ON NV.Id = HD.IdNV\n" +
-                        "WHERE NV.Ma = ? AND HD.TrangThai = 0\n"+
-                        "ORDER BY HD.Ma DESC";
+            String sql = "SELECT HD.Id AS 'Id', HD.Ma AS 'Ma', HD.IdKH AS 'IdKH', KH.Ma AS 'MaKH', NV.Id AS 'IdNV', NV.Ma AS 'MaNV', HD.NgayTao AS 'NgayTao', HD.NgaySua AS 'NgaySua', HD.NgayThanhToan AS 'NgayThanhToan', HD.TrangThai AS 'TrangThai' \n"
+                    + "FROM dbo.HoaDon HD JOIN dbo.KhachHang KH\n"
+                    + "ON KH.Id = HD.IdKH JOIN dbo.NhanVien NV\n"
+                    + "ON NV.Id = HD.IdNV\n"
+                    + "WHERE NV.Ma = ? AND HD.TrangThai = 0\n"
+                    + "ORDER BY HD.Ma DESC";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, maNv);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 String id = rs.getString("Id");
                 String ma = rs.getString("Ma");
                 String idKH = rs.getString("IdKH");
@@ -88,24 +88,24 @@ public class HoaDonRepository implements IHoaDonRepository{
                 Date ngaySua = rs.getDate("NgaySua");
                 Date ngayThanhToan = rs.getDate("NgayThanhToan");
                 int trangThai = rs.getInt("TrangThai");
-                
+
                 KhachHang khachHang = new KhachHang();
                 khachHang.setId(idKH);
                 khachHang.setMa(maKH);
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(idNV);
                 nhanVien.setMa(maNV);
-                
+
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setId(id);
                 hoaDon.setMa(ma);
-                hoaDon.setIdKH(khachHang+"");
-                hoaDon.setIdNV(nhanVien+"");
+                hoaDon.setIdKH(khachHang + "");
+                hoaDon.setIdNV(nhanVien + "");
                 hoaDon.setNgayTao(ngayTao);
                 hoaDon.setNgaySua(ngaySua);
                 hoaDon.setNgayThanhToan(ngayThanhToan);
                 hoaDon.setTrangThai(trangThai);
-                
+
                 lstHoaDon.add(hoaDon);
             }
             rs.close();
@@ -125,7 +125,7 @@ public class HoaDonRepository implements IHoaDonRepository{
             String sql = "INSERT INTO dbo.HoaDon (IdNV) VALUES (?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, hoaDon.getIdNV());
-            
+
             result = ps.executeUpdate();
             ps.close();
             connection.close();
@@ -134,7 +134,7 @@ public class HoaDonRepository implements IHoaDonRepository{
             return 0;
         }
     }
-    
+
     @Override
     public Integer themHDIdNV_IdKH(HoaDon hoaDon) {
         try {
@@ -144,7 +144,7 @@ public class HoaDonRepository implements IHoaDonRepository{
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, hoaDon.getIdKH());
             ps.setString(2, hoaDon.getIdNV());
-            
+
             result = ps.executeUpdate();
             ps.close();
             connection.close();
@@ -174,7 +174,7 @@ public class HoaDonRepository implements IHoaDonRepository{
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, ma);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 idHD = rs.getString("Id");
                 hoaDon.setId(idHD);
             }
@@ -193,7 +193,7 @@ public class HoaDonRepository implements IHoaDonRepository{
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, idKH);
             ps.setString(2, idHD);
-            
+
             result = ps.executeUpdate();
             ps.close();
             connection.close();
@@ -215,7 +215,7 @@ public class HoaDonRepository implements IHoaDonRepository{
             ps.setString(3, thanhTien);
             ps.setString(4, khuyenMai);
             ps.setString(5, idHD);
-            
+
             result = ps.executeUpdate();
             ps.close();
             connection.close();

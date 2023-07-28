@@ -33,13 +33,10 @@ public interface IKhachHangRepository {
 
     List<KhachHang> timTen(String timTen);
 
-    KhachHang getHoTenByMa(String ma);
+    String getHoTenByMa(String ma);
     
-    KhachHang getHoTenById(String id);
+    String getHoTenById(String id);
 
-    KhachHang getThongTinBySdtOrEmail(String sdtOrEmail);
+    KhachHang getThongTinBySdt(String sdt);
 
-    List<Integer> getSoLanMua();
-
-    List<KhachHang> locSoLanMua(int solan);
 }

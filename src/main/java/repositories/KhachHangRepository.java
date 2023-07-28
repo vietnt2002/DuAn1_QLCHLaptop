@@ -27,20 +27,16 @@ public class KhachHangRepository implements IKhachHangRepository {
     @Override
     public List<KhachHang> getAll() {
         List<KhachHang> listKhachHang = new ArrayList<>();
-        String sql = "Select * from KhachHang";
+        String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang";
         try (PreparedStatement PS = con.prepareStatement(sql); ResultSet RS = PS.executeQuery()) {
             while (RS.next()) {
                 KhachHang khachHang = new KhachHang();
                 khachHang.setId(RS.getString("Id"));
                 khachHang.setMa(RS.getString("Ma"));
-                khachHang.setTen(RS.getString("Ten"));
-                khachHang.setTenDem(RS.getString("TenDem"));
-                khachHang.setHo(RS.getString("Ho"));
+                khachHang.setHoTen(RS.getString("HoTen"));
                 khachHang.setNgaySinh(RS.getDate("NgaySinh"));
                 khachHang.setSdt(RS.getString("Sdt"));
                 khachHang.setDiaChi(RS.getString("DiaChi"));
-                khachHang.setEmail(RS.getString("Email"));
-                khachHang.setSoLanMuaHang(RS.getInt("SoLanMuaHang"));
                 khachHang.setNgayTao(RS.getDate("NgayTao"));
                 khachHang.setNgaySua(RS.getDate("NgaySua"));
                 listKhachHang.add(khachHang);
@@ -53,18 +49,13 @@ public class KhachHangRepository implements IKhachHangRepository {
     @Override
     public Integer them(KhachHang khachHang) {
         Integer result = 0;
-        String sql = "Insert into KhachHang (Ma,Ten,tenDem,Ho,NgaySinh,Sdt,DiaChi,Email,SoLanMuaHang) values (?,?,?,?,?,?,?,?,?)";
+        String sql = "Insert into KhachHang (HoTen,NgaySinh,Sdt,DiaChi) values (?,?,?,?)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
-            PS.setObject(1, khachHang.getMa());
-            PS.setObject(2, khachHang.getTen());
-            PS.setObject(3, khachHang.getTenDem());
-            PS.setObject(4, khachHang.getHo());
-            PS.setObject(5, khachHang.getNgaySinh());
-            PS.setObject(6, khachHang.getSdt());
-            PS.setObject(7, khachHang.getDiaChi());
-            PS.setObject(8, khachHang.getEmail());
-            PS.setObject(9, khachHang.getSoLanMuaHang());
+            PS.setObject(1, khachHang.getHoTen());
+            PS.setObject(2, khachHang.getNgaySinh());
+            PS.setObject(3, khachHang.getSdt());
+            PS.setObject(4, khachHang.getDiaChi());
             result = PS.executeUpdate();
 
             return result;
@@ -76,18 +67,14 @@ public class KhachHangRepository implements IKhachHangRepository {
 
     @Override
     public Integer sua(KhachHang khachHang) {
-        String sql = "Update KhachHang Set Ten = ?,TenDem = ?,Ho=?,NgaySinh=?,Sdt=?,DiaChi=?,Email=?,SoLanMuaHang =? Where Ma = ?";
+        String sql = "Update KhachHang Set HoTen=?,NgaySinh=?,Sdt=?,DiaChi=? Where Ma = ?";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
-            PS.setObject(1, khachHang.getTen());
-            PS.setObject(2, khachHang.getTenDem());
-            PS.setObject(3, khachHang.getHo());
-            PS.setObject(4, khachHang.getNgaySinh());
-            PS.setObject(5, khachHang.getSdt());
-            PS.setObject(6, khachHang.getDiaChi());
-            PS.setObject(7, khachHang.getEmail());
-            PS.setObject(8, khachHang.getSoLanMuaHang());
-            PS.setObject(9, khachHang.getMa());
+            PS.setObject(1, khachHang.getHoTen());
+            PS.setObject(2, khachHang.getNgaySinh());
+            PS.setObject(3, khachHang.getSdt());
+            PS.setObject(4, khachHang.getDiaChi());
+            PS.setObject(5, khachHang.getMa());
             PS.executeUpdate();
         } catch (Exception e) {
         }
@@ -149,23 +136,20 @@ public class KhachHangRepository implements IKhachHangRepository {
     @Override
     public List<KhachHang> sapXepTenTang() {
         List<KhachHang> listKhachHang = new ArrayList<>();
-        String sql = "Select * from KhachHang Order by ten ASC";
+        String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang\n" +
+                    "ORDER BY HoTen ASC";
         try (PreparedStatement PS = con.prepareStatement(sql); ResultSet RS = PS.executeQuery()) {
             while (RS.next()) {
                 String id = RS.getString("Id");
                 String ma = RS.getString("Ma");
-                String ten = RS.getString("Ten");
-                String tenDem = RS.getString("TenDem");
-                String ho = RS.getString("Ho");
+                String hoTen = RS.getString("HoTen");
                 Date ngaySinh = RS.getDate("NgaySinh");
                 String sdt = RS.getString("Sdt");
                 String diaChi = RS.getString("DiaChi");
-                String email = RS.getString("Email");
-                int soLanMuaHang = RS.getInt("SoLanMuaHang");
                 Date ngayTao = RS.getDate("NgayTao");
                 Date ngaySua = RS.getDate("NgaySua");
 
-                KhachHang khachHang = new KhachHang(id, ma, ten, tenDem, ho, ngaySinh, sdt, diaChi, email, soLanMuaHang, ngayTao, ngaySua);
+                KhachHang khachHang = new KhachHang(id, ma, hoTen, ngaySinh, sdt, diaChi, ngayTao, ngaySua);
                 listKhachHang.add(khachHang);
             }
         } catch (Exception e) {
@@ -175,7 +159,7 @@ public class KhachHangRepository implements IKhachHangRepository {
 
     @Override
     public KhachHang checkTrungMa(String ma) {
-        String sql = "Select * from khachhang where ma = ?";
+        String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang WHERE Ma = ?";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setString(1, ma);
@@ -184,13 +168,10 @@ public class KhachHangRepository implements IKhachHangRepository {
                 KhachHang khachHang = new KhachHang();
                 khachHang.setId(RS.getString("Id"));
                 khachHang.setMa(RS.getString("Ma"));
-                khachHang.setTen(RS.getString("Ten"));
-                khachHang.setTenDem(RS.getString("TenDem"));
-                khachHang.setHo(RS.getString("Ho"));
+                khachHang.setHoTen(RS.getString("HoTen"));
                 khachHang.setNgaySinh(RS.getDate("NgaySinh"));
                 khachHang.setSdt(RS.getString("Sdt"));
                 khachHang.setDiaChi(RS.getString("DiaChi"));
-                khachHang.setEmail(RS.getString("Email"));
                 khachHang.setNgayTao(RS.getDate("NgayTao"));
                 khachHang.setNgaySua(RS.getDate("NgaySua"));
                 return khachHang;
@@ -203,23 +184,20 @@ public class KhachHangRepository implements IKhachHangRepository {
     @Override
     public List<KhachHang> sapXepTenGiam() {
         List<KhachHang> listKhachHang = new ArrayList<>();
-        String sql = "Select * from KhachHang Order by ten Desc";
+        String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang\n" +
+                    "ORDER BY HoTen DESC";
         try (PreparedStatement PS = con.prepareStatement(sql); ResultSet RS = PS.executeQuery()) {
             while (RS.next()) {
                 String id = RS.getString("Id");
                 String ma = RS.getString("Ma");
-                String ten = RS.getString("Ten");
-                String tenDem = RS.getString("TenDem");
-                String ho = RS.getString("Ho");
+                String hoTen = RS.getString("Ten");
                 Date ngaySinh = RS.getDate("NgaySinh");
                 String sdt = RS.getString("Sdt");
                 String diaChi = RS.getString("DiaChi");
-                String email = RS.getString("Email");
-                int soLanMuaHang = RS.getInt("SoLanMuaHang");
                 Date ngayTao = RS.getDate("NgayTao");
                 Date ngaySua = RS.getDate("NgaySua");
 
-                KhachHang khachHang = new KhachHang(id, ma, ten, tenDem, ho, ngaySinh, sdt, diaChi, email, soLanMuaHang, ngayTao, ngaySua);
+                KhachHang khachHang = new KhachHang(id, ma, hoTen, ngaySinh, sdt, diaChi, ngayTao, ngaySua);
                 listKhachHang.add(khachHang);
             }
         } catch (Exception e) {
@@ -230,7 +208,8 @@ public class KhachHangRepository implements IKhachHangRepository {
     @Override
     public List<KhachHang> timTen(String timTen) {
         List<KhachHang> listKhachHang = new ArrayList<>();
-        String sql = "Select * from KhachHang Where ten Like N'%" + timTen + "%' OR sdt Like '%" + timTen + "%'";
+        String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang\n" +
+                    "WHERE HoTen LIKE N'%"+timTen+"%' OR Sdt LIKE '%"+timTen+"%'";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -238,13 +217,10 @@ public class KhachHangRepository implements IKhachHangRepository {
                 KhachHang khachHang = new KhachHang();
                 khachHang.setId(RS.getString("Id"));
                 khachHang.setMa(RS.getString("Ma"));
-                khachHang.setTen(RS.getString("Ten"));
-                khachHang.setTenDem(RS.getString("TenDem"));
-                khachHang.setHo(RS.getString("Ho"));
+                khachHang.setHoTen(RS.getString("HoTen"));
                 khachHang.setNgaySinh(RS.getDate("NgaySinh"));
                 khachHang.setSdt(RS.getString("Sdt"));
                 khachHang.setDiaChi(RS.getString("DiaChi"));
-                khachHang.setEmail(RS.getString("Email"));
                 khachHang.setNgayTao(RS.getDate("NgayTao"));
                 khachHang.setNgaySua(RS.getDate("NgaySua"));
                 listKhachHang.add(khachHang);
@@ -261,120 +237,67 @@ public class KhachHangRepository implements IKhachHangRepository {
 //            System.out.println(khachHang.toString());
 //        }
 //    }
-    public KhachHang getHoTenByMa(String ma) {
+    public String getHoTenByMa(String ma) {
         try {
+            String hoTen = null;
             KhachHang khachHang = new KhachHang();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT Ho, TenDem, Ten FROM dbo.KhachHang WHERE Ma = ?";
+            String sql = "SELECT HoTen FROM dbo.KhachHang WHERE Ma = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, ma);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String ho = rs.getString("Ho");
-                String tenDem = rs.getString("TenDem");
-                String ten = rs.getString("Ten");
+                hoTen = rs.getString("HoTen");
 
-                khachHang.setHo(ho);
-                khachHang.setTenDem(tenDem);
-                khachHang.setTen(ten);
+                khachHang.setHoTen(hoTen);
             }
-            return khachHang;
+            return hoTen;
         } catch (Exception e) {
             return null;
         }
     }
     
     @Override
-    public KhachHang getHoTenById(String id) {
+    public String getHoTenById(String id) {
         try {
+            String hoTen = null;
             KhachHang khachHang = new KhachHang();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT Ho, TenDem, Ten FROM dbo.KhachHang WHERE Id = ?";
+            String sql = "SELECT HoTen FROM dbo.KhachHang WHERE Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String ho = rs.getString("Ho");
-                String tenDem = rs.getString("TenDem");
-                String ten = rs.getString("Ten");
+                hoTen = rs.getString("HoTen");
 
-                khachHang.setHo(ho);
-                khachHang.setTenDem(tenDem);
-                khachHang.setTen(ten);
+                khachHang.setHoTen(hoTen);
             }
-            return khachHang;
+            return hoTen;
         } catch (Exception e) {
             return null;
         }
     }
 
     @Override
-    public KhachHang getThongTinBySdtOrEmail(String sdtOrEmail) {
+    public KhachHang getThongTinBySdt(String sdt) {
         try {
             KhachHang khachHang = new KhachHang();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT Ho, TenDem, Ten, Email, Sdt FROM dbo.KhachHang WHERE Sdt = ? OR Email = ?";
+            String sql = "SELECT HoTen, Sdt FROM dbo.KhachHang WHERE Sdt = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, sdtOrEmail);
-            ps.setString(2, sdtOrEmail);
+            ps.setString(1, sdt);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String ho = rs.getString("Ho");
-                String tenDem = rs.getString("TenDem");
-                String ten = rs.getString("Ten");
-                String email = rs.getString("Email");
-                String sdt = rs.getString("Sdt");
+                String hoTen = rs.getString("HoTen");
+                String Sdt = rs.getString("Sdt");
 
-                khachHang.setHo(ho);
-                khachHang.setTenDem(tenDem);
-                khachHang.setTen(ten);
-                khachHang.setEmail(email);
-                khachHang.setSdt(sdt);
-
+                khachHang.setHoTen(hoTen);
+                khachHang.setSdt(Sdt);
             }
             return khachHang;
         } catch (Exception e) {
             return null;
         }
-    }
-
-    @Override
-    public List<Integer> getSoLanMua() {
-        List<Integer> list = new ArrayList<>();
-        String sql = "Select SoLanMuaHang from KhachHang Group by SoLanMuaHang";
-        try (PreparedStatement PS = con.prepareStatement(sql); ResultSet RS = PS.executeQuery()) {
-            while (RS.next()) {
-                list.add(RS.getInt("SoLanMuaHang"));
-            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
-
-    @Override
-    public List<KhachHang> locSoLanMua(int solan) {
-        List<KhachHang> listKhachHang = new ArrayList<>();
-        String sql = "Select * from KhachHang Where solanmuahang =" + solan;
-        try (PreparedStatement PS = con.prepareStatement(sql); ResultSet RS = PS.executeQuery()) {
-            while (RS.next()) {
-                KhachHang khachHang = new KhachHang();
-                khachHang.setId(RS.getString("Id"));
-                khachHang.setMa(RS.getString("Ma"));
-                khachHang.setTen(RS.getString("Ten"));
-                khachHang.setTenDem(RS.getString("TenDem"));
-                khachHang.setHo(RS.getString("Ho"));
-                khachHang.setNgaySinh(RS.getDate("NgaySinh"));
-                khachHang.setSdt(RS.getString("Sdt"));
-                khachHang.setSoLanMuaHang(RS.getInt("SoLanMuaHang"));
-                khachHang.setDiaChi(RS.getString("DiaChi"));
-                khachHang.setEmail(RS.getString("Email"));
-                khachHang.setNgayTao(RS.getDate("NgayTao"));
-                khachHang.setNgaySua(RS.getDate("NgaySua"));
-                listKhachHang.add(khachHang);
-            }
-        } catch (Exception e) {
-        }
-        return listKhachHang;
     }
 
 }

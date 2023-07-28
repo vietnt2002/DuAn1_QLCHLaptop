@@ -45,9 +45,9 @@ public interface INhanVienRepository {
 
     List<NhanVien> sapXepTenTangNVNghi();
 
-    NhanVien getHoTenByMa(String ma);
+    String getHoTenByMa(String ma);
 
-    NhanVien getHoTenById(String id);
+    String getHoTenById(String id);
 
     List<NhanVien> locChucVuNVLam(String chucVu1);
 

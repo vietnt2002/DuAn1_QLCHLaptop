@@ -15,11 +15,8 @@ public class NhanVien {
     private String id;
     private String idCV;
     private String ma;
-    private String ten;
-    private String tenDem;
-    private String ho;
+    private String hoTen;
     private String gioiTinh;
-    private String email;
     private Date ngaySinh;
     private String diaChi;
     private String sdt;
@@ -37,15 +34,13 @@ public class NhanVien {
             return "Đã nghỉ";
         }
     }
-    public NhanVien(String id, String idCV, String ma, String ten, String tenDem, String ho, String gioiTinh, String email, Date ngaySinh, String diaChi, String sdt, String matKhau, Date ngayTao, Date ngaySua, int trangThai) {
+
+    public NhanVien(String id, String idCV, String ma, String hoTen, String gioiTinh, Date ngaySinh, String diaChi, String sdt, String matKhau, Date ngayTao, Date ngaySua, int trangThai) {
         this.id = id;
         this.idCV = idCV;
         this.ma = ma;
-        this.ten = ten;
-        this.tenDem = tenDem;
-        this.ho = ho;
+        this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
-        this.email = email;
         this.ngaySinh = ngaySinh;
         this.diaChi = diaChi;
         this.sdt = sdt;
@@ -79,28 +74,12 @@ public class NhanVien {
         this.ma = ma;
     }
 
-    public String getTen() {
-        return ten;
+    public String getHoTen() {
+        return hoTen;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
-    }
-
-    public String getTenDem() {
-        return tenDem;
-    }
-
-    public void setTenDem(String tenDem) {
-        this.tenDem = tenDem;
-    }
-
-    public String getHo() {
-        return ho;
-    }
-
-    public void setHo(String ho) {
-        this.ho = ho;
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
     }
 
     public String getGioiTinh() {
@@ -109,14 +88,6 @@ public class NhanVien {
 
     public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Date getNgaySinh() {
@@ -174,7 +145,7 @@ public class NhanVien {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
-
+    
     @Override
     public String toString() {
         return ma;

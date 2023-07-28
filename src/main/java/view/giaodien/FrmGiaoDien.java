@@ -46,9 +46,8 @@ public class FrmGiaoDien extends javax.swing.JFrame {
     }
 
     private void LoadThongTinNhanVien() {
-        domainmodels.NhanVien nhanVien = nhanVienService.getHoTenByMa(utilities.UserInfo.tenTK);
-        String hoTen = nhanVien.getHo() + " " + nhanVien.getTenDem() + " " + nhanVien.getTen();
-        lblHoTen.setText(hoTen);
+        String hoTenNV = nhanVienService.getHoTenByMa(utilities.UserInfo.tenTK);
+        lblHoTen.setText(hoTenNV);
         String vaiTro = nhanVienService.setQuyen(utilities.UserInfo.tenTK);
         lblVaiTro.setText(vaiTro);
         if (vaiTro.equals("Nhân viên")) {

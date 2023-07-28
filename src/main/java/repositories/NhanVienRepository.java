@@ -28,10 +28,10 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
-                    + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV";
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh',\n" +
+                        "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai'\n" +
+                        "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n" +
+                        "ON CV.Id = NV.IdCV";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -40,14 +40,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -61,14 +58,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -99,21 +93,16 @@ public class NhanVienRepository implements INhanVienRepository {
 
     @Override
     public Integer them(NhanVien nhanVien) {
-        String sql = "Insert into NhanVien (idCV,Ma,Ten,tenDem,Ho,GioiTinh,NgaySinh,Sdt,DiaChi,Email,MatKhau,TrangThai) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "Insert into NhanVien (idCV,HoTen,GioiTinh,NgaySinh,Sdt,DiaChi,MatKhau) values (?,?,?,?,?,?,?)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, nhanVien.getIdCV());
-            PS.setObject(2, nhanVien.getMa());
-            PS.setObject(3, nhanVien.getTen());
-            PS.setObject(4, nhanVien.getTenDem());
-            PS.setObject(5, nhanVien.getHo());
-            PS.setObject(6, nhanVien.getGioiTinh());
-            PS.setObject(7, nhanVien.getNgaySinh());
-            PS.setObject(8, nhanVien.getSdt());
-            PS.setObject(9, nhanVien.getDiaChi());
-            PS.setObject(10, nhanVien.getEmail());
-            PS.setObject(11, nhanVien.getMatKhau());
-            PS.setObject(12, nhanVien.getTrangThai());
+            PS.setObject(2, nhanVien.getHoTen());
+            PS.setObject(3, nhanVien.getGioiTinh());
+            PS.setObject(4, nhanVien.getNgaySinh());
+            PS.setObject(5, nhanVien.getSdt());
+            PS.setObject(6, nhanVien.getDiaChi());
+            PS.setObject(7, nhanVien.getMatKhau());
             PS.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,21 +112,18 @@ public class NhanVienRepository implements INhanVienRepository {
 
     @Override
     public Integer sua(NhanVien nhanVien) {
-        String sql = "Update NhanVien Set idCV =?,Ten=?,tenDem=?,Ho=?,GioiTinh=?,NgaySinh=?,Sdt=?,DiaChi=?,Email=?,MatKhau=?,TrangThai=? Where ma = ?";
+        String sql = "Update NhanVien Set idCV =?,HoTen=?,GioiTinh=?,NgaySinh=?,Sdt=?,DiaChi=?,MatKhau=?,TrangThai=? Where ma = ?";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, nhanVien.getIdCV());
-            PS.setObject(2, nhanVien.getTen());
-            PS.setObject(3, nhanVien.getTenDem());
-            PS.setObject(4, nhanVien.getHo());
-            PS.setObject(5, nhanVien.getGioiTinh());
-            PS.setObject(6, nhanVien.getNgaySinh());
-            PS.setObject(7, nhanVien.getSdt());
-            PS.setObject(8, nhanVien.getDiaChi());
-            PS.setObject(9, nhanVien.getEmail());
-            PS.setObject(10, nhanVien.getMatKhau());
-            PS.setObject(11, nhanVien.getTrangThai());
-            PS.setObject(12, nhanVien.getMa());
+            PS.setObject(2, nhanVien.getHoTen());
+            PS.setObject(3, nhanVien.getGioiTinh());
+            PS.setObject(4, nhanVien.getNgaySinh());
+            PS.setObject(5, nhanVien.getSdt());
+            PS.setObject(6, nhanVien.getDiaChi());
+            PS.setObject(7, nhanVien.getMatKhau());
+            PS.setObject(8, nhanVien.getTrangThai());
+            PS.setObject(9, nhanVien.getMa());
             PS.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,7 +197,7 @@ public class NhanVienRepository implements INhanVienRepository {
 
     @Override
     public NhanVien checkTrungMa(String ma) {
-        String sql = "Select * from Nhanvien where ma = ?";
+        String sql = "SELECT Id, IdCV, Ma, HoTen, GioiTinh, NgaySinh, Sdt, DiaChi, MatKhau, NgayTao, NgaySua, TrangThai FROM dbo.NhanVien WHERE Ma = ?";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setString(1, ma);
@@ -220,29 +206,23 @@ public class NhanVienRepository implements INhanVienRepository {
                 String id = RS.getString("Id");
                 String chucVu = RS.getString("IdCv");
                 String ma1 = RS.getString("Ma");
-                String ten = RS.getString("Ten");
-                String tenDem = RS.getString("TenDem");
-                String ho = RS.getString("Ho");
+                String hoTen = RS.getString("HoTen");
                 String gTinh = RS.getString("GioiTinh");
                 Date ngaySinh = RS.getDate("NgaySinh");
                 String sdt = RS.getString("Sdt");
                 String diaChi = RS.getString("DiaChi");
-                String email = RS.getString("Email");
                 String matKhau = RS.getString("MatKhau");
                 Date ngayTao = RS.getDate("NgayTao");
                 Date ngaySua = RS.getDate("NgaySua");
                 Integer trangThai = RS.getInt("TrangThai");
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
-                nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setMa(ma1);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -255,23 +235,20 @@ public class NhanVienRepository implements INhanVienRepository {
         return null;
     }
 
-    public NhanVien getHoTenByMa(String ma) {
+    public String getHoTenByMa(String ma) {
         try {
+            String hoTen = null;
             NhanVien nhanVien = new NhanVien();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT Ho, TenDem, Ten FROM dbo.NhanVien WHERE Ma = ?";
+            String sql = "SELECT HoTen FROM dbo.NhanVien WHERE Ma = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, ma);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String ho = rs.getString("Ho");
-                String tenDem = rs.getString("TenDem");
-                String ten = rs.getString("Ten");
-                nhanVien.setHo(ho);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setTen(ten);
+                hoTen = rs.getString("HoTen");
+                nhanVien.setHoTen(hoTen);
             }
-            return nhanVien;
+            return hoTen;
 
         } catch (Exception e) {
             return null;
@@ -279,25 +256,20 @@ public class NhanVienRepository implements INhanVienRepository {
     }
 
     @Override
-    public NhanVien getHoTenById(String id) {
+    public String getHoTenById(String id) {
         try {
+            String hoTen = null;
             NhanVien nhanVien = new NhanVien();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT Ho, TenDem, Ten FROM dbo.NhanVien WHERE Id = ?";
+            String sql = "SELECT HoTen FROM dbo.NhanVien WHERE Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String ho = rs.getString("Ho");
-                String tenDem = rs.getString("TenDem");
-                String ten = rs.getString("Ten");
-
-                nhanVien.setHo(ho);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setTen(ten);
+                hoTen = rs.getString("HoTen");
+                nhanVien.setHoTen(hoTen);
             }
-            return nhanVien;
-
+            return hoTen;
         } catch (Exception e) {
             return null;
         }
@@ -308,8 +280,8 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
                     + "ON CV.Id = NV.IdCV Where NV.TrangThai = 1";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -320,14 +292,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -341,14 +310,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -371,8 +337,8 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
                     + "ON CV.Id = NV.IdCV Where NV.TrangThai = 0";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -383,14 +349,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -404,14 +367,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -434,10 +394,10 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV Where NV.Ten Like N'%" + ten + "%' AND NV.TrangThai = 1";
+                    + "ON CV.Id = NV.IdCV Where NV.HoTen Like N'%" + ten + "%' AND NV.TrangThai = 1";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -446,14 +406,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten1 = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -467,14 +424,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten1);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -497,10 +451,10 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV Where NV.Ten Like N'%" + ten + "%' AND NV.TrangThai = 0";
+                    + "ON CV.Id = NV.IdCV Where NV.HoTen Like N'%" + ten + "%' AND NV.TrangThai = 0";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -509,14 +463,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten1 = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -530,14 +481,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten1);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -560,10 +508,10 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV Where NV.TrangThai=1  Order by NV.Ten Desc";
+                    + "ON CV.Id = NV.IdCV Where NV.TrangThai=1  Order by NV.HoTen Desc";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -572,14 +520,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -593,14 +538,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -623,10 +565,10 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV Where NV.TrangThai=0  Order by NV.Ten Desc";
+                    + "ON CV.Id = NV.IdCV Where NV.TrangThai=0  Order by NV.HoTen Desc";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -635,14 +577,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -656,14 +595,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -686,10 +622,10 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV Where NV.TrangThai=1  Order by NV.Ten ASC";
+                    + "ON CV.Id = NV.IdCV Where NV.TrangThai=1  Order by NV.HoTen ASC";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -698,14 +634,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -719,14 +652,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -749,10 +679,10 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV Where NV.TrangThai=0  Order by NV.Ten ASC";
+                    + "ON CV.Id = NV.IdCV Where NV.TrangThai=0  Order by NV.HoTen ASC";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -761,14 +691,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -782,14 +709,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -812,8 +736,8 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
                     + "ON CV.Id = NV.IdCV Where CV.Ten = ? AND  NV.TrangThai = 1";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -825,14 +749,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -846,14 +767,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);
@@ -876,8 +794,8 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.Ten AS 'Ten', NV.TenDem AS 'TenDem', NV.Ho AS 'Ho', NV.GioiTinh AS 'GioiTinh', \n"
-                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi',NV.Email AS 'Email', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
                     + "ON CV.Id = NV.IdCV Where CV.Ten = ? AND  NV.TrangThai = 0";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -889,14 +807,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 String maCV = rs.getString("MaCV");
                 String tenCV = rs.getString("TenCV");
                 String ma = rs.getString("Ma");
-                String ten = rs.getString("Ten");
-                String tenDem = rs.getString("TenDem");
-                String ho = rs.getString("Ho");
+                String hoTen = rs.getString("HoTen");
                 String gioiTinh = rs.getString("GioiTinh");
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String sdt = rs.getString("Sdt");
                 String diaChi = rs.getString("DiaChi");
-                String email = rs.getString("Email");
                 String matKhau = rs.getString("MatKhau");
                 Date ngayTao = rs.getDate("NgayTao");
                 Date ngaySua = rs.getDate("NgaySua");
@@ -910,14 +825,11 @@ public class NhanVienRepository implements INhanVienRepository {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(id);
                 nhanVien.setMa(ma);
-                nhanVien.setTen(ten);
-                nhanVien.setTenDem(tenDem);
-                nhanVien.setHo(ho);
+                nhanVien.setHoTen(hoTen);
                 nhanVien.setGioiTinh(gioiTinh);
                 nhanVien.setNgaySinh(ngaySinh);
                 nhanVien.setSdt(sdt);
                 nhanVien.setDiaChi(diaChi);
-                nhanVien.setEmail(email);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setNgayTao(ngayTao);
                 nhanVien.setNgaySua(ngaySua);

@@ -166,10 +166,9 @@ public class ImeiRepository implements IImeiRepository {
             String sql = "SELECT IMei AS 'IMei', SP.Ten AS 'TenSP', IMei.TrangThai AS 'TrangThai' FROM dbo.IMei JOIN dbo.ChiTietSP CTSP\n"
                     + "ON CTSP.Id = IMei.IdChiTietSP JOIN dbo.SanPham SP\n"
                     + "ON SP.Id = CTSP.IdSP\n"
-                    + "WHERE IMei.TrangThai = 0 AND IdChiTietSP = ? AND IMei = ?";
+                    + "WHERE IMei.TrangThai = 0 AND IdChiTietSP = ? AND IMei LIKE '%"+im+"%'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, idCtsp);
-            ps.setString(2, im);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String iMei = rs.getString("IMei");

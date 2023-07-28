@@ -66,18 +66,18 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
         try {
             List<ChiTietSP> lstChiTietSP = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT CTSP.Id AS 'Id', CTSP.Ma AS 'Ma', SP.Id AS 'IdSP', SP.Ma AS 'MaSP', SP.Ten AS 'TenSP', DSP.Id AS 'IdDongSP', DSP.Ten AS 'TenDongSP', NSX.Id AS 'IdNSX', NSX.Ten AS 'TenNSX', QuocGia AS 'QuocGia', MS.Id AS 'IdMauSac', MS.Ten AS 'MauSac', \n"
-                    + "RAM.Id AS 'IdRAM', RAM.Ten AS 'RAM', SSD.Id AS 'IdSSD', SSD.Ten AS 'SSD', CPU.Id AS 'IdCPU', CPU.Ten AS 'CPU', MH.Id AS 'IdMH', MH.DoPhanGiai AS 'DoPhanGiai', MH.Inch AS 'Inch', CTSP.GiaBan AS 'GiaBan', BH.Id AS 'IdBH', BH.SoThangBH AS 'BaoHanh', CTSP.SoLuongTon AS 'SoLuong', CTSP.TrangThai AS 'TrangThai'\n"
-                    + "FROM dbo.ChiTietSP CTSP JOIN dbo.SanPham SP\n"
-                    + "ON SP.Id = CTSP.IdSP JOIN dbo.RAM \n"
-                    + "ON RAM.Id = CTSP.IdRAM JOIN dbo.SSD\n"
-                    + "ON SSD.Id = CTSP.IdSSD JOIN dbo.MauSac MS\n"
-                    + "ON MS.Id = CTSP.IdMauSac JOIN dbo.CPU\n"
-                    + "ON CPU.Id = CTSP.IdCPU JOIN dbo.ManHinh MH\n"
-                    + "ON MH.Id = CTSP.IdManHinh JOIN dbo.BaoHanh BH\n"
-                    + "ON BH.Id = CTSP.IdBH JOIN dbo.DongSP DSP\n"
-                    + "ON DSP.Id = CTSP.IdDongSP JOIN dbo.NSX\n"
-                    + "ON NSX.Id = CTSP.IdNSX";
+            String sql = "SELECT CTSP.Id AS 'Id', CTSP.Ma AS 'Ma', SP.Id AS 'IdSP', SP.Ma AS 'MaSP', SP.Ten AS 'TenSP', DSP.Id AS 'IdDongSP', DSP.Ten AS 'TenDongSP', NSX.Id AS 'IdNSX', NSX.Ten AS 'TenNSX', QuocGia AS 'QuocGia', MS.Id AS 'IdMauSac', MS.Ten AS 'MauSac',\n" +
+                        "RAM.Id AS 'IdRAM', RAM.Ten AS 'RAM', SSD.Id AS 'IdSSD', SSD.Ten AS 'SSD', CPU.Id AS 'IdCPU', CPU.Ten AS 'CPU', MH.Id AS 'IdMH', MH.DoPhanGiai AS 'DoPhanGiai', MH.Inch AS 'Inch', CTSP.GiaBan AS 'GiaBan', BH.Id AS 'IdBH', BH.SoThangBH AS 'BaoHanh', CTSP.SoLuongTon AS 'SoLuong', CTSP.TrangThai AS 'TrangThai'\n" +
+                        "FROM dbo.ChiTietSP CTSP JOIN dbo.SanPham SP\n" +
+                        "ON SP.Id = CTSP.IdSP JOIN dbo.RAM \n" +
+                        "ON RAM.Id = CTSP.IdRAM JOIN dbo.SSD\n" +
+                        "ON SSD.Id = CTSP.IdSSD JOIN dbo.MauSac MS\n" +
+                        "ON MS.Id = CTSP.IdMauSac JOIN dbo.CPU\n" +
+                        "ON CPU.Id = CTSP.IdCPU JOIN dbo.ManHinh MH\n" +
+                        "ON MH.Id = CTSP.IdManHinh JOIN dbo.BaoHanh BH\n" +
+                        "ON BH.Id = CTSP.IdBH JOIN dbo.DongSP DSP\n" +
+                        "ON DSP.Id = CTSP.IdDongSP JOIN dbo.NSX\n" +
+                        "ON NSX.Id = CTSP.IdNSX";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -632,7 +632,19 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
 
     @Override
     public Integer updateTrangThai(String trangThai, String ma) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            Integer result = 0;
+            Connection connection = DBConnection.getConnection();
+            String sql = "UPDATE dbo.ChiTietSP SET TrangThai = ? WHERE Ma = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, trangThai);
+            ps.setString(2, ma);
+
+            result = ps.executeUpdate();
+            return result;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     @Override

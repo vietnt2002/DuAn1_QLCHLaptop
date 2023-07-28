@@ -90,7 +90,7 @@ public class KhuyenMaiRepository {
 
     public List<KhuyenMai> getAllTrangThai(int trangThai) {
         List<KhuyenMai> list = new ArrayList<>();
-        String sql = "Select * from KhuyenMai Where TrangThai =" + trangThai;
+        String sql = "Select * from KhuyenMai Where SoLuong > 0 AND TrangThai =" + trangThai;
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();

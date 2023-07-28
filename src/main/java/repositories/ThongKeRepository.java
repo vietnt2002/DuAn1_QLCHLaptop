@@ -56,9 +56,8 @@ public class ThongKeRepository {
 
     public int getDoanhThuNgay() {
         int sl;
-        String sql = "Select Sum(ThanhTien) AS 'ThanhTien' from ChiTietHD\n"
-                + " Join hoadon HD on HD.Id = ChiTietHD.IdHD\n"
-                + " Where Day(NgayThanhToan) = day(GetDate()) AND HD.TrangThai = '1' ";
+        String sql = "Select Sum(ThanhTien) AS 'ThanhTien' from HoaDon\n" +
+                    "Where Day(NgayThanhToan) = day(GetDate()) AND TrangThai = '1'";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -160,8 +159,8 @@ public class ThongKeRepository {
     public List<viewThongKeDT> getDTTKThang(int year) {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select month(NgayThanhToan) As 'Thang',Sum(ThanhTien) As 'Doanhthu'\n"
-                + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where HD.TrangThai = 1 AND Year(NgayThanhToan) = ?\n"
+                + " From HoaDOn\n"
+                + " where TrangThai = 1 AND Year(NgayThanhToan) = ?\n"
                 + " Group by month(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -183,8 +182,8 @@ public class ThongKeRepository {
     public List<viewThongKeDT> getDTTKNam() {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select year(NgayThanhToan) As 'nam',Sum(ThanhTien) As 'Doanhthu'\n"
-                + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where HD.TrangThai = 1\n"
+                + " From HoaDOn\n"
+                + " where TrangThai = 1\n"
                 + " Group by year(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -204,8 +203,8 @@ public class ThongKeRepository {
     public List<viewThongKeDT> getDTTKNgay(LocalDateTime ngayDau, LocalDateTime ngayCuoi) {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select day(NgayThanhToan) As 'nam',Sum(ThanhTien) As 'Doanhthu'\n"
-                + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where HD.TrangThai = 1 AND NgayThanhToan Between ? and ?\n"
+                + " From HoaDOn\n"
+                + " where TrangThai = 1 AND NgayThanhToan Between ? and ?\n"
                 + " Group by day(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -305,8 +304,8 @@ public class ThongKeRepository {
     public List<viewThongKeDT> getBangDTTKThang(int year) {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select month(NgayThanhToan) As 'Thang',Sum(ThanhTien) As 'Doanhthu'\n"
-                + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where HD.TrangThai = 1 and Year(NgayThanhToan) = ?\n"
+                + " From HoaDOn\n"
+                + " where TrangThai = 1 and Year(NgayThanhToan) = ?\n"
                 + " Group by month(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -328,8 +327,8 @@ public class ThongKeRepository {
     public List<viewThongKeDT> getBangDTTKNam() {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select year(NgayThanhToan) As 'nam',Sum(ThanhTien) As 'Doanhthu'\n"
-                + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + "Where HD.TrangThai = 1\n"
+                + " From HoaDOn\n"
+                + "Where TrangThai = 1\n"
                 + " Group by year(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -349,8 +348,8 @@ public class ThongKeRepository {
     public List<viewThongKeDT> getBangDTTKNgay(LocalDateTime ngayDau, LocalDateTime ngayCuoi) {
         List<viewThongKeDT> listDT = new ArrayList<>();
         String sql = " Select day(NgayThanhToan) As 'nam',Sum(ThanhTien) As 'Doanhthu'\n"
-                + " From HoaDOn HD join ChiTietHD CTHD On CTHD.IdHd=HD.id\n"
-                + " where HD.TrangThai = 1 and NgayThanhToan Between ? and ?\n"
+                + " From HoaDOn\n"
+                + " where TrangThai = 1 and NgayThanhToan Between ? and ?\n"
                 + " Group by day(NgayThanhToan)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);

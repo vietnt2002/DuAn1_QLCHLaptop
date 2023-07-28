@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import repositories.QuanLyHoaDonRepository;
 import services.KhachHangService;
 import services.NhanVienService;
+import utilities.UserInfo;
 import viewmodel.viewChiTietHoaDon;
 
 /**
@@ -32,23 +33,30 @@ public class JplHoaDon extends javax.swing.JPanel {
 
     public JplHoaDon() {
         initComponents();
-        loadDataHoaDon(QLHD.getHoaDon());
         jDate1.setDate(new Date());
         jDate2.setDate(new Date());
+
+        loadHoaDonTheoMaNV();
+    }
+
+    private void loadHoaDonTheoMaNV() {
+        String vaiTro = nhanVienService.setQuyen(UserInfo.tenTK);
+        if (vaiTro.equals("Quản lý")) {
+            loadDataHoaDon(QLHD.getHoaDon());
+        } else {
+            loadDataHoaDon(QLHD.getHoaDonByMaNV(UserInfo.tenTK));
+        }
     }
 
     private void loadDataHoaDon(List<viewChiTietHoaDon> list) {
         model = (DefaultTableModel) tblHoaDon.getModel();
         model.setRowCount(0);
+        int count = 1;
         for (viewChiTietHoaDon hd : list) {
-            NhanVien nhanVien = nhanVienService.getHoTenById(hd.getIdNV());
-            String hoTenNV = nhanVien.getHo()+" "+nhanVien.getTenDem()+" "+nhanVien.getTen();
-            KhachHang khachHang = khachHangService.getHoTenById(hd.getIdKH());
-            String hoTenKH = khachHang.getHo()+" "+khachHang.getTenDem()+" "+khachHang.getTen();
-            if(hoTenKH.equals("null null null")){
-                hoTenKH = "";
-            }
+            String hoTenNV = nhanVienService.getHoTenById(hd.getIdNV());
+            String hoTenKH = khachHangService.getHoTenById(hd.getIdKH());
             model.addRow(new Object[]{
+                count++,
                 hd.getMa(),
                 hoTenKH,
                 hd.getNgayThanhToan(),
@@ -75,10 +83,10 @@ public class JplHoaDon extends javax.swing.JPanel {
                 hd.getRAM(),
                 hd.getSSD(),
                 hd.getManHinh(),
-                hd.getCanNang()+" KG",
-                hd.getBaoHanh()+" Tháng",
+                hd.getCanNang() + " KG",
+                hd.getBaoHanh() + " Tháng",
                 hd.getMoTa(),
-                hd.getGiaBan()+" VND"
+                hd.getGiaBan() + " VND"
             });
         }
     }
@@ -134,11 +142,11 @@ public class JplHoaDon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã hoá đơn", "Khách hàng ", "Ngày thanh toán", "Thu ngân", "Khuyến mãi", "Thành tiền", "Trạng Thái", "Ghi chú"
+                "STT", "Mã hoá đơn", "Khách hàng ", "Ngày thanh toán", "Thu ngân", "Khuyến mãi", "Thành tiền", "Trạng Thái", "Ghi chú"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -429,8 +437,14 @@ public class JplHoaDon extends javax.swing.JPanel {
 
     private void txtTraCuuCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTraCuuCaretUpdate
         String key = txtTraCuu.getText().trim();
-        List<viewChiTietHoaDon> list1 = QLHD.timHoaDonTheoMa(key);
-        loadDataHoaDon(list1);
+        String vaiTro = nhanVienService.setQuyen(UserInfo.tenTK);
+        if (vaiTro.equals("Quản lý")) {
+            List<viewChiTietHoaDon> list1 = QLHD.timHoaDonTheoMa(key);
+            loadDataHoaDon(list1);
+        } else {
+            List<viewChiTietHoaDon> lst2 = QLHD.timHoaDonTheoMaHD_MaNV(key, UserInfo.tenTK);
+            loadDataHoaDon(lst2);
+        }
     }//GEN-LAST:event_txtTraCuuCaretUpdate
 
     private void jDate1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDate1PropertyChange
@@ -451,26 +465,56 @@ public class JplHoaDon extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước ngày kết thúc!");
             return;
         }
-        LocalDate dau = jDate1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate cuoi = jDate2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        loadDataHoaDon(QLHD.getTimHoaDonTheoNgay(dau, cuoi));
+
+        String vaiTro = nhanVienService.setQuyen(UserInfo.tenTK);
+        if (vaiTro.equals("Quản lý")) {
+            LocalDate dau = jDate1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate cuoi = jDate2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            loadDataHoaDon(QLHD.getTimHoaDonTheoNgay(dau, cuoi));
+        } else {
+            LocalDate dau = jDate1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate cuoi = jDate2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            loadDataHoaDon(QLHD.getTimHoaDonTheoNgay_MaNV(dau, cuoi, UserInfo.tenTK));
+        }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jDate1.setDate(new Date());
-        jDate2.setDate(new Date());
-        loadDataHoaDon(QLHD.getHoaDon());
+        String vaiTro = nhanVienService.setQuyen(UserInfo.tenTK);
+        if (vaiTro.equals("Quản lý")) {
+            jDate1.setDate(new Date());
+            jDate2.setDate(new Date());
+            loadDataHoaDon(QLHD.getHoaDon());
+        } else {
+            jDate1.setDate(new Date());
+            jDate2.setDate(new Date());
+            loadDataHoaDon(QLHD.getHoaDonByMaNV(UserInfo.tenTK));
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cboLocTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLocTrangThaiActionPerformed
-        if (cboLocTrangThai.getSelectedItem().equals("Tất cả")) {
-            loadDataHoaDon(QLHD.getHoaDon());
-        } else if (cboLocTrangThai.getSelectedItem().equals("Đã hoàn thành")) {
-            loadDataHoaDon(QLHD.locHoaDon(1));
+        String vaiTro = nhanVienService.setQuyen(UserInfo.tenTK);
+        if (vaiTro.equals("Quản lý")) {
+            if (cboLocTrangThai.getSelectedItem().equals("Tất cả")) {
+                loadDataHoaDon(QLHD.getHoaDon());
+            } else if (cboLocTrangThai.getSelectedItem().equals("Đã hoàn thành")) {
+                loadDataHoaDon(QLHD.locHoaDon(1));
+            } else {
+                loadDataHoaDon(QLHD.locHoaDon(2));
+            }
         } else {
-            loadDataHoaDon(QLHD.locHoaDon(2));
+            if (cboLocTrangThai.getSelectedItem().equals("Tất cả")) {
+                loadDataHoaDon(QLHD.getHoaDonByMaNV(UserInfo.tenTK));
+            } else if (cboLocTrangThai.getSelectedItem().equals("Đã hoàn thành")) {
+                loadDataHoaDon(QLHD.locHoaDonTheoMaNV(1, UserInfo.tenTK));
+            } else {
+                loadDataHoaDon(QLHD.locHoaDonTheoMaNV(2, UserInfo.tenTK));
+            }
         }
+
+
     }//GEN-LAST:event_cboLocTrangThaiActionPerformed
 
 

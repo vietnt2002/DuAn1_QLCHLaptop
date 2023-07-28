@@ -59,12 +59,12 @@ public class NhanVienService implements INhanVienService {
     }
 
     @Override
-    public NhanVien getHoTenByMa(String ma) {
+    public String getHoTenByMa(String ma) {
         return iNhanVienRepo.getHoTenByMa(ma);
     }
 
     @Override
-    public NhanVien getHoTenById(String id) {
+    public String getHoTenById(String id) {
         return iNhanVienRepo.getHoTenById(id);
     }
 

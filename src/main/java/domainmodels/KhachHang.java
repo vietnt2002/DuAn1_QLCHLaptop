@@ -14,31 +14,23 @@ public class KhachHang {
 
     private String id;
     private String ma;
-    private String ten;
-    private String tenDem;
-    private String ho;
+    private String hoTen;
     private Date ngaySinh;
     private String sdt;
     private String diaChi;
-    private String email;
-    private int soLanMuaHang;
     private Date ngayTao;
     private Date ngaySua;
 
     public KhachHang() {
     }
 
-    public KhachHang(String id, String ma, String ten, String tenDem, String ho, Date ngaySinh, String sdt, String diaChi, String email, int soLanMuaHang, Date ngayTao, Date ngaySua) {
+    public KhachHang(String id, String ma, String hoTen, Date ngaySinh, String sdt, String diaChi, Date ngayTao, Date ngaySua) {
         this.id = id;
         this.ma = ma;
-        this.ten = ten;
-        this.tenDem = tenDem;
-        this.ho = ho;
+        this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
         this.sdt = sdt;
         this.diaChi = diaChi;
-        this.email = email;
-        this.soLanMuaHang = soLanMuaHang;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
     }
@@ -59,28 +51,12 @@ public class KhachHang {
         this.ma = ma;
     }
 
-    public String getTen() {
-        return ten;
+    public String getHoTen() {
+        return hoTen;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
-    }
-
-    public String getTenDem() {
-        return tenDem;
-    }
-
-    public void setTenDem(String tenDem) {
-        this.tenDem = tenDem;
-    }
-
-    public String getHo() {
-        return ho;
-    }
-
-    public void setHo(String ho) {
-        this.ho = ho;
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
     }
 
     public Date getNgaySinh() {
@@ -107,22 +83,6 @@ public class KhachHang {
         this.diaChi = diaChi;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getSoLanMuaHang() {
-        return soLanMuaHang;
-    }
-
-    public void setSoLanMuaHang(int soLanMuaHang) {
-        this.soLanMuaHang = soLanMuaHang;
-    }
-
     public Date getNgayTao() {
         return ngayTao;
     }
@@ -138,7 +98,7 @@ public class KhachHang {
     public void setNgaySua(Date ngaySua) {
         this.ngaySua = ngaySua;
     }
-
+    
     @Override
     public String toString() {
         return ma;

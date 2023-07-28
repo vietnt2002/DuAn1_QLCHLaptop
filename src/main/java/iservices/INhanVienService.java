@@ -29,9 +29,9 @@ public interface INhanVienService {
 
     List<String> getTenChucVu();
 
-    NhanVien getHoTenByMa(String ma);
+    String getHoTenByMa(String ma);
 
-    NhanVien getHoTenById(String id);
+    String getHoTenById(String id);
 
     List<NhanVien> getAllDangLam();
 

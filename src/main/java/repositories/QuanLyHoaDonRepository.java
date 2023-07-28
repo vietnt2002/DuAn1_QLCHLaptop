@@ -24,9 +24,39 @@ public class QuanLyHoaDonRepository {
     public List<viewChiTietHoaDon> getHoaDon() {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, TrangThai, LyDo FROM dbo.HoaDon\n" +
-                    "WHERE TrangThai = 1 OR TrangThai = 2";
+                    "WHERE TrangThai = 1 OR TrangThai = 2\n" +
+                    "ORDER BY NumOrder DESC";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
+            ResultSet RS = PS.executeQuery();
+            while (RS.next()) {
+                viewChiTietHoaDon hd = new viewChiTietHoaDon();
+                hd.setMa(RS.getString("Ma"));
+                hd.setIdNV(RS.getString("IdNV"));
+                hd.setIdKH(RS.getString("IdKH"));
+                hd.setNgayThanhToan(RS.getDate("NgayThanhToan"));
+                hd.setKhuyenMai(RS.getBigDecimal("KhuyenMai"));
+                hd.setThanhTien(RS.getBigDecimal("ThanhTien"));
+                hd.setTrangThai(RS.getInt("TrangThai"));
+                hd.setGhiChu(RS.getString("LyDo"));
+                
+                list.add(hd);
+            }
+            
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    public List<viewChiTietHoaDon> getHoaDonByMaNV(String maNV) {
+        List<viewChiTietHoaDon> list = new ArrayList<>();
+        String sql = "SELECT HD.Ma AS 'Ma', IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, HD.TrangThai AS 'TrangThai', LyDo FROM dbo.HoaDon HD JOIN dbo.NhanVien NV\n" +
+                    "ON NV.Id = HD.IdNV\n" +
+                    "WHERE (HD.TrangThai = 1 OR HD.TrangThai = 2) AND NV.Ma = ?\n" +
+                    "ORDER BY HD.NumOrder DESC";
+        try {
+            PreparedStatement PS = con.prepareStatement(sql);
+            PS.setString(1, maNV);
             ResultSet RS = PS.executeQuery();
             while (RS.next()) {
                 viewChiTietHoaDon hd = new viewChiTietHoaDon();
@@ -121,6 +151,36 @@ public class QuanLyHoaDonRepository {
         return list;
     }
     
+    public List<viewChiTietHoaDon> timHoaDonTheoMaHD_MaNV(String tim, String maNV) {
+        List<viewChiTietHoaDon> list = new ArrayList<>();
+        String sql = "SELECT HD.Ma AS 'Ma', IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, HD.TrangThai AS 'TrangThai', LyDo FROM dbo.HoaDon HD JOIN dbo.KhachHang KH\n" +
+                    "ON KH.Id = HD.IdKH JOIN dbo.NhanVien NV\n" +
+                    "ON NV.Id = HD.IdNV\n" +
+                    "WHERE NV.Ma = ? AND (HD.Ma LIKE '%"+tim+"%' OR KH.Sdt LIKE '%"+tim+"%')";
+        try {
+            PreparedStatement PS = con.prepareStatement(sql);
+            PS.setString(1, maNV);
+            ResultSet RS = PS.executeQuery();
+            while (RS.next()) {
+                viewChiTietHoaDon hd = new viewChiTietHoaDon();
+                hd.setMa(RS.getString("Ma"));
+                hd.setIdNV(RS.getString("IdNV"));
+                hd.setIdKH(RS.getString("IdKH"));
+                hd.setNgayThanhToan(RS.getDate("NgayThanhToan"));
+                hd.setKhuyenMai(RS.getBigDecimal("KhuyenMai"));
+                hd.setThanhTien(RS.getBigDecimal("ThanhTien"));
+                hd.setTrangThai(RS.getInt("TrangThai"));
+                hd.setGhiChu(RS.getString("LyDo"));
+                
+                list.add(hd);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
     public List<viewChiTietHoaDon> getTimHoaDonTheoNgay(LocalDate dau, LocalDate cuoi) {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, TrangThai, LyDo FROM dbo.HoaDon\n" +
@@ -150,6 +210,37 @@ public class QuanLyHoaDonRepository {
         return list;
     }
     
+    public List<viewChiTietHoaDon> getTimHoaDonTheoNgay_MaNV(LocalDate dau, LocalDate cuoi, String maNV) {
+        List<viewChiTietHoaDon> list = new ArrayList<>();
+        String sql = "SELECT HD.Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, HD.TrangThai, LyDo FROM dbo.HoaDon HD JOIN dbo.NhanVien NV\n" +
+                    "ON NV.Id = HD.IdNV\n" +
+                    "WHERE (HD.TrangThai = 1 OR HD.TrangThai = 2) AND (NgayThanhToan BETWEEN ? AND ?) AND NV.Ma = ?";
+        try {
+            PreparedStatement PS = con.prepareStatement(sql);
+            PS.setObject(1, dau);
+            PS.setObject(2, cuoi);
+            PS.setObject(3, maNV);
+            ResultSet RS = PS.executeQuery();
+            while (RS.next()) {
+                viewChiTietHoaDon hd = new viewChiTietHoaDon();
+                hd.setMa(RS.getString("Ma"));
+                hd.setIdNV(RS.getString("IdNV"));
+                hd.setIdKH(RS.getString("IdKH"));
+                hd.setNgayThanhToan(RS.getDate("NgayThanhToan"));
+                hd.setKhuyenMai(RS.getBigDecimal("KhuyenMai"));
+                hd.setThanhTien(RS.getBigDecimal("ThanhTien"));
+                hd.setTrangThai(RS.getInt("TrangThai"));
+                hd.setGhiChu(RS.getString("LyDo"));
+                
+                list.add(hd);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
     public List<viewChiTietHoaDon> locHoaDon(int trangThai) {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, TrangThai, LyDo FROM dbo.HoaDon\n" +
@@ -157,6 +248,35 @@ public class QuanLyHoaDonRepository {
         
         try {
             PreparedStatement PS = con.prepareStatement(sql);
+            ResultSet RS = PS.executeQuery();
+            while (RS.next()) {
+                viewChiTietHoaDon hd = new viewChiTietHoaDon();
+                hd.setMa(RS.getString("Ma"));
+                hd.setIdNV(RS.getString("IdNV"));
+                hd.setIdKH(RS.getString("IdKH"));
+                hd.setNgayThanhToan(RS.getDate("NgayThanhToan"));
+                hd.setKhuyenMai(RS.getBigDecimal("KhuyenMai"));
+                hd.setThanhTien(RS.getBigDecimal("ThanhTien"));
+                hd.setTrangThai(RS.getInt("TrangThai"));
+                hd.setGhiChu(RS.getString("LyDo"));
+                
+                list.add(hd);
+            }
+            
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    public List<viewChiTietHoaDon> locHoaDonTheoMaNV(int trangThai, String maNV) {
+        List<viewChiTietHoaDon> list = new ArrayList<>();
+        String sql = "SELECT HD.Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, HD.TrangThai, LyDo FROM dbo.HoaDon HD JOIN dbo.NhanVien NV\n" +
+                    "ON NV.Id = HD.IdNV\n" +
+                    "WHERE NV.Ma = ? AND HD.TrangThai = " + trangThai;
+        
+        try {
+            PreparedStatement PS = con.prepareStatement(sql);
+            PS.setObject(1, maNV);
             ResultSet RS = PS.executeQuery();
             while (RS.next()) {
                 viewChiTietHoaDon hd = new viewChiTietHoaDon();

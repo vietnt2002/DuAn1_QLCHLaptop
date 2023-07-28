@@ -69,29 +69,18 @@ public class KhachHangService implements IKhachHangService {
     }
 
     @Override
-    public KhachHang getHoTenByMa(String ma) {
+    public String getHoTenByMa(String ma) {
         return ikhachHangRepo.getHoTenByMa(ma);
     }
     
     @Override
-    public KhachHang getHoTenById(String id) {
+    public String getHoTenById(String id) {
         return ikhachHangRepo.getHoTenById(id);
     }
 
     @Override
-    public KhachHang getThongTinBySdtOrEmail(String sdtOrEmail) {
-        return ikhachHangRepo.getThongTinBySdtOrEmail(sdtOrEmail);
-    }
-
-    @Override
-    public List<Integer> getSoLanMua() {
-      return ikhachHangRepo.getSoLanMua();
-    }
-
-    @Override
-    public List<KhachHang> locSoLanMua(int solan) {
-       return ikhachHangRepo.locSoLanMua(solan);
-               
+    public KhachHang getThongTinBySdt(String sdt) {
+        return ikhachHangRepo.getThongTinBySdt(sdt);
     }
 
 }
