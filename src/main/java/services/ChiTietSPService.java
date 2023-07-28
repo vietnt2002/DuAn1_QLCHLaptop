@@ -166,6 +166,11 @@ public class ChiTietSPService implements IChiTietSPService {
     public Map<String, String> hashMapBaoHanh() {
         return Repository.hashMapBaoHanh();
     }
+    
+    @Override
+    public Map<String, Integer> hashMapBH() {
+        return Repository.hashMapBH();
+    }
 
     @Override
     public Integer sua(viewCTSP sp, Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh, String id) {
@@ -355,6 +360,11 @@ public class ChiTietSPService implements IChiTietSPService {
 
         }
         return lst1;
+    }
+    
+    @Override
+    public List<ChiTietSP> getByDongSP(String tenDongSP) {
+        return Repository.getByDongSP(tenDongSP);
     }
 
 }

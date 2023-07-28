@@ -166,7 +166,7 @@ public class ImeiRepository implements IImeiRepository {
             String sql = "SELECT IMei AS 'IMei', SP.Ten AS 'TenSP', IMei.TrangThai AS 'TrangThai' FROM dbo.IMei JOIN dbo.ChiTietSP CTSP\n"
                     + "ON CTSP.Id = IMei.IdChiTietSP JOIN dbo.SanPham SP\n"
                     + "ON SP.Id = CTSP.IdSP\n"
-                    + "WHERE IMei.TrangThai = 0 AND IdChiTietSP = ? AND IMei LIKE '%"+im+"%'";
+                    + "WHERE IMei.TrangThai = 0 AND IdChiTietSP = ? AND IMei LIKE '%" + im + "%'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, idCtsp);
             ResultSet rs = ps.executeQuery();
@@ -205,7 +205,6 @@ public class ImeiRepository implements IImeiRepository {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, trangThai);
             ps.setString(2, imei);
-
             result = ps.executeUpdate();
             ps.close();
             connection.close();
@@ -224,6 +223,49 @@ public class ImeiRepository implements IImeiRepository {
             tenSp.put(a.getId(), a.getMa());
         }
         return tenSp;
+    }
+
+    @Override
+    public List<Imei> getAllwId() {
+        try {
+            List<Imei> lstIMei = new ArrayList<>();
+            Connection connection = DBConnection.getConnection();
+            String sql = "SELECT id, IMei, TrangThai FROM dbo.IMei \n"
+                    + "WHERE TrangThai = 0";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String im = rs.getString("IMei");
+                int trangThai = rs.getInt("TrangThai");
+                Imei imei = new Imei();
+                imei.setId(id);
+                imei.setImei(im);
+                imei.setTrangThai(trangThai);
+                lstIMei.add(imei);
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+            return lstIMei;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    @Override
+    public Integer xoaCTSP(String idChiTietSP) {
+        try {
+            java.util.UUID id = UUID.fromString(idChiTietSP);
+            Connection connection = DBConnection.getConnection();
+            String lenh = "delete dbo.Imei where IdChiTietSP = ?";
+            PreparedStatement ps = connection.prepareStatement(lenh);
+            ps.setObject(1, id);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 }

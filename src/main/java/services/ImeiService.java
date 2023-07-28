@@ -4,6 +4,7 @@
  */
 package services;
 
+import domainmodels.ChiTietSP;
 import domainmodels.Imei;
 import irepositories.IImeiRepository;
 import iservices.IImeiService;
@@ -22,6 +23,11 @@ public class ImeiService implements IImeiService {
     @Override
     public List<Imei> getAll() {
         return imeiRepo.getAll();
+    }
+    
+    @Override
+    public List<Imei> getAllwId() {
+        return imeiRepo.getAllwId();
     }
 
     @Override
@@ -62,5 +68,10 @@ public class ImeiService implements IImeiService {
     @Override
     public Map<String, String> hashMapMaCTSP() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public Integer xoaCTSP(String idChiTietSP) {
+        return imeiRepo.xoa(idChiTietSP);
     }
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 public interface IChiTietSPService {
     List<ChiTietSP> getAllCTSP();
     List<ChiTietSP> getAllByDongSP(String tenDongSP);
+    List<ChiTietSP> getByDongSP(String tenDongSP);
     Integer themCTSP(ChiTietSP chiTietSP);
     Integer suaCTSP(ChiTietSP chiTietSP);
     Integer them(ChiTietSP chiTietSP);
@@ -57,4 +58,6 @@ public interface IChiTietSPService {
     Map<String, String> hashMapSSD();
     Map<String, String> hashMapBaoHanh();
     Map<String, String> hashMapHoaDon();
+    Map<String, Integer> hashMapBH();
+
 }
