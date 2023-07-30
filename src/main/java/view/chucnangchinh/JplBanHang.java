@@ -1621,8 +1621,8 @@ public class JplBanHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần thanh toán!");
             return;
         }
-        String idKH = tblHoaDon.getValueAt(indexHD, 4).toString();
-        if (idKH.equals("")) {
+        String idKH = (String) tblHoaDon.getValueAt(indexHD, 4);
+        if (idKH == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng thêm thông tin khách hàng vào hóa đơn!");
             return;
         }
@@ -1706,7 +1706,6 @@ public class JplBanHang extends javax.swing.JPanel {
         LoadTableHoaDon();
         model = (DefaultTableModel) tblGioHang.getModel();
         model.setRowCount(0);
-
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnChonKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonKHActionPerformed

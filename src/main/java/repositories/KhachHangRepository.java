@@ -153,6 +153,7 @@ public class KhachHangRepository implements IKhachHangRepository {
                 listKhachHang.add(khachHang);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return listKhachHang;
     }
@@ -190,7 +191,7 @@ public class KhachHangRepository implements IKhachHangRepository {
             while (RS.next()) {
                 String id = RS.getString("Id");
                 String ma = RS.getString("Ma");
-                String hoTen = RS.getString("Ten");
+                String hoTen = RS.getString("HoTen");
                 Date ngaySinh = RS.getDate("NgaySinh");
                 String sdt = RS.getString("Sdt");
                 String diaChi = RS.getString("DiaChi");
@@ -201,6 +202,7 @@ public class KhachHangRepository implements IKhachHangRepository {
                 listKhachHang.add(khachHang);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return listKhachHang;
     }
