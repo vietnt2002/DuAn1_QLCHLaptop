@@ -128,8 +128,8 @@ public class JplHoaDon extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtTimImei = new javax.swing.JTextField();
         btnTimImei = new javax.swing.JButton();
-        btnDongY1 = new javax.swing.JButton();
-        btnDongY = new javax.swing.JButton();
+        btnDoiHang = new javax.swing.JButton();
+        btnTraHang = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -163,15 +163,23 @@ public class JplHoaDon extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "STT", "Mã CTSP", "Tên SP", "Màu sắc", "RamGB", "SSD", "CPU", "Màn hình ", "Thời gian BH", "Đơn giá", "Số lượng", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane5.setViewportView(jTable2);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -182,9 +190,17 @@ public class JplHoaDon extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "STT", "Imei", "Tên SP", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(jTable1);
 
         jLabel4.setText("Lý do đổi trả: ");
@@ -204,21 +220,21 @@ public class JplHoaDon extends javax.swing.JPanel {
             }
         });
 
-        btnDongY1.setBackground(new java.awt.Color(255, 51, 51));
-        btnDongY1.setForeground(new java.awt.Color(255, 255, 255));
-        btnDongY1.setText("Đổi hàng");
-        btnDongY1.addActionListener(new java.awt.event.ActionListener() {
+        btnDoiHang.setBackground(new java.awt.Color(255, 51, 51));
+        btnDoiHang.setForeground(new java.awt.Color(255, 255, 255));
+        btnDoiHang.setText("Đổi hàng");
+        btnDoiHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDongY1ActionPerformed(evt);
+                btnDoiHangActionPerformed(evt);
             }
         });
 
-        btnDongY.setBackground(new java.awt.Color(255, 51, 51));
-        btnDongY.setForeground(new java.awt.Color(255, 255, 255));
-        btnDongY.setText("Trả hàng");
-        btnDongY.addActionListener(new java.awt.event.ActionListener() {
+        btnTraHang.setBackground(new java.awt.Color(255, 51, 51));
+        btnTraHang.setForeground(new java.awt.Color(255, 255, 255));
+        btnTraHang.setText("Trả hàng");
+        btnTraHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDongYActionPerformed(evt);
+                btnTraHangActionPerformed(evt);
             }
         });
 
@@ -230,32 +246,29 @@ public class JplHoaDon extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(289, 289, 289)
-                        .addComponent(btnDongY1)
+                        .addComponent(btnDoiHang)
                         .addGap(42, 42, 42)
-                        .addComponent(btnDongY))
+                        .addComponent(btnTraHang))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(100, 100, 100)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(167, 167, 167)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTimImei, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnTimImei))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTimImei, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTimImei))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDongY, btnDongY1});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDoiHang, btnTraHang});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,12 +289,12 @@ public class JplHoaDon extends javax.swing.JPanel {
                         .addComponent(btnTimImei, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDongY1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDongY, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDoiHang, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDongY, btnDongY1});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDoiHang, btnTraHang});
 
         javax.swing.GroupLayout DoiTraHangLayout = new javax.swing.GroupLayout(DoiTraHang.getContentPane());
         DoiTraHang.getContentPane().setLayout(DoiTraHangLayout);
@@ -701,10 +714,10 @@ public class JplHoaDon extends javax.swing.JPanel {
         suaHoaDon();
     }//GEN-LAST:event_btnSuaHDActionPerformed
 
-    private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
+    private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraHangActionPerformed
         // Đồng ý trả hàng
 
-    }//GEN-LAST:event_btnDongYActionPerformed
+    }//GEN-LAST:event_btnTraHangActionPerformed
 
     private void tblHoaDonChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChiTietMouseClicked
         // trả hàng
@@ -714,9 +727,9 @@ public class JplHoaDon extends javax.swing.JPanel {
         DoiTraHang.setVisible(true);
     }//GEN-LAST:event_tblHoaDonChiTietMouseClicked
 
-    private void btnDongY1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongY1ActionPerformed
+    private void btnDoiHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiHangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDongY1ActionPerformed
+    }//GEN-LAST:event_btnDoiHangActionPerformed
 
     private void btnTimImeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimImeiActionPerformed
         // TODO add your handling code here:
@@ -725,10 +738,10 @@ public class JplHoaDon extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog DoiTraHang;
-    private javax.swing.JButton btnDongY;
-    private javax.swing.JButton btnDongY1;
+    private javax.swing.JButton btnDoiHang;
     private javax.swing.JButton btnSuaHD;
     private javax.swing.JButton btnTimImei;
+    private javax.swing.JButton btnTraHang;
     private javax.swing.JComboBox<String> cboLocTrangThai;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
