@@ -1132,7 +1132,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 }
                 JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
             } else {
-                JOptionPane.showMessageDialog(this, "Nhập thất bại!");
+                JOptionPane.showMessageDialog(this, "Thêm thất bại!");
                 return;
             }
 
@@ -1540,7 +1540,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     modelIMEI.addRow(new Object[]{
                         num++,
                         imei.getImei(),
-                        imei.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                        imei.getStatus(imei.getTrangThai())
                     });
                 }
             }
