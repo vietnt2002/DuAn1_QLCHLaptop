@@ -8,6 +8,7 @@ import viewmodel.viewCTSP;
 import domainmodels.ChiTietSP;
 import domainmodels.ChiTietHD;
 import domainmodels.Imei;
+import irepositories.IChiTietSPRepository;
 import iservices.IChiTietHDService;
 import iservices.IChiTietSPService;
 import iservices.IImeiService;
@@ -23,6 +24,7 @@ import utilities.DBConnection;
 import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JComboBox;
+import repositories.ChiTietSPRepository;
 import services.CheckTrungService;
 import services.ChiTietSPService;
 import services.ImeiService;
@@ -45,11 +47,14 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     private final IChiTietSPService Services = new ChiTietSPService() {
     };
+    private final IChiTietSPRepository Repository = new ChiTietSPRepository() {
+    };
     private final IImeiService Services2 = new ImeiService() {
     };
     private final IChiTietHDService Services3 = new ChiTietHDService() {
     };
     List<viewCTSP> lstCTSP = new ArrayList<>();
+    List<ChiTietSP> lstP = new ArrayList<>();
     List<ChiTietHD> lstCTHD = new ArrayList<>();
     DefaultTableModel modelCTSP = new DefaultTableModel();
     List<Imei> lstIMEI = new ArrayList<>();
@@ -139,6 +144,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
             num = 1;
             modelCTSP.setRowCount(0);
             lstCTSP = Services.getAll(ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
+            lstP = Services.getAllCTSP();
             for (viewCTSP a : lstCTSP) {
                 modelCTSP.addRow(new Object[]{
                     a.getMa(),
@@ -923,32 +929,35 @@ public class JplQuanLySP extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblId)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblId)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtIMEI)))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnShowIMEI)
                             .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cboTrangThai, 0, 164, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnSearchIMEI)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnDeleteIMEI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtIMEI)))
-                .addContainerGap())
+                                .addComponent(btnDeleteIMEI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(cboTrangThai, 0, 164, Short.MAX_VALUE)
+                                .addContainerGap())))))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel49, jLabel52});
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cboTrangThai, txtIMEI});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDeleteIMEI, btnSearchIMEI, btnShowIMEI});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDeleteIMEI, btnShowIMEI});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -958,10 +967,10 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     .addComponent(jLabel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtIMEI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cboTrangThai)
-                    .addComponent(jLabel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboTrangThai))
+                .addGap(21, 21, 21)
                 .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -975,7 +984,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboTrangThai, lblId, txtIMEI});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDeleteIMEI, btnSearchIMEI, btnShowIMEI});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDeleteIMEI, btnShowIMEI});
 
         lblId.setVisible(false);
 
@@ -1033,13 +1042,13 @@ public class JplQuanLySP extends javax.swing.JPanel {
             if (ULHelper.checknull(txtMota, "Không được để mô tả trống!")) {
                 return;
             }
-            if (ULHelper.checknull(txtTon, "Không được để số lượng trống!")) {
+            if (ULHelper.checknull(txtCanNang, "Không được để cân trống!")) {
                 return;
             } else {
                 try {
-                    Double a = Double.parseDouble(txtTon.getText());
+                    double a = Double.parseDouble(txtCanNang.getText());
                     if (a <= 0) {
-                        JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0!");
+                        JOptionPane.showMessageDialog(this, "Cân phải lớn hơn 0!");
                         return;
                     }
                 } catch (Exception e) {
@@ -1048,13 +1057,13 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     return;
                 }
             }
-            if (ULHelper.checknull(txtCanNang, "Không được để cân trống!")) {
+            if (ULHelper.checknull(txtTon, "Không được để số lượng trống!")) {
                 return;
             } else {
                 try {
-                    double a = Double.parseDouble(txtCanNang.getText());
-                    if (a <= 0) {
-                        JOptionPane.showMessageDialog(this, "Cân phải lớn hơn 0!");
+                    Double a = Double.valueOf(txtTon.getText());
+                    if (a < 0) {
+                        JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0!");
                         return;
                     }
                 } catch (Exception e) {
@@ -1099,28 +1108,35 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem().toString(), cboCPU.getSelectedItem() + "", cboRAM.getSelectedItem() + "", cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", Integer.parseInt((String) (cboBH.getSelectedItem())), Double.parseDouble(txtCanNang.getText()), txtMota.getText(), Integer.parseInt(txtTon.getText()), BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), date, date, 1);
             int thongBao = Services.them(sp, ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
             if (thongBao == 1) {
-                JOptionPane.showMessageDialog(this, "Thêm CTSP thành công!");
+                JOptionPane.showMessageDialog(this, "Thêm thành công!");
                 filltable();
+                index = tblCTSP.getRowCount() - 1;
+                ChiTietSP ctsp = Services.getList(ten, nsx, mau, dong, cpu, ram, ssd, mau, bh).get(index);
+                for (int i = 0; i < Integer.parseInt(txtTon.getText()); i++) {
+                    Imei im = new Imei(ctsp, date, date, 0);
+                    int adi = Services2.them(im);
+                    if (adi == 1) {
+                        String imei = ctsp.getId();
+                        List<Imei> nim = Services2.timImei(imei);
+                        num = 1;
+                        modelIMEI = (DefaultTableModel) tblIMEI.getModel();
+                        modelIMEI.setRowCount(0);
+                        for (Imei a : nim) {
+                            modelIMEI.addRow(new Object[]{
+                                num++, a.getImei(), a.getStatus(a.getTrangThai())
+                            });
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thêm IMEI thất bại!");
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm CTSP thất bại!");
+                JOptionPane.showMessageDialog(this, "Nhập thất bại!");
                 return;
             }
-            index = (tblCTSP.getRowCount() - 1);
-            System.out.print(index);
-            showdetail(index);
-            ChiTietSP ctsp = Services.getAllCTSP().get(index);
-            for (int i = 0; i < lstCTSP.get(index).getSoLuongTon(); i++) {
-                Imei im = new Imei(ctsp, date, date, 0);
-                int adi = Services2.them(im);
-                if (adi == 1) {
-                    JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
-                    filltableIMEI();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thêm IMEI thất bại!");
-                }
-            }
-        }
-            catch (Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -1129,6 +1145,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             int index = tblCTSP.getSelectedRow();
+            System.out.print(index);
             String imp = JOptionPane.showInputDialog(this, "Nhập số lượng cần nhập");
             if (ULHelper.checknull(txtMota, "Không được để mô tả trống!")) {
                 return;
@@ -1137,7 +1154,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 return;
             } else {
                 try {
-                    Double a = Double.parseDouble(txtTon.getText());
+                    Double a = Double.valueOf(txtTon.getText());
                     if (a < 0) {
                         JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0!");
                         return;
@@ -1208,14 +1225,13 @@ public class JplQuanLySP extends javax.swing.JPanel {
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Nhập thành công!");
                 filltable();
-                index = tblCTSP.getSelectedRow();
-                System.out.print(index);
-                ChiTietSP ctsp = Services.getAllCTSP().get(index);
+                lstP = Services.getAllCTSP();
+                ChiTietSP ctsp = Services.getList(ten, nsx, mau, dong, cpu, ram, ssd, mau, bh).get(index);
                 for (int i = 0; i < them; i++) {
                     Imei im = new Imei(ctsp, date, date, 0);
                     int adi = Services2.them(im);
                     if (adi == 1) {
-                        JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
+
                         String imei = ctsp.getId();
                         List<Imei> nim = Services2.timImei(imei);
                         num = 1;
@@ -1230,7 +1246,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Thêm IMEI thất bại!");
                     }
                 }
-
+                JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
             } else {
                 JOptionPane.showMessageDialog(this, "Nhập thất bại!");
                 return;
@@ -1251,7 +1267,8 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 return;
             } else {
                 try {
-                    Double a = Double.parseDouble(txtTon.getText());
+                    Double a;
+                    a = Double.parseDouble(txtTon.getText());
                     if (a <= 0) {
                         JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0!");
                         return;
@@ -1365,6 +1382,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     num++, a.getImei(), a.getStatus(a.getTrangThai())
                 });
             }
+            System.out.println("Index: " + index);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1416,6 +1434,19 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     private void btnDeleteIMEIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteIMEIActionPerformed
         // TODO add your handling code here:
+        try {
+            int index = tblIMEI.getSelectedRow();
+            String ma = lstIMEI.get(index).getId();
+            num = Services2.xoaCTSP(ma);
+            if (num == 1) {
+                JOptionPane.showMessageDialog(this, "Xóa IMEI thành công!");
+                filltableIMEI();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnDeleteIMEIActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -1497,6 +1528,25 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     private void btnSearchIMEIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchIMEIActionPerformed
         // TODO add your handling code here:
+        try {
+            num = 1;
+            String im = JOptionPane.showInputDialog(this, "Nhập IMEI cần tìm");
+            List<Imei> lstImei = Services2.timtheoImei(im);
+            if (lstImei == null) {
+                JOptionPane.showMessageDialog(null, "Không có kết quả!");
+            } else {
+                modelIMEI.setRowCount(0);
+                for (Imei imei : lstImei) {
+                    modelIMEI.addRow(new Object[]{
+                        num++,
+                        imei.getImei(),
+                        imei.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                    });
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnSearchIMEIActionPerformed
 
 

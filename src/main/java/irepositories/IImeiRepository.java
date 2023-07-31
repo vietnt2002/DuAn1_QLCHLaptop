@@ -20,6 +20,7 @@ public interface IImeiRepository {
     List<Imei> getAllByIdCtsp(String idCtsp);
     List<Imei> timKiemImei(String idCtsp, String imei);
     List<Imei> timImei(String idCtsp);
+    List<Imei> timtheoImei(String Imei);
     Integer them(Imei imei);
     Integer sua(Imei imei);
     Integer xoa(String ma);

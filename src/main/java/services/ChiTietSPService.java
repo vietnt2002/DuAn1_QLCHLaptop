@@ -23,6 +23,7 @@ import utilities.DBConnection;
  * @author ADMIN
  */
 public class ChiTietSPService implements IChiTietSPService {
+    
 
     private final IChiTietSPRepository Repository = new ChiTietSPRepository();
 
@@ -44,6 +45,26 @@ public class ChiTietSPService implements IChiTietSPService {
 
         }
         return lst1;
+    }
+    
+    @Override
+    public List<ChiTietSP> getList(Map<String, String> TenSp, Map<String, String> NSX, Map<String, String> MauSac, Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, Integer> BaoHanh) {
+        List<ChiTietSP> lst = Repository.getAllCTSP();
+        List<viewCTSP> lst1 = new ArrayList<>();
+        for (ChiTietSP a : lst) {
+            String tenSp = TenSp.get(a.getIdSP());
+            String noiSx = NSX.get(a.getIdNSX());
+            String mauSac = MauSac.get(a.getIdMauSac());
+            String dongSp = DongSp.get(a.getIdDongSP());
+            String cpu = CPU.get(a.getIdCPU());
+            String ram = RAM.get(a.getIdRam());
+            String ssd = SSD.get(a.getIdSSD());
+            String manhinh = ManHinh.get(a.getIdManHinh());
+            int baohanh = BaoHanh.get(a.getIdBH());
+            lst1.add(new viewCTSP(a.getId(), tenSp, noiSx, mauSac, dongSp, cpu, ram, ssd, manhinh, baohanh, a.getCanNang(), a.getMoTa(), a.getSoLuongTon(), a.getGiaNhap(), a.getGiaBan(), a.getNgayTao(), a.getNgaySua(), a.getTrangThai(), a.getNumOrder(), a.getMa()));
+
+        }
+        return lst;
     }
 
     @Override
@@ -166,7 +187,7 @@ public class ChiTietSPService implements IChiTietSPService {
     public Map<String, String> hashMapBaoHanh() {
         return Repository.hashMapBaoHanh();
     }
-    
+
     @Override
     public Map<String, Integer> hashMapBH() {
         return Repository.hashMapBH();
@@ -361,7 +382,7 @@ public class ChiTietSPService implements IChiTietSPService {
         }
         return lst1;
     }
-    
+
     @Override
     public List<ChiTietSP> getByDongSP(String tenDongSP) {
         return Repository.getByDongSP(tenDongSP);

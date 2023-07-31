@@ -38,6 +38,9 @@ public interface IChiTietSPService {
     List<viewCTSP> getAll(Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
          Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, Integer> BaoHanh);
+    List<ChiTietSP> getList(Map<String, String> TenSp,
+         Map<String, String> NSX, Map<String, String> MauSac ,
+         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, Integer> BaoHanh);
     List<viewCTSP> getAllbyDSP(Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
          Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, Integer> BaoHanh);

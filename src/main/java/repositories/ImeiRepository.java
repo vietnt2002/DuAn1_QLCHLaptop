@@ -306,4 +306,41 @@ public class ImeiRepository implements IImeiRepository {
         }
     }
 
+    @Override
+    public List<Imei> timtheoImei(String im) {
+        try {
+            List<Imei> lstIMei = new ArrayList<>();
+            Connection connection = DBConnection.getConnection();
+            String sql = "SELECT IMei AS 'IMei', SP.Ten AS 'TenSP', IMei.TrangThai AS 'TrangThai' FROM dbo.IMei JOIN dbo.ChiTietSP CTSP\n"
+                    + "ON CTSP.Id = IMei.IdChiTietSP JOIN dbo.SanPham SP\n"
+                    + "ON SP.Id = CTSP.IdSP\n"
+                    + "WHERE IMei LIKE '%" + im + "%'";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String iMei = rs.getString("IMei");
+                String tenSP = rs.getString("TenSP");
+                int trangThai = rs.getInt("TrangThai");
+
+                SanPham sanPham = new SanPham();
+                sanPham.setTen(tenSP);
+                ChiTietSP chiTietSP = new ChiTietSP();
+                chiTietSP.setIdSP(sanPham + "");
+
+                Imei imei = new Imei();
+                imei.setImei(iMei);
+                imei.setIdChiTietSP(chiTietSP);
+                imei.setTrangThai(trangThai);
+
+                lstIMei.add(imei);
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+            return lstIMei;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

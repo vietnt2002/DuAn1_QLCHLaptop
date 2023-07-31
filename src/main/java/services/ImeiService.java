@@ -79,4 +79,9 @@ public class ImeiService implements IImeiService {
     public List<Imei> timImei(String idCtsp) {
         return imeiRepo.timImei(idCtsp);
     }
+
+    @Override
+    public List<Imei> timtheoImei(String Imei) {
+        return imeiRepo.timtheoImei(Imei);
+    }
 }
