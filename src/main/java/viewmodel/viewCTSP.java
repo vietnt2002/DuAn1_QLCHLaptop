@@ -22,7 +22,7 @@ public class viewCTSP {
     private String RAM;
     private String SSD;
     private String ManHinh;
-    private String BaoHanh;
+    private int BaoHanh;
     private double canNang;
     private String moTa;
     private int soLuongTon;
@@ -37,7 +37,7 @@ public class viewCTSP {
     public viewCTSP() {
     }
 
-    public viewCTSP(String id, String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai, int numOrder, String ma) {
+    public viewCTSP(String id, String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, int BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai, int numOrder, String ma) {
         this.id = id;
         this.tenSP = tenSP;
         this.NSX = NSX;
@@ -60,7 +60,7 @@ public class viewCTSP {
         this.ma = ma;
     }
 
-    public viewCTSP(String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai, String ma) {
+    public viewCTSP(String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, int BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai, String ma) {
         this.tenSP = tenSP;
         this.NSX = NSX;
         this.MauSac = MauSac;
@@ -81,7 +81,7 @@ public class viewCTSP {
         this.ma = ma;
     }
 
-    public viewCTSP(String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, String BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai) {
+    public viewCTSP(String tenSP, String NSX, String MauSac, String DongSP, String CPU, String RAM, String SSD, String ManHinh, int BaoHanh, double canNang, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, int trangThai) {
         this.tenSP = tenSP;
         this.NSX = NSX;
         this.MauSac = MauSac;
@@ -184,11 +184,11 @@ public class viewCTSP {
         this.ManHinh = ManHinh;
     }
 
-    public String getBaoHanh() {
+    public Integer getBaoHanh() {
         return BaoHanh;
     }
 
-    public void setBaoHanh(String BaoHanh) {
+    public void setBaoHanh(int BaoHanh) {
         this.BaoHanh = BaoHanh;
     }
 

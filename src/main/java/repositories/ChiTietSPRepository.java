@@ -780,7 +780,7 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
             List<ChiTietSP> lstChiTietSP = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
             String sql = "SELECT CTSP.Id AS 'Id', CTSP.Ma AS 'Ma', SP.Id AS 'IdSP', SP.Ma AS 'MaSP', SP.Ten AS 'TenSP', DSP.Id AS 'IdDongSP', DSP.Ten AS 'TenDongSP', NSX.Id AS 'IdNSX', NSX.Ten AS 'TenNSX', QuocGia AS 'QuocGia', MS.Id AS 'IdMauSac', MS.Ten AS 'MauSac', \n"
-                    + "RAM.Id AS 'IdRAM', RAM.Ten AS 'RAM', SSD.Id AS 'IdSSD', SSD.Ten AS 'SSD', CPU.Id AS 'IdCPU', CPU.Ten AS 'CPU', MH.Id AS 'IdMH', MH.DoPhanGiai AS 'DoPhanGiai', MH.Inch AS 'Inch', CTSP.GiaNhap AS 'GiaNhap', CTSP.GiaBan AS 'GiaBan', BH.Id AS 'IdBH', BH.Ma AS 'BaoHanh', CTSP.SoLuongTon AS 'SoLuong', CTSP.CanNang AS 'CanNang', CTSP.MoTa AS 'MoTa', CTSP.NgayTao AS 'NgayTao' ,CTSP.NgaySua AS 'NgaySua' , CTSP.TrangThai AS 'TrangThai'\n"
+                    + "RAM.Id AS 'IdRAM', RAM.Ten AS 'RAM', SSD.Id AS 'IdSSD', SSD.Ten AS 'SSD', CPU.Id AS 'IdCPU', CPU.Ten AS 'CPU', MH.Id AS 'IdMH', MH.DoPhanGiai AS 'DoPhanGiai', MH.Inch AS 'Inch', CTSP.GiaNhap AS 'GiaNhap', CTSP.GiaBan AS 'GiaBan', BH.Id AS 'IdBH', BH.SoThangBH AS 'BaoHanh', CTSP.SoLuongTon AS 'SoLuong', CTSP.CanNang AS 'CanNang', CTSP.MoTa AS 'MoTa', CTSP.NgayTao AS 'NgayTao' ,CTSP.NgaySua AS 'NgaySua' , CTSP.TrangThai AS 'TrangThai'\n"
                     + "FROM dbo.ChiTietSP CTSP JOIN dbo.SanPham SP\n"
                     + "ON SP.Id = CTSP.IdSP JOIN dbo.RAM \n"
                     + "ON RAM.Id = CTSP.IdRAM JOIN dbo.SSD\n"
@@ -820,7 +820,7 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
                 BigDecimal giaNhap = rs.getBigDecimal("GiaNhap");
                 BigDecimal giaBan = rs.getBigDecimal("GiaBan");
                 String idBH = rs.getString("IdBH");
-                String maBH = rs.getString("BaoHanh");
+                int thangBH = rs.getInt("BaoHanh");
                 int soLuong = rs.getInt("SoLuong");
                 double canNang = rs.getDouble("SoLuong");
                 String moTa = rs.getString("MoTa");
@@ -857,7 +857,7 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
                 manHinh.setInch(inch);
                 BaoHanh baoHanh = new BaoHanh();
                 baoHanh.setId(idBH);
-                baoHanh.setMa(maBH);
+                baoHanh.setSoThangBH(thangBH);
 
                 ChiTietSP chiTietSP = new ChiTietSP();
                 chiTietSP.setId(id);

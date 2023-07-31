@@ -841,7 +841,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="B&#x1ea3;o h&#xe0;nh"/>
+                    <TitledBorder title="Th&#xe1;ng b&#x1ea3;o h&#xe0;nh"/>
                   </Border>
                 </Property>
               </Properties>
@@ -1068,7 +1068,7 @@
                     <Column editable="true" title="RAM" type="java.lang.Object"/>
                     <Column editable="true" title="SSD" type="java.lang.Object"/>
                     <Column editable="true" title="M&#xe0;n h&#xec;nh" type="java.lang.Object"/>
-                    <Column editable="true" title="M&#xe3; BH" type="java.lang.Object"/>
+                    <Column editable="true" title="Th&#xe1;ng BH" type="java.lang.Object"/>
                     <Column editable="true" title="C&#xe2;n" type="java.lang.Object"/>
                     <Column editable="true" title="M&#xf4; t&#x1ea3;" type="java.lang.Object"/>
                     <Column editable="true" title="T&#x1ed3;n" type="java.lang.Object"/>

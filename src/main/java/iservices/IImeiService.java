@@ -19,6 +19,7 @@ public interface IImeiService {
     List<Imei> getAllwId();
     List<Imei> getAllByIdCtsp(String idCtsp);
     List<Imei> timKiemImei(String idCtsp, String imei);
+    List<Imei> timImei(String idCtsp);
     Integer them(Imei imei);
     Integer sua(Imei imei);
     Integer xoa(String ma);

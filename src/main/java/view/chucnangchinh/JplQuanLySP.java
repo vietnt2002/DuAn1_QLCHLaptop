@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import utilities.DBConnection;
 import java.sql.Date;
 import java.time.LocalDate;
+import javax.swing.JComboBox;
 import services.CheckTrungService;
 import services.ChiTietSPService;
 import services.ImeiService;
@@ -61,7 +62,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
     Map<String, String> ram = new HashMap<>();
     Map<String, String> ssd = new HashMap<>();
     Map<String, String> mh = new HashMap<>();
-    Map<String, String> bh = new HashMap<>();
+    Map<String, Integer> bh = new HashMap<>();
     Date date = Date.valueOf(LocalDate.now());
     int index;
     int num;
@@ -79,7 +80,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
         ram = Services.hashMapRAM();
         ssd = Services.hashMapSSD();
         mh = Services.hashMapManHinh();
-        bh = Services.hashMapBaoHanh();
+        bh = Services.hashMapBH();
         loadTen();
         filltable();
         filltableIMEI();
@@ -129,7 +130,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
             cboMH.addItem(mh.get(a));
         }
         for (String a : keyBH) {
-            cboBH.addItem(bh.get(a));
+            cboBH.addItem(bh.get(a) + "");
         }
     }
 
@@ -140,23 +141,23 @@ public class JplQuanLySP extends javax.swing.JPanel {
             lstCTSP = Services.getAll(ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
             for (viewCTSP a : lstCTSP) {
                 modelCTSP.addRow(new Object[]{
-                    a.getMa(), 
-                    a.getTenSP(), 
-                    a.getNSX(), 
-                    a.getMauSac(), 
-                    a.getDongSP(), 
-                    a.getCPU(), 
-                    a.getRAM(), 
-                    a.getSSD(), 
-                    a.getManHinh(), 
-                    a.getBaoHanh(), 
-                    a.getCanNang(), 
-                    a.getMoTa(), 
-                    a.getSoLuongTon(), 
-                    a.getGiaNhap(), 
-                    a.getGiaBan(), 
-                    a.getNgayTao(), 
-                    a.getNgaySua(), 
+                    a.getMa(),
+                    a.getTenSP(),
+                    a.getNSX(),
+                    a.getMauSac(),
+                    a.getDongSP(),
+                    a.getCPU(),
+                    a.getRAM(),
+                    a.getSSD(),
+                    a.getManHinh(),
+                    a.getBaoHanh(),
+                    a.getCanNang(),
+                    a.getMoTa(),
+                    a.getSoLuongTon(),
+                    a.getGiaNhap(),
+                    a.getGiaBan(),
+                    a.getNgayTao(),
+                    a.getNgaySua(),
                     a.getStatus(a.getTrangThai())
                 });
             }
@@ -182,20 +183,22 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     public void showdetail(int index) {
         try {
-            lblMa.setText(lstCTSP.get(index).getMa());
-            cboTenSp.setSelectedItem(lstCTSP.get(index).getTenSP());
-            cboNoiSX.setSelectedItem(lstCTSP.get(index).getNSX());
-            cbomauSac.setSelectedItem(lstCTSP.get(index).getNSX());
-            cboDongsp.setSelectedItem(lstCTSP.get(index).getDongSP());
-            cboRAM.setSelectedItem(lstCTSP.get(index).getRAM());
-            cboSSD.setSelectedItem(lstCTSP.get(index).getSSD());
-            cboMH.setSelectedItem(lstCTSP.get(index).getManHinh());
-            cboBH.setSelectedItem(lstCTSP.get(index).getBaoHanh());
-            txtCanNang.setText("" + lstCTSP.get(index).getCanNang());
-            txtMota.setText(lstCTSP.get(index).getMoTa());
-            txtTon.setText("" + lstCTSP.get(index).getSoLuongTon());
-            txtNhap.setText("" + lstCTSP.get(index).getGiaNhap());
-            txtBan.setText("" + lstCTSP.get(index).getGiaBan());
+            lblMa.setText(tblCTSP.getValueAt(index, 0).toString());
+            cboTenSp.setSelectedItem(tblCTSP.getValueAt(index, 1).toString());
+            cboNoiSX.setSelectedItem(tblCTSP.getValueAt(index, 2).toString());
+            cbomauSac.setSelectedItem(tblCTSP.getValueAt(index, 3).toString());
+            cboDongsp.setSelectedItem(tblCTSP.getValueAt(index, 4).toString());
+            cboCPU.setSelectedItem(tblCTSP.getValueAt(index, 5).toString());
+            cboRAM.setSelectedItem(tblCTSP.getValueAt(index, 6).toString());
+            cboSSD.setSelectedItem(tblCTSP.getValueAt(index, 7).toString());
+            cboMH.setSelectedItem(tblCTSP.getValueAt(index, 8).toString());
+            cboBH.setSelectedItem(tblCTSP.getValueAt(index, 9).toString());
+            txtCanNang.setText(tblCTSP.getValueAt(index, 10).toString());
+            txtMota.setText(tblCTSP.getValueAt(index, 11).toString());
+            txtTon.setText(tblCTSP.getValueAt(index, 12).toString());
+            txtNhap.setText(tblCTSP.getValueAt(index, 13).toString());
+            txtBan.setText(tblCTSP.getValueAt(index, 14).toString());
+            lblId.setText(lstCTSP.get(index).getId());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -203,7 +206,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     public void showIMEI(int index) {
         try {
-            lblId.setText(lstIMEI.get(index).getId());
             txtIMEI.setText(lstIMEI.get(index).getImei());
             cboTrangThai.setSelectedItem(lstIMEI.get(index).getStatus(lstIMEI.get(index).getTrangThai()));
         } catch (Exception e) {
@@ -647,7 +649,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
         );
 
         pnlBH.setBackground(new java.awt.Color(255, 255, 255));
-        pnlBH.setBorder(javax.swing.BorderFactory.createTitledBorder("Bảo hành"));
+        pnlBH.setBorder(javax.swing.BorderFactory.createTitledBorder("Tháng bảo hành"));
 
         cboBH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboBH.addActionListener(new java.awt.event.ActionListener() {
@@ -849,7 +851,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã", "Tên", "NSX", "Màu", "Dòng", "CPU", "RAM", "SSD", "Màn hình", "Mã BH", "Cân", "Mô tả", "Tồn", "Giá nhập", "Giá bán", "Ngày tạo", "Ngày sửa", "Trạng thái"
+                "Mã", "Tên", "NSX", "Màu", "Dòng", "CPU", "RAM", "SSD", "Màn hình", "Tháng BH", "Cân", "Mô tả", "Tồn", "Giá nhập", "Giá bán", "Ngày tạo", "Ngày sửa", "Trạng thái"
             }
         ));
         tblCTSP.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1042,6 +1044,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.print(e);
                     return;
                 }
             }
@@ -1056,6 +1059,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.print(e);
                     return;
                 }
             }
@@ -1070,6 +1074,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.print(e);
                     return;
                 }
             }
@@ -1084,34 +1089,38 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.print(e);
                     return;
                 }
             }
-            viewCTSP sp = new viewCTSP(cboTenSp.getSelectedItem() + "",
+            viewCTSP sp;
+            sp = new viewCTSP(cboTenSp.getSelectedItem() + "",
                     cboNoiSX.getSelectedItem() + "",
-                    cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem().toString(), cboCPU.getSelectedItem() + "", cboRAM.getSelectedItem() + "", cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", cboBH.getSelectedItem() + "", Double.parseDouble(txtCanNang.getText()), txtMota.getText(), Integer.parseInt(txtTon.getText()), BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), date, date, 1);
+                    cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem().toString(), cboCPU.getSelectedItem() + "", cboRAM.getSelectedItem() + "", cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", Integer.parseInt((String) (cboBH.getSelectedItem())), Double.parseDouble(txtCanNang.getText()), txtMota.getText(), Integer.parseInt(txtTon.getText()), BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), date, date, 1);
             int thongBao = Services.them(sp, ten, nsx, mau, dong, cpu, ram, ssd, mh, bh);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm CTSP thành công!");
                 filltable();
-                index = (tblCTSP.getRowCount() - 1);
-                showdetail(index);
-                ChiTietSP ctsp = Services.getAllCTSP().get(index);
-                for (int i = 0; i < lstCTSP.get(index).getSoLuongTon(); i++) {
-                    Imei im = new Imei(ctsp, date, date, 0);
-                    int adi = Services2.them(im);
-                    if (adi == 1) {
-                        filltableIMEI();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Thêm IMEI thất bại!");
-                    }
-                }
-                JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm CTSP thất bại!");
                 return;
             }
-        } catch (Exception e) {
+            index = (tblCTSP.getRowCount() - 1);
+            System.out.print(index);
+            showdetail(index);
+            ChiTietSP ctsp = Services.getAllCTSP().get(index);
+            for (int i = 0; i < lstCTSP.get(index).getSoLuongTon(); i++) {
+                Imei im = new Imei(ctsp, date, date, 0);
+                int adi = Services2.them(im);
+                if (adi == 1) {
+                    JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
+                    filltableIMEI();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm IMEI thất bại!");
+                }
+            }
+        }
+            catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -1135,6 +1144,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.print(e);
                     return;
                 }
             }
@@ -1149,6 +1159,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.print(e);
                     return;
                 }
             }
@@ -1163,6 +1174,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.print(e);
                     return;
                 }
             }
@@ -1177,6 +1189,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.print(e);
                     return;
                 }
             }
@@ -1190,23 +1203,34 @@ public class JplQuanLySP extends javax.swing.JPanel {
             viewCTSP dsp;
             dsp = new viewCTSP(cboTenSp.getSelectedItem() + "",
                     cboNoiSX.getSelectedItem() + "",
-                    cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem() + "", cboCPU.getSelectedItem() + "", cboRAM.getSelectedItem() + "", cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", cboBH.getSelectedItem() + "", Double.parseDouble(txtCanNang.getText()), txtMota.getText(), nhap, BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), tao, date, 1);
+                    cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem() + "", cboCPU.getSelectedItem() + "", "" + cboRAM.getSelectedItem(), cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", Integer.parseInt((String) (cboBH.getSelectedItem())), Double.parseDouble(txtCanNang.getText()), txtMota.getText(), nhap, BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), tao, date, 1);
             int thongBao = Services.sua(dsp, ten, nsx, mau, dong, cpu, ram, ssd, mh, bh, id);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Nhập thành công!");
                 filltable();
-                index = (tblCTSP.getRowCount() - 1);
+                index = tblCTSP.getSelectedRow();
+                System.out.print(index);
                 ChiTietSP ctsp = Services.getAllCTSP().get(index);
                 for (int i = 0; i < them; i++) {
                     Imei im = new Imei(ctsp, date, date, 0);
                     int adi = Services2.them(im);
                     if (adi == 1) {
-                        filltableIMEI();
+                        JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
+                        String imei = ctsp.getId();
+                        List<Imei> nim = Services2.timImei(imei);
+                        num = 1;
+                        modelIMEI = (DefaultTableModel) tblIMEI.getModel();
+                        modelIMEI.setRowCount(0);
+                        for (Imei a : nim) {
+                            modelIMEI.addRow(new Object[]{
+                                num++, a.getImei(), a.getStatus(a.getTrangThai())
+                            });
+                        }
                     } else {
                         JOptionPane.showMessageDialog(this, "Thêm IMEI thất bại!");
                     }
                 }
-                JOptionPane.showMessageDialog(this, "Thêm IMEI thành công!");
+
             } else {
                 JOptionPane.showMessageDialog(this, "Nhập thất bại!");
                 return;
@@ -1285,7 +1309,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
             String id = lstCTSP.get(index).getId();
             viewCTSP dsp = new viewCTSP(cboTenSp.getSelectedItem() + "",
                     cboNoiSX.getSelectedItem() + "",
-                    cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem() + "", cboCPU.getSelectedItem() + "", cboRAM.getSelectedItem() + "", cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", cboBH.getSelectedItem() + "", Double.parseDouble(txtCanNang.getText()), txtMota.getText(), Integer.parseInt(txtTon.getText()), BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), tao, date, sta);
+                    cbomauSac.getSelectedItem() + "", cboDongsp.getSelectedItem() + "", cboCPU.getSelectedItem() + "", cboRAM.getSelectedItem() + "", cboSSD.getSelectedItem() + "", cboMH.getSelectedItem() + "", Integer.parseInt((String) (cboBH.getSelectedItem())), Double.parseDouble(txtCanNang.getText()), txtMota.getText(), Integer.parseInt(txtTon.getText()), BigDecimal.valueOf(Double.parseDouble(txtNhap.getText())), BigDecimal.valueOf(Double.parseDouble(txtBan.getText())), tao, date, sta);
             int thongBao = Services.sua(dsp, ten, nsx, mau, dong, cpu, ram, ssd, mh, bh, id);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -1330,7 +1354,17 @@ public class JplQuanLySP extends javax.swing.JPanel {
         try {
             int index = tblCTSP.getSelectedRow();
             showdetail(index);
-            System.out.println(index);
+            viewCTSP ctsp = Services.getAll(ten, nsx, mau, dong, cpu, ram, ssd, mau, bh).get(index);
+            String imei = ctsp.getId();
+            List<Imei> im = Services2.timImei(imei);
+            num = 1;
+            modelIMEI = (DefaultTableModel) tblIMEI.getModel();
+            modelIMEI.setRowCount(0);
+            for (Imei a : im) {
+                modelIMEI.addRow(new Object[]{
+                    num++, a.getImei(), a.getStatus(a.getTrangThai())
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1387,37 +1421,49 @@ public class JplQuanLySP extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         try {
-            
-            String tenDSP = cboDongsp.getSelectedItem().toString();
-            List<ChiTietSP> lstChiTietSP = Services.getByDongSP(tenDSP);
-            if (lstChiTietSP == null) {
-                JOptionPane.showMessageDialog(null, "Lỗi!");
-            } else {
-                modelCTSP.setRowCount(0);
-                for (ChiTietSP chiTietSP : lstChiTietSP) {
-                    modelCTSP.addRow(new Object[]{
-                        chiTietSP.getMa(),
-                        chiTietSP.getIdSP(),
-                        chiTietSP.getIdNSX(),
-                        chiTietSP.getIdMauSac(),
-                        chiTietSP.getIdDongSP(),
-                        chiTietSP.getIdCPU(),
-                        chiTietSP.getIdRam(),
-                        chiTietSP.getIdSSD(),
-                        chiTietSP.getIdManHinh(),
-                        chiTietSP.getIdBH(),
-                        chiTietSP.getCanNang(),
-                        chiTietSP.getMoTa(),
-                        chiTietSP.getSoLuongTon(),
-                        chiTietSP.getGiaNhap(),
-                        chiTietSP.getGiaBan(),
-                        chiTietSP.getNgayTao(),
-                        chiTietSP.getNgaySua(),
-                        chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
-                    });
-                }
-                index = modelCTSP.getRowCount() - 1;
+            index = tblCTSP.getSelectedRow();
+            JComboBox dongSP = new JComboBox();
+            Set<String> keyDongSp = dong.keySet();
+            dongSP.addItem("Hiện tất cả");
+            for (String a : keyDongSp) {
+                dongSP.addItem(dong.get(a));
+            }
+            JOptionPane.showMessageDialog(this, dongSP);
+            String tenDSP = dongSP.getSelectedItem().toString();
+            if (tenDSP.equalsIgnoreCase("Hiện tất cả")) {
+                filltable();
+                filltableIMEI();
                 showdetail(index);
+            } else {
+                List<ChiTietSP> lstChiTietSP = Services.getByDongSP(tenDSP);
+                if (lstChiTietSP == null) {
+                    JOptionPane.showMessageDialog(null, "Lỗi!");
+                } else {
+                    modelCTSP.setRowCount(0);
+                    for (ChiTietSP chiTietSP : lstChiTietSP) {
+                        modelCTSP.addRow(new Object[]{
+                            chiTietSP.getMa(),
+                            chiTietSP.getIdSP(),
+                            chiTietSP.getIdNSX(),
+                            chiTietSP.getIdMauSac(),
+                            chiTietSP.getIdDongSP(),
+                            chiTietSP.getIdCPU(),
+                            chiTietSP.getIdRam(),
+                            chiTietSP.getIdSSD(),
+                            chiTietSP.getIdManHinh(),
+                            chiTietSP.getIdBH(),
+                            chiTietSP.getCanNang(),
+                            chiTietSP.getMoTa(),
+                            chiTietSP.getSoLuongTon(),
+                            chiTietSP.getGiaNhap(),
+                            chiTietSP.getGiaBan(),
+                            chiTietSP.getNgayTao(),
+                            chiTietSP.getNgaySua(),
+                            chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                        });
+                    }
+
+                }
             }
 
         } catch (Exception e) {
@@ -1427,6 +1473,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
     private void btnShowIMEIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowIMEIActionPerformed
         // TODO add your handling code here:
+        filltableIMEI();
     }//GEN-LAST:event_btnShowIMEIActionPerformed
 
     private void cboBHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboBHActionPerformed

@@ -24,7 +24,7 @@ public class ImeiService implements IImeiService {
     public List<Imei> getAll() {
         return imeiRepo.getAll();
     }
-    
+
     @Override
     public List<Imei> getAllwId() {
         return imeiRepo.getAllwId();
@@ -69,9 +69,14 @@ public class ImeiService implements IImeiService {
     public Map<String, String> hashMapMaCTSP() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     @Override
     public Integer xoaCTSP(String idChiTietSP) {
         return imeiRepo.xoa(idChiTietSP);
+    }
+
+    @Override
+    public List<Imei> timImei(String idCtsp) {
+        return imeiRepo.timImei(idCtsp);
     }
 }

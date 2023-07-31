@@ -37,16 +37,16 @@ public interface IChiTietSPService {
     String getIdByBH(String bh);
     List<viewCTSP> getAll(Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
-         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh);
+         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, Integer> BaoHanh);
     List<viewCTSP> getAllbyDSP(Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
-         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh);
+         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, Integer> BaoHanh);
     Integer them(viewCTSP sp, Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
-         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh);
+         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, Integer> BaoHanh);
     Integer sua(viewCTSP sp,Map<String, String> TenSp,
          Map<String, String> NSX, Map<String, String> MauSac ,
-         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, String> BaoHanh, String id);
+         Map<String, String> DongSp, Map<String, String> CPU, Map<String, String> RAM, Map<String, String> SSD, Map<String, String> ManHinh, Map<String, Integer> BaoHanh, String id);
     Integer xoa(String ma);
     Map<String, String> hashMapTenSp();
     Map<String, String> hashMapNoiSx();
