@@ -105,6 +105,8 @@ public class Imei {
                 "Chưa bán";
             case 1 ->
                 "Đã bán";
+            case 2 ->
+                "Lỗi";
             default ->
                 "Không rõ";
         };

@@ -897,7 +897,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
         jLabel49.setText("IMEI:");
 
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa bán", "Đã bán", "Không rõ" }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa bán", "Đã bán", "Lỗi", "Không rõ" }));
 
         btnShowIMEI.setText("Hiện");
         btnShowIMEI.addActionListener(new java.awt.event.ActionListener() {
@@ -1051,7 +1051,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
-                    System.out.print(e);
+                    System.out.println(e);
                     return;
                 }
             }
@@ -1066,7 +1066,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
-                    System.out.print(e);
+                    System.out.println(e);
                     return;
                 }
             }
@@ -1081,7 +1081,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
-                    System.out.print(e);
+                    System.out.println(e);
                     return;
                 }
             }
@@ -1096,7 +1096,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
-                    System.out.print(e);
+                    System.out.println(e);
                     return;
                 }
             }
@@ -1143,11 +1143,14 @@ public class JplQuanLySP extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             int index = tblCTSP.getSelectedRow();
-            System.out.print(index);
-            String imp = JOptionPane.showInputDialog(this, "Nhập số lượng cần nhập");
-            if (ULHelper.checknull(txtMota, "Không được để mô tả trống!")) {
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần nhập!");
                 return;
+            } else {
+                System.out.println(index);
             }
+            String imp = JOptionPane.showInputDialog(this, "Nhập số lượng cần nhập");
+
             if (ULHelper.checknull(txtTon, "Không được để số lượng trống!")) {
                 return;
             } else {
@@ -1159,52 +1162,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
-                    System.out.print(e);
-                    return;
-                }
-            }
-            if (ULHelper.checknull(txtCanNang, "Không được để cân trống!")) {
-                return;
-            } else {
-                try {
-                    double a = Double.parseDouble(txtCanNang.getText());
-                    if (a <= 0) {
-                        JOptionPane.showMessageDialog(this, "Cân phải lớn hơn 0!");
-                        return;
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
-                    System.out.print(e);
-                    return;
-                }
-            }
-            if (ULHelper.checknull(txtNhap, "Không được để giá nhập trống!")) {
-                return;
-            } else {
-                try {
-                    BigDecimal a = BigDecimal.valueOf(Double.parseDouble(txtNhap.getText()));
-                    if (a.compareTo(BigDecimal.ZERO) <= 0) {
-                        JOptionPane.showMessageDialog(this, "Giá nhập phải lớn hơn 0!");
-                        return;
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
-                    System.out.print(e);
-                    return;
-                }
-            }
-            if (ULHelper.checknull(txtBan, "Không được để giá bán trống!")) {
-                return;
-            } else {
-                try {
-                    BigDecimal a = BigDecimal.valueOf(Double.parseDouble(txtBan.getText()));
-                    if (a.compareTo(BigDecimal.ZERO) <= 0) {
-                        JOptionPane.showMessageDialog(this, "Cân phải lớn hơn 0!");
-                        return;
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
-                    System.out.print(e);
+                    System.out.println(e);
                     return;
                 }
             }
@@ -1258,6 +1216,12 @@ public class JplQuanLySP extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             int index = tblCTSP.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần sửa!");
+                return;
+            } else {
+                System.out.println(index);
+            }
             if (ULHelper.checknull(txtMota, "Không được để mô tả trống!")) {
                 return;
             }
@@ -1343,6 +1307,12 @@ public class JplQuanLySP extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             int index = tblCTSP.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần xóa!");
+                return;
+            } else {
+                System.out.println(index);
+            }
             String ma = lstCTSP.get(index).getId();
             num = Services2.xoaCTSP(ma);
             int thongBao = Services.xoa(ma);
@@ -1434,8 +1404,14 @@ public class JplQuanLySP extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             int index = tblIMEI.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn IMEI cần xóa!");
+                return;
+            } else {
+                System.out.println(index);
+            }
             String ma = lstIMEI.get(index).getId();
-            num = Services2.xoaCTSP(ma);
+            num = Services2.xoa(ma);
             if (num == 1) {
                 JOptionPane.showMessageDialog(this, "Xóa IMEI thành công!");
                 filltableIMEI();
@@ -1488,7 +1464,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                             chiTietSP.getGiaBan(),
                             chiTietSP.getNgayTao(),
                             chiTietSP.getNgaySua(),
-                            chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                            chiTietSP.getStatus(chiTietSP.getTrangThai())
                         });
                     }
 
@@ -1528,7 +1504,10 @@ public class JplQuanLySP extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             num = 1;
-            String im = JOptionPane.showInputDialog(this, "Nhập IMEI cần tìm");
+            String im = txtIMEI.getText();
+            if (ULHelper.checknull(txtIMEI, "Không được để IMEI trống!")) {
+                return;
+            }
             List<Imei> lstImei = Services2.timtheoImei(im);
             if (lstImei == null) {
                 JOptionPane.showMessageDialog(null, "Không có kết quả!");

@@ -223,8 +223,7 @@ public class ImeiRepository implements IImeiRepository {
         try {
             List<Imei> lstIMei = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT id, IMei, TrangThai FROM dbo.IMei \n"
-                    + "WHERE TrangThai = 0";
+            String sql = "SELECT id, IMei, TrangThai FROM dbo.IMei";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -269,7 +268,7 @@ public class ImeiRepository implements IImeiRepository {
             String sql = "SELECT IMei AS 'IMei', SP.Ten AS 'TenSP', IMei.TrangThai AS 'TrangThai' FROM dbo.IMei JOIN dbo.ChiTietSP CTSP\n"
                     + "ON CTSP.Id = IMei.IdChiTietSP JOIN dbo.SanPham SP\n"
                     + "ON SP.Id = CTSP.IdSP\n"
-                    + "WHERE IdChiTietSP = ? and IMei.TrangThai = 0";
+                    + "WHERE IdChiTietSP = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, idCtsp);
             ResultSet rs = ps.executeQuery();
