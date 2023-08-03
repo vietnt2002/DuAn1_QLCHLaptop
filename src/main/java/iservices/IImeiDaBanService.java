@@ -22,4 +22,5 @@ public interface IImeiDaBanService {
     ImeiDaBan getIdByMa(String ma);
     Integer updateTrangThai(String trangThai, String idHD);
     List<ImeiDaBan> getImeiByIdHD(String idHD);
+    Integer updateImei(String im, String imei);
 }

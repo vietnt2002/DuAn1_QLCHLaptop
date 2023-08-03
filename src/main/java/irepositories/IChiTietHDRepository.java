@@ -25,5 +25,5 @@ public interface IChiTietHDRepository {
     Integer botSoLuong(String idHD, String IdChiTietSP);
     Integer xoaSoLuong(String idHD);
     Integer updateTrangThai(String trangThai, String idHD);
-    Integer updateThanhTien(BigDecimal thanhTien, String idHD, String idCtsp);
+    Integer updateThanhTien(String thanhTien, String idHD, String idCtsp);
 }

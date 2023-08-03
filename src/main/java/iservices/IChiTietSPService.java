@@ -62,5 +62,8 @@ public interface IChiTietSPService {
     Map<String, String> hashMapBaoHanh();
     Map<String, String> hashMapHoaDon();
     Map<String, Integer> hashMapBH();
-
+    List<ChiTietSP> getAllByRam(String tenRam);
+    List<ChiTietSP> getAllBySSD(String tenSSD);
+    List<ChiTietSP> getAllByCPU(String tenCPU);
+    List<ChiTietSP> getAllByIdCTSP(String id);
 }

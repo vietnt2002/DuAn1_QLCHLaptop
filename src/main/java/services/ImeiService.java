@@ -51,7 +51,7 @@ public class ImeiService implements IImeiService {
     }
 
     @Override
-    public Imei getIdByIMei(String im) {
+    public String getIdByIMei(String im) {
         return imeiRepo.getIdByIMei(im);
     }
 
@@ -83,5 +83,15 @@ public class ImeiService implements IImeiService {
     @Override
     public List<Imei> timtheoImei(String Imei) {
         return imeiRepo.timtheoImei(Imei);
+    }
+
+    @Override
+    public List<Imei> getAllByIdCTSP_0TT(String idCTSP) {
+        return imeiRepo.getAllByIdCTSP_0TT(idCTSP);
+    }
+
+    @Override
+    public List<Imei> timKiemImei_0TT(String idCTSP, String imei) {
+        return imeiRepo.timKiemImei_0TT(idCTSP, imei);
     }
 }

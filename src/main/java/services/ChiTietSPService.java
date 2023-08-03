@@ -388,4 +388,24 @@ public class ChiTietSPService implements IChiTietSPService {
         return Repository.getByDongSP(tenDongSP);
     }
 
+    @Override
+    public List<ChiTietSP> getAllByRam(String tenRam) {
+        return Repository.getAllByRAM(tenRam);
+    }
+
+    @Override
+    public List<ChiTietSP> getAllBySSD(String tenSSD) {
+        return Repository.getAllBySSD(tenSSD);
+    }
+
+    @Override
+    public List<ChiTietSP> getAllByCPU(String tenCPU) {
+        return Repository.getAllByCPU(tenCPU);
+    }
+
+    @Override
+    public List<ChiTietSP> getAllByIdCTSP(String id) {
+        return Repository.getAllByIdCTSP(id);
+    }
+
 }

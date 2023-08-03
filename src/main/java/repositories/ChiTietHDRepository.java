@@ -257,13 +257,13 @@ public class ChiTietHDRepository implements IChiTietHDRepository{
     }
 
     @Override
-    public Integer updateThanhTien(BigDecimal thanhTien, String idHD, String idCtsp) {
+    public Integer updateThanhTien(String thanhTien, String idHD, String idCtsp) {
         try {
             Integer result = 0;
             Connection connection = DBConnection.getConnection();
             String sql = "UPDATE dbo.ChiTietHD SET ThanhTien = ? WHERE IdHD = ? AND IdChiTietSP = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setBigDecimal(1, thanhTien);
+            ps.setString(1, thanhTien);
             ps.setString(2, idHD);
             ps.setString(3, idCtsp);
             

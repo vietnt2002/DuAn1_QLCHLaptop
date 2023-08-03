@@ -1518,8 +1518,7 @@ public class JplBanHang extends javax.swing.JPanel {
 
         //update lại thành tiền
         String thanhTien = tblGioHang.getValueAt(indexGH, 5).toString();
-        BigDecimal thanhTienBg = new BigDecimal(thanhTien);
-        chiTietHDService.updateThanhTien(thanhTienBg, idhd, idCTSP + "");
+        chiTietHDService.updateThanhTien(thanhTien, idhd, idCTSP + "");
     }//GEN-LAST:event_btnThemImeiActionPerformed
 
     private void tblGioHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGioHangMouseClicked

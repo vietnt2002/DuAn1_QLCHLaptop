@@ -69,7 +69,7 @@ public class ChiTietHDService implements IChiTietHDService{
     }
 
     @Override
-    public Integer updateThanhTien(BigDecimal thanhTien, String idHD, String idCtsp) {
+    public Integer updateThanhTien(String thanhTien, String idHD, String idCtsp) {
         return chiTietHDRepo.updateThanhTien(thanhTien, idHD, idCtsp);
     }
 

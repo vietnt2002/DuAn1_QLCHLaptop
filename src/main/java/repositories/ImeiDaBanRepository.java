@@ -150,7 +150,7 @@ public class ImeiDaBanRepository implements IImeiDaBanRepository{
         try {
             Integer result = 0;
             Connection connection = DBConnection.getConnection();
-            String sql = "UPDATE dbo.IMeiDaBan SET TrangThai = ? FROM dbo.ChiTietHD JOIN dbo.IMeiDaBan\n" +
+            String sql = "UPDATE dbo.IMeiDaBan SET NgayBan = GETDATE(), TrangThai = ? FROM dbo.ChiTietHD JOIN dbo.IMeiDaBan\n" +
                         "ON IMeiDaBan.IdChiTietHD = ChiTietHD.Id\n" +
                         "WHERE IdHD = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -192,6 +192,25 @@ public class ImeiDaBanRepository implements IImeiDaBanRepository{
             return lstIMeiDaBan;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public Integer updateImei(String im, String imei) {
+        try {
+            Integer result = 0;
+            Connection connection = DBConnection.getConnection();
+            String sql = "UPDATE dbo.IMeiDaBan SET IMei = ? WHERE IMei = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, im);
+            ps.setString(2, imei);
+            
+            result = ps.executeUpdate();
+            ps.close();
+            connection.close();
+            return result;
+        } catch (Exception e) {
+            return 0;
         }
     }
 

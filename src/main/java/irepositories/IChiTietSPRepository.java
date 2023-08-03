@@ -47,4 +47,8 @@ public interface IChiTietSPRepository {
     Map<String, String> hashMapSSD();
     Map<String, String> hashMapBaoHanh();
     Map<String, Integer> hashMapBH();
+    List<ChiTietSP> getAllByRAM(String tenRam);
+    List<ChiTietSP> getAllBySSD(String tenSSD);
+    List<ChiTietSP> getAllByCPU(String tenCPU);
+    List<ChiTietSP> getAllByIdCTSP(String id);
 }

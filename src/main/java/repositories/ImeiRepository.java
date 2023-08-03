@@ -4,20 +4,12 @@
  */
 package repositories;
 
-import domainmodels.BaoHanh;
-import domainmodels.CPU;
+
 import domainmodels.ChiTietSP;
-import domainmodels.DongSP;
 import domainmodels.Imei;
-import domainmodels.ManHinh;
-import domainmodels.MauSac;
-import domainmodels.NSX;
-import domainmodels.RAM;
-import domainmodels.SSD;
 import domainmodels.SanPham;
 import irepositories.IChiTietSPRepository;
 import irepositories.IImeiRepository;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -138,8 +130,9 @@ public class ImeiRepository implements IImeiRepository {
     }
 
     @Override
-    public Imei getIdByIMei(String im) {
+    public String getIdByIMei(String im) {
         try {
+            String idChiTietSP = null;
             Imei imei = new Imei();
             Connection connection = DBConnection.getConnection();
             String sql = "SELECT IdChiTietSP FROM dbo.IMei WHERE IMei = ?";
@@ -147,12 +140,12 @@ public class ImeiRepository implements IImeiRepository {
             ps.setString(1, im);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String idChiTietSP = rs.getString("IdChiTietSP");
+                idChiTietSP = rs.getString("IdChiTietSP");
                 ChiTietSP chiTietSP = new ChiTietSP();
                 chiTietSP.setId(idChiTietSP);
                 imei.setIdChiTietSP(chiTietSP);
             }
-            return imei;
+            return idChiTietSP;
         } catch (Exception e) {
             return null;
         }
@@ -316,6 +309,82 @@ public class ImeiRepository implements IImeiRepository {
                     + "ON SP.Id = CTSP.IdSP\n"
                     + "WHERE IMei LIKE '%" + im + "%'";
             PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String iMei = rs.getString("IMei");
+                String tenSP = rs.getString("TenSP");
+                int trangThai = rs.getInt("TrangThai");
+
+                SanPham sanPham = new SanPham();
+                sanPham.setTen(tenSP);
+                ChiTietSP chiTietSP = new ChiTietSP();
+                chiTietSP.setIdSP(sanPham + "");
+
+                Imei imei = new Imei();
+                imei.setImei(iMei);
+                imei.setIdChiTietSP(chiTietSP);
+                imei.setTrangThai(trangThai);
+
+                lstIMei.add(imei);
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+            return lstIMei;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Imei> getAllByIdCTSP_0TT(String idChiTietSP) {
+        try {
+            List<Imei> lstIMei = new ArrayList<>();
+            Connection connection = DBConnection.getConnection();
+            String sql = "SELECT IMei AS 'IMei', SP.Ten AS 'TenSP', IMei.TrangThai AS 'TrangThai' FROM dbo.IMei JOIN dbo.ChiTietSP CTSP\n"
+                    + "ON CTSP.Id = IMei.IdChiTietSP JOIN dbo.SanPham SP\n"
+                    + "ON SP.Id = CTSP.IdSP\n"
+                    + "WHERE IdChiTietSP = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, idChiTietSP);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String im = rs.getString("IMei");
+                String tenSP = rs.getString("TenSP");
+                int trangThai = rs.getInt("TrangThai");
+
+                SanPham sanPham = new SanPham();
+                sanPham.setTen(tenSP);
+                ChiTietSP chiTietSP = new ChiTietSP();
+                chiTietSP.setIdSP(sanPham + "");
+
+                Imei imei = new Imei();
+                imei.setImei(im);
+                imei.setIdChiTietSP(chiTietSP);
+                imei.setTrangThai(trangThai);
+
+                lstIMei.add(imei);
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+            return lstIMei;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Imei> timKiemImei_0TT(String idCTSP, String im) {
+        try {
+            List<Imei> lstIMei = new ArrayList<>();
+            Connection connection = DBConnection.getConnection();
+            String sql = "SELECT IMei AS 'IMei', SP.Ten AS 'TenSP', IMei.TrangThai AS 'TrangThai' FROM dbo.IMei JOIN dbo.ChiTietSP CTSP\n"
+                    + "ON CTSP.Id = IMei.IdChiTietSP JOIN dbo.SanPham SP\n"
+                    + "ON SP.Id = CTSP.IdSP\n"
+                    + "WHERE IdChiTietSP = ? AND IMei LIKE '%" + im + "%'";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, idCTSP);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String iMei = rs.getString("IMei");
