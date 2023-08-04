@@ -213,7 +213,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
     public void showIMEI(int index) {
         try {
             txtIMEI.setText(lstIMEI.get(index).getImei());
-            cboTrangThai.setSelectedItem(lstIMEI.get(index).getStatus(lstIMEI.get(index).getTrangThai()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -285,7 +284,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
         btnDeleteIMEI = new javax.swing.JButton();
         jLabel49 = new javax.swing.JLabel();
         cboTrangThai = new javax.swing.JComboBox<>();
-        btnShowIMEI = new javax.swing.JButton();
         jLabel52 = new javax.swing.JLabel();
         lblId = new javax.swing.JTextField();
         txtIMEI = new javax.swing.JTextField();
@@ -897,12 +895,10 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
         jLabel49.setText("IMEI:");
 
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa bán", "Đã bán", "Lỗi", "Không rõ" }));
-
-        btnShowIMEI.setText("Hiện");
-        btnShowIMEI.addActionListener(new java.awt.event.ActionListener() {
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa bán", "Đã bán", "Lỗi", "Không rõ" }));
+        cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowIMEIActionPerformed(evt);
+                cboTrangThaiActionPerformed(evt);
             }
         });
 
@@ -927,37 +923,29 @@ public class JplQuanLySP extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblId, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblId)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtIMEI)))
-                        .addContainerGap())
+                        .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtIMEI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearchIMEI))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnShowIMEI)
-                            .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnSearchIMEI)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDeleteIMEI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(cboTrangThai, 0, 164, Short.MAX_VALUE)
-                                .addContainerGap())))))
+                        .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDeleteIMEI)))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel49, jLabel52});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cboTrangThai, txtIMEI});
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDeleteIMEI, btnShowIMEI});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDeleteIMEI, btnSearchIMEI});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -965,26 +953,24 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtIMEI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIMEI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchIMEI))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboTrangThai))
                 .addGap(21, 21, 21)
                 .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeleteIMEI)
-                    .addComponent(btnShowIMEI)
-                    .addComponent(btnSearchIMEI))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(btnDeleteIMEI)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel49, jLabel52});
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboTrangThai, lblId, txtIMEI});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDeleteIMEI, btnShowIMEI});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDeleteIMEI, btnSearchIMEI});
 
         lblId.setVisible(false);
 
@@ -998,7 +984,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     .addGroup(pnlCTSPLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 836, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(pnlCTSPInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane6))
                 .addContainerGap(59, Short.MAX_VALUE))
@@ -1476,11 +1462,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnShowIMEIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowIMEIActionPerformed
-        // TODO add your handling code here:
-        filltableIMEI();
-    }//GEN-LAST:event_btnShowIMEIActionPerformed
-
     private void cboBHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboBHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboBHActionPerformed
@@ -1526,6 +1507,60 @@ public class JplQuanLySP extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchIMEIActionPerformed
 
+    private void cboTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrangThaiActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (cboTrangThai.getSelectedItem().equals("Tất cả")) {
+                num = 1;
+                modelIMEI.setRowCount(0);
+                lstIMEI = Services2.getAllwId();
+                for (Imei a : lstIMEI) {
+                    modelIMEI.addRow(new Object[]{
+                        num++, a.getImei(), a.getStatus(a.getTrangThai())
+                    });
+                }
+            } else if (cboTrangThai.getSelectedItem().equals("Chưa bán")) {
+                num = 1;
+                modelIMEI.setRowCount(0);
+                lstIMEI = Services2.timTTImei(0);
+                for (Imei a : lstIMEI) {
+                    modelIMEI.addRow(new Object[]{
+                        num++, a.getImei(), a.getStatus(a.getTrangThai())
+                    });
+                }
+            } else if (cboTrangThai.getSelectedItem().equals("Đã bán")) {
+                num = 1;
+                modelIMEI.setRowCount(0);
+                lstIMEI = Services2.timTTImei(1);
+                for (Imei a : lstIMEI) {
+                    modelIMEI.addRow(new Object[]{
+                        num++, a.getImei(), a.getStatus(a.getTrangThai())
+                    });
+                }
+            } else if (cboTrangThai.getSelectedItem().equals("Lỗi")) {
+                num = 1;
+                modelIMEI.setRowCount(0);
+                lstIMEI = Services2.timTTImei(2);
+                for (Imei a : lstIMEI) {
+                    modelIMEI.addRow(new Object[]{
+                        num++, a.getImei(), a.getStatus(a.getTrangThai())
+                    });
+                }
+            }
+            else{
+                num = 1;
+                modelIMEI.setRowCount(0);
+                lstIMEI = null;
+                for (Imei a : lstIMEI) {
+                    modelIMEI.addRow(new Object[]{
+                        num++, a.getImei(), a.getStatus(a.getTrangThai())
+                    });
+                }
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cboTrangThaiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgDSP;
@@ -1544,7 +1579,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
     private javax.swing.JButton btnSSD;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchIMEI;
-    private javax.swing.JButton btnShowIMEI;
     private javax.swing.JButton btnTen;
     private javax.swing.JComboBox<String> cboBH;
     private javax.swing.JComboBox<String> cboCPU;

@@ -94,4 +94,9 @@ public class ImeiService implements IImeiService {
     public List<Imei> timKiemImei_0TT(String idCTSP, String imei) {
         return imeiRepo.timKiemImei_0TT(idCTSP, imei);
     }
+
+    @Override
+    public List<Imei> timTTImei(Integer tt) {
+        return imeiRepo.timTTImei(tt);
+    }
 }

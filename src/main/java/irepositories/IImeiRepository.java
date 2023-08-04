@@ -19,6 +19,7 @@ public interface IImeiRepository {
     List<Imei> timKiemImei(String idCtsp, String imei);
     List<Imei> timImei(String idCtsp);
     List<Imei> timtheoImei(String Imei);
+    List<Imei> timTTImei(Integer tt);
     Integer them(Imei imei);
     Integer sua(Imei imei);
     Integer xoa(String ma);
