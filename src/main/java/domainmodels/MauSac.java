@@ -90,9 +90,9 @@ public class MauSac {
     public String getStatus(int trangThai) {
         return switch (trangThai) {
             case 0 ->
-                "Hết hàng";
-            case 1 ->
                 "Còn hàng";
+            case 1 ->
+                "Hết hàng";
             default ->
                 "Không rõ";
         };

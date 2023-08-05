@@ -57,6 +57,7 @@ public class FrmManHinh extends javax.swing.JFrame {
         try {
             txtMa4.setText(lstMH.get(index).getMa());
             txtDPG.setText(lstMH.get(index).getDoPhanGiai());
+            txtInch.setText("" + lstMH.get(index).getInch());
             if (lstMH.get(index).getTrangThai() == 0) {
                 radCon4.setSelected(true);
             } else {
@@ -258,13 +259,13 @@ public class FrmManHinh extends javax.swing.JFrame {
 
         tblMH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã", "Tên", "Ngày tạo", "Ngày sửa", "Trạnng thái"
+                "Mã", "DPG", "Inch", "Ngày tạo", "Ngày sửa", "Trạnng thái"
             }
         ));
         tblMH.addMouseListener(new java.awt.event.MouseAdapter() {
