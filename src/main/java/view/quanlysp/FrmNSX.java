@@ -227,13 +227,13 @@ public class FrmNSX extends javax.swing.JFrame {
 
         tblNSX.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mã", "Tên", "Quốc gia", "Ngày tạo", "Ngày sửa", "Trạng thái"
+                "Mã", "Tên", "Quốc gia", "Ngày tạo", "Ngày sửa"
             }
         ));
         tblNSX.addMouseListener(new java.awt.event.MouseAdapter() {
