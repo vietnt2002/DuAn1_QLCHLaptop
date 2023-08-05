@@ -36,6 +36,7 @@ public class FrmRAM extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelRAM = (DefaultTableModel) tblRAM.getModel();
+        filltableRAM();
     }
 
     public void filltableRAM() {

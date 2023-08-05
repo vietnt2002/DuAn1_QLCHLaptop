@@ -36,6 +36,7 @@ public class FrmSanPham extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelSP = (DefaultTableModel) tblSP.getModel();
+        filltableSP();
     }
 
     public void filltableSP() {

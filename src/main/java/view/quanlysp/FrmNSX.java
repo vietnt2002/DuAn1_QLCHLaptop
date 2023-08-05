@@ -36,6 +36,7 @@ public class FrmNSX extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelNSX = (DefaultTableModel) tblNSX.getModel();
+        filltableNSX();
     }
 
     public void filltableNSX() {

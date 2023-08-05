@@ -36,7 +36,7 @@ public class FrmSSD extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelSSD = (DefaultTableModel) tblSSD.getModel();
-
+        filltableSSD();
     }
 
     public void filltableSSD() {

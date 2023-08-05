@@ -36,6 +36,7 @@ public class FrmCPU extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelCPU = (DefaultTableModel) tblCPU.getModel();
+        filltableCPU();
     }
 
     public void filltableCPU() {

@@ -36,6 +36,7 @@ public class FrmManHinh extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelManHinh = (DefaultTableModel) tblMH.getModel();
+        filltableMS();
     }
 
     public void filltableMS() {

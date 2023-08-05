@@ -35,6 +35,7 @@ public class FrmMauSac extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelMauSac = (DefaultTableModel) tblMauSac.getModel();
+        filltableMS();
     }
     
     public void filltableMS() {

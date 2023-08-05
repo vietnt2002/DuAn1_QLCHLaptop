@@ -36,6 +36,7 @@ public class FrmDongSP extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelDSP = (DefaultTableModel) tblDSP.getModel();
+        filltableDSP();
     }
     
     public void filltableDSP() {
