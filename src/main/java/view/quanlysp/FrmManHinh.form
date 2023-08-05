@@ -314,7 +314,7 @@
                     <Column editable="true" title="Inch" type="java.lang.Object"/>
                     <Column editable="true" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
                     <Column editable="true" title="Ng&#xe0;y s&#x1eed;a" type="java.lang.Object"/>
-                    <Column editable="true" title="Tr&#x1ea1;nng th&#xe1;i" type="java.lang.Object"/>
+                    <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

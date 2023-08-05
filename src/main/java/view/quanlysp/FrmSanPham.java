@@ -254,7 +254,7 @@ public class FrmSanPham extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Mã", "Tên", "Ngày tạo", "Ngày sửa", "Trạnng thái"
+                "Mã", "Tên", "Ngày tạo", "Ngày sửa", "Trạng thái"
             }
         ));
         tblSP.addMouseListener(new java.awt.event.MouseAdapter() {

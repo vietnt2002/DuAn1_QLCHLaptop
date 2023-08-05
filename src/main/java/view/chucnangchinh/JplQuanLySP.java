@@ -30,6 +30,7 @@ import services.ChiTietSPService;
 import services.ImeiService;
 import services.ChiTietHDService;
 import utilities.ULHelper;
+import view.quanlysp.FrmBaoHanh;
 import view.quanlysp.FrmCPU;
 import view.quanlysp.FrmDongSP;
 import view.quanlysp.FrmManHinh;
@@ -1372,7 +1373,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSSDActionPerformed
 
     private void btnBHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBHActionPerformed
-
+        new FrmBaoHanh().setVisible(true);
     }//GEN-LAST:event_btnBHActionPerformed
 
     private void btnMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMHActionPerformed

@@ -45,7 +45,7 @@ public class FrmNSX extends javax.swing.JFrame {
             lstNSX = svcNSX.getAll();
             for (NSX a : lstNSX) {
                 modelNSX.addRow(new Object[]{
-                    a.getMa(), a.getTen(), a.getQuocGia(), a.getNgayTao(), a.getNgaySua(), a.getStatus(a.getTrangThai())
+                    a.getMa(), a.getTen(), a.getQuocGia(), a.getNgayTao(), a.getNgaySua()
                 });
             }
         } catch (Exception e) {
@@ -58,13 +58,7 @@ public class FrmNSX extends javax.swing.JFrame {
             txtMa4.setText(lstNSX.get(index).getMa());
             txtTen4.setText(lstNSX.get(index).getTen());
             txtQG.setText(lstNSX.get(index).getTen());
-            if (lstNSX.get(index).getTrangThai() == 0) {
-                radCon4.setSelected(true);
-            } else {
-                if (lstNSX.get(index).getTrangThai() == 1) {
-                    radHet4.setSelected(true);
-                }
-            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,9 +78,6 @@ public class FrmNSX extends javax.swing.JFrame {
         pnlNSXinfo = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        radCon4 = new javax.swing.JRadioButton();
-        radHet4 = new javax.swing.JRadioButton();
         pnlNSXbtn = new javax.swing.JPanel();
         btnAdd4 = new javax.swing.JButton();
         btnEdit4 = new javax.swing.JButton();
@@ -109,19 +100,6 @@ public class FrmNSX extends javax.swing.JFrame {
         jLabel37.setText("Mã");
 
         jLabel42.setText("Tên");
-
-        jLabel60.setText("Trạng thái");
-
-        btgNSX.add(radCon4);
-        radCon4.setText("Còn hàng");
-        radCon4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radCon4ActionPerformed(evt);
-            }
-        });
-
-        btgNSX.add(radHet4);
-        radHet4.setText("Hết hàng");
 
         btnAdd4.setBackground(new java.awt.Color(255, 51, 0));
         btnAdd4.setForeground(new java.awt.Color(255, 255, 255));
@@ -204,23 +182,17 @@ public class FrmNSX extends javax.swing.JFrame {
         pnlNSXinfoLayout.setHorizontalGroup(
             pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNSXinfoLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel60)
-                    .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel37)
-                            .addComponent(jLabel42))))
+                .addGap(23, 23, 23)
+                .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel37)
+                        .addComponent(jLabel42)))
                 .addGap(27, 27, 27)
                 .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtMa4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                     .addComponent(txtTen4)
-                    .addComponent(txtQG)
-                    .addGroup(pnlNSXinfoLayout.createSequentialGroup()
-                        .addComponent(radCon4)
-                        .addGap(18, 18, 18)
-                        .addComponent(radHet4)))
+                    .addComponent(txtQG))
                 .addGap(50, 50, 50)
                 .addComponent(pnlNSXbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -247,12 +219,7 @@ public class FrmNSX extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtQG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlNSXinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel60)
-                            .addComponent(radCon4)
-                            .addComponent(radHet4))))
+                            .addComponent(txtQG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -313,10 +280,6 @@ public class FrmNSX extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radCon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCon4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radCon4ActionPerformed
-
     private void btnAdd4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd4ActionPerformed
         // TODO add your handling code here:
         try {
@@ -334,8 +297,7 @@ public class FrmNSX extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen4, "Không được để tên trống!")) {
                 return;
             }
-            int stt = (radHet4.isSelected() ? 1 : 0);
-            NSX nsx = new NSX(txtMa4.getText(), txtTen4.getText(), txtQG.getText(), date, date, stt);
+            NSX nsx = new NSX(txtMa4.getText(), txtTen4.getText(), txtQG.getText(), date, date, 0);
             int thongBao = svcNSX.them(nsx);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -363,8 +325,7 @@ public class FrmNSX extends javax.swing.JFrame {
             lstNSX = svcNSX.getAll();
 
             Date tao = lstNSX.get(index).getNgayTao();
-            int stt = (radHet4.isSelected() ? 1 : 0);
-            NSX mau = new NSX(txtMa4.getText(), txtTen4.getText(), txtQG.getText(), tao, date, stt);
+            NSX mau = new NSX(txtMa4.getText(), txtTen4.getText(), txtQG.getText(), tao, date, 0);
             int thongBao = svcNSX.sua(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -465,13 +426,10 @@ public class FrmNSX extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel60;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JPanel pnlNSX;
     private javax.swing.JPanel pnlNSXbtn;
     private javax.swing.JPanel pnlNSXinfo;
-    private javax.swing.JRadioButton radCon4;
-    private javax.swing.JRadioButton radHet4;
     private javax.swing.JTable tblNSX;
     private javax.swing.JTextField txtMa4;
     private javax.swing.JTextField txtQG;

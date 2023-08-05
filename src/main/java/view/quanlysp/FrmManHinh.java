@@ -265,7 +265,7 @@ public class FrmManHinh extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã", "DPG", "Inch", "Ngày tạo", "Ngày sửa", "Trạnng thái"
+                "Mã", "DPG", "Inch", "Ngày tạo", "Ngày sửa", "Trạng thái"
             }
         ));
         tblMH.addMouseListener(new java.awt.event.MouseAdapter() {

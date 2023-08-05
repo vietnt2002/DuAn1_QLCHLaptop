@@ -309,7 +309,7 @@ public class FrmMauSac extends javax.swing.JFrame {
                 }
             }
 
-            if (ULHelper.checknull(txtTen4, "Không được để tên trống!")) {
+            if (ULHelper.checknull(txtTen4, "Không được để màu trống!")) {
                 return;
             }
             int stt = (radHet4.isSelected() ? 1 : 0);
