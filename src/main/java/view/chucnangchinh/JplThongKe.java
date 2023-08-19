@@ -744,7 +744,6 @@ public class JplThongKe extends javax.swing.JPanel {
         } else if (cboloc.getSelectedItem().equals("Tháng")) {
             int month = jMonth.getMonth() + 1;
             int year = jYear.getYear();
-            System.out.println("tháng: " + month + " năm: " + year);
             setDataToSanPhamTKThang(bieudoSP, month, year);
             setDataToDoanhThuTKThang(bieudoDT, year);
             loadDataBangSPTK(thongke.getBangSPTKThang(month, year));
@@ -752,7 +751,6 @@ public class JplThongKe extends javax.swing.JPanel {
 
         } else {
             int year = jYear.getYear();
-            System.out.println("năm: " + year);
             setDataToSanPhamTKNam(bieudoSP, year);
             setDataToDoanhThuTKNam(bieudoDT);
             loadDataBangSPTK(thongke.getBangSPTKNam(year));
