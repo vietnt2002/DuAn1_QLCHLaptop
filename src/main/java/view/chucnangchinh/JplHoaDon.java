@@ -8,6 +8,7 @@ import domainmodels.CPU;
 import domainmodels.ChiTietHD;
 import domainmodels.ChiTietSP;
 import domainmodels.Imei;
+import domainmodels.ImeiDaBan;
 import domainmodels.KhachHang;
 import domainmodels.NhanVien;
 import domainmodels.RAM;
@@ -26,7 +27,6 @@ import iservices.ISSDService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -310,8 +310,8 @@ public class JplHoaDon extends javax.swing.JPanel {
             return;
         }
     }
-    
-    private void loadTableSanPhamTheoId(){
+
+    private void loadTableSanPhamTheoId() {
         indexCTHD = tblHoaDonChiTiet.getSelectedRow();
         String imei = tblHoaDonChiTiet.getValueAt(indexCTHD, 0).toString();
         String idCTSP = imeiService.getIdByIMei(imei);
@@ -342,6 +342,7 @@ public class JplHoaDon extends javax.swing.JPanel {
             }
         }
     }
+
     private void loadTableSanPham() {
         List<ChiTietSP> lstChiTietSP = chiTietSPService.getAllCTSP();
         if (lstChiTietSP == null) {
@@ -372,10 +373,9 @@ public class JplHoaDon extends javax.swing.JPanel {
     }
 
     private void loadTableImei() {
-        indexSP = tblSanPham.getSelectedRow();
-        String maCTSP = tblSanPham.getValueAt(indexSP, 1).toString();
+        String maCTSP = (String) tblSanPham.getValueAt(indexSP, 1);
         ChiTietSP idCTSP = chiTietSPService.getIdByMa(maCTSP);
-        List<Imei> lstImei = imeiService.getAllByIdCTSP_0TT(idCTSP + "");
+        List<Imei> lstImei = imeiService.getAllByIdCtsp(idCTSP + "");
         if (lstImei == null) {
             JOptionPane.showMessageDialog(this, "Lỗi dữ liệu Imei!");
         } else {
@@ -445,21 +445,25 @@ public class JplHoaDon extends javax.swing.JPanel {
             return;
         }
 
-        // Trường hợp đổi sản phẩm cùng loại
+        // Lấy thông tin & đổi sản phẩm
+        indexHD = tblHoaDon.getSelectedRow();
+        if(indexHD == -1){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần đổi!");
+            DoiTraHang.dispose();
+            return;
+        }
         String maHD = tblHoaDon.getValueAt(indexHD, 1).toString();
         String idHD = hoaDonService.getIdByMa(maHD);
-        System.out.println("MaHD: " + maHD);
-        System.out.println("idHD: " + idHD);
         String imeiLoi = tblImeiLoi.getValueAt(indexImLoi, 0).toString();
         String idCTSPLoi = imeiService.getIdByIMei(imeiLoi);
         String imeiCD = tblImeiCanDoi.getValueAt(indexImCD, 0).toString();
         String idCTSPCD = imeiService.getIdByIMei(imeiCD);
+        // Trường hợp đổi sản phẩm cùng loại
         if (idCTSPLoi.equals(idCTSPCD)) {
             //update hóa đơn: thành tiền & lý do
             String khuyenMai = tblHoaDon.getValueAt(indexHD, 5).toString();
             String thanhTien = tblHoaDon.getValueAt(indexHD, 6).toString();
             String lyDo = txtLyDo.getText();
-            System.out.println("LyDo: " + lyDo);
             hoaDonService.updateTrangThai("1", lyDo, thanhTien, khuyenMai, idHD);
             //update chiTietSP: số lượng
             String maCTSP = chiTietSPService.getMaById(idCTSPLoi);
@@ -471,27 +475,87 @@ public class JplHoaDon extends javax.swing.JPanel {
 
             //update imeiDaBan: đổi imei
             imeiDaBanService.updateImei(imeiCD, imeiLoi);
-            JOptionPane.showMessageDialog(this, "Đổi hàng thành công");
-            model = (DefaultTableModel) tblImeiLoi.getModel();
+            
+            loadTableSanPhamTheoId();
+            model = (DefaultTableModel) tblImei.getModel();
             model.setRowCount(0);
-            model = (DefaultTableModel) tblImeiCanDoi.getModel();
-            model.setRowCount(0);
-            txtLyDo.setText("");
-            loadTableImei();
-            loadTableSanPham();
-            loadHoaDonTheoMaNV();
-            if (indexHD < 0 || indexHD > QLHD.getHoaDon().size()) {
-                return;
-            }
-            viewChiTietHoaDon cthd = QLHD.getHoaDon().get(indexHD);
-            String MaHoaDon = cthd.getMa();
-            List<viewChiTietHoaDon> list = QLHD.getHoaDonChiTiet(MaHoaDon);
-            loadDataHoaDonCT(list);
         } else {
-            JOptionPane.showMessageDialog(this, "Chưa có chức năng đổi khác sản phẩm");
+            // Trường hợp đổi sản phẩm khác loại
+            //update hóa đơn: khuyến mãi, thành tiền & lý do
+            String km = tblHoaDon.getValueAt(indexHD, 5).toString();
+            BigDecimal donGiaCTHD = new BigDecimal(tblHoaDonChiTiet.getValueAt(indexCTHD, 12).toString());
+            String dg = tblSanPham.getValueAt(indexSP, 9).toString();
+            BigDecimal donGiaSP = new BigDecimal(dg);
+            //Đơn giá của chiTietHD trừ đơn giá của chiTietSP
+            BigDecimal donGia = donGiaCTHD.subtract(donGiaSP);
+            BigDecimal thanhTienHD = new BigDecimal(tblHoaDon.getValueAt(indexHD, 6).toString());
+            BigDecimal thanhTien = thanhTienHD.subtract(donGia);
+            String lyDo = txtLyDo.getText();
+            hoaDonService.updateTrangThai("1", lyDo, thanhTien + "", km, idHD);
+
+            int soLuong = chiTietHDService.getSoLuongByIdHD_IdCTSP(idHD, idCTSPLoi);
+            BigDecimal thanhTienCTHD = donGiaCTHD.multiply(BigDecimal.valueOf(soLuong));
+            //nếu số lượng = 1: update đơn giá, thành tiền, idChiTietSP
+            if (soLuong == 1) {
+                chiTietHDService.updateSanPham(dg, dg, idCTSPCD, idHD, idCTSPLoi);
+            } else if (soLuong > 1) { //Nếu số lượng > 1: Số lượng - 1 & thêm CTHD mới
+                chiTietHDService.botSoLuong(idHD, idCTSPLoi);
+                imeiDaBanService.xoa(imeiLoi);
+                //Thêm chiTietHD
+                int soLuongSP = 1;
+                int trangThaiCTHD = 1;
+                String maCTSP = tblSanPham.getValueAt(indexSP, 1).toString();
+                ChiTietSP idCtspCD = chiTietSPService.getIdByMa(maCTSP);
+                ChiTietHD chiTietHD = new ChiTietHD();
+                chiTietHD.setIdHD(idHD);
+                chiTietHD.setIdChiTietSP(idCtspCD);
+                chiTietHD.setDonGia(donGiaSP);
+                chiTietHD.setThanhTien(donGiaSP);
+                chiTietHD.setSoLuong(soLuongSP);
+                chiTietHD.setTrangThai(trangThaiCTHD);
+                chiTietHDService.themCTHD(chiTietHD);
+                //Thêm imeiDaBan
+                String idCTHD = chiTietHDService.getIdByIdCTSP_IdHD(idCTSPCD, idHD);
+                int trangThaiImeiDB = 1;
+                ImeiDaBan imeiDaBan = new ImeiDaBan();
+                imeiDaBan.setImei(imeiCD);
+                imeiDaBan.setIdChiTietHD(idCTHD);
+                imeiDaBan.setTrangThai(trangThaiImeiDB);
+                imeiDaBanService.themImeiDaBan(imeiDaBan);
+            }
+            //update chiTietSP: tăng & giảm số lượng
+            String maCTSPLoi = chiTietSPService.getMaById(idCTSPLoi);
+            chiTietSPService.updateSoLuong("-1", maCTSPLoi); //+1
+            String maCTSPCD = chiTietSPService.getMaById(idCTSPCD);
+            chiTietSPService.updateSoLuong("1", maCTSPCD); //-1
+
+            //update imeiDaBan: swap imei
+            imeiDaBanService.updateImei(imeiCD, imeiLoi);
+
+            //update imei: trạng thái 2 sp
+            imeiService.updateTrangThai("0", imeiLoi);
+            imeiService.updateTrangThai("1", imeiCD);
+            
+            loadTableSanPham();
+            model = (DefaultTableModel) tblImei.getModel();
+            model.setRowCount(0);
+        }
+        JOptionPane.showMessageDialog(this, "Đổi hàng thành công");
+        model = (DefaultTableModel) tblImeiLoi.getModel();
+        model.setRowCount(0);
+        model = (DefaultTableModel) tblImeiCanDoi.getModel();
+        model.setRowCount(0);
+        txtLyDo.setText("");
+        txtTimImei.setText("");
+        loadTableImei();
+        loadHoaDonTheoMaNV();
+        if (indexHD < 0 || indexHD > QLHD.getHoaDon().size()) {
             return;
         }
-
+        viewChiTietHoaDon cthd = QLHD.getHoaDon().get(indexHD);
+        String MaHoaDon = cthd.getMa();
+        List<viewChiTietHoaDon> list = QLHD.getHoaDonChiTiet(MaHoaDon);
+        loadDataHoaDonCT(list);
     }
 
     /**
@@ -659,6 +723,11 @@ public class JplHoaDon extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblImeiLoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblImeiLoiMouseClicked(evt);
             }
         });
         jScrollPane7.setViewportView(tblImeiLoi);
@@ -1268,6 +1337,7 @@ public class JplHoaDon extends javax.swing.JPanel {
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
         // Load table imei theo idChiTietSP
+        indexSP = tblSanPham.getSelectedRow();
         loadTableImei();
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
@@ -1280,7 +1350,7 @@ public class JplHoaDon extends javax.swing.JPanel {
         }
         String maCTSP = tblSanPham.getValueAt(indexSP, 1).toString();
         String idChiTietSP = chiTietSPService.getIdByMa(maCTSP).toString();
-        List<Imei> lstImei = imeiService.timKiemImei_0TT(idChiTietSP, txtTimImei.getText());
+        List<Imei> lstImei = imeiService.timKiemImei(idChiTietSP, txtTimImei.getText());
         if (lstImei == null) {
             JOptionPane.showMessageDialog(this, "Lỗi table Imei!");
         } else {
@@ -1289,11 +1359,11 @@ public class JplHoaDon extends javax.swing.JPanel {
             model.setRowCount(0);
             String trangThai = "";
             for (Imei imei : lstImei) {
-                if(imei.getTrangThai()==0){
+                if (imei.getTrangThai() == 0) {
                     trangThai = "Chưa bán";
-                }else if(imei.getTrangThai()==1){
+                } else if (imei.getTrangThai() == 1) {
                     trangThai = "Đã bán";
-                }else{
+                } else {
                     trangThai = "Lỗi!";
                 }
                 model.addRow(new Object[]{count++, imei.getImei(), imei.getIdChiTietSP().getIdSP(), trangThai});
@@ -1310,6 +1380,11 @@ public class JplHoaDon extends javax.swing.JPanel {
         // chọn imei cần đổi
         loadTableImeiCanDoi();
     }//GEN-LAST:event_tblImeiMouseClicked
+
+    private void tblImeiLoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblImeiLoiMouseClicked
+        // TODO add your handling code here:
+        loadTableSanPhamTheoId();
+    }//GEN-LAST:event_tblImeiLoiMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

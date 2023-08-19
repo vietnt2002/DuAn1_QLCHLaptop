@@ -16,6 +16,7 @@ import java.util.List;
 public interface IChiTietHDRepository {
     List<ChiTietHD> getAll();
     List<ChiTietHD> getAllByIdHD(String idHD);
+    Integer themCTHD(ChiTietHD chiTietHD);
     Integer them(ChiTietHD chiTietHD);
     Integer sua(ChiTietHD chiTietHD);
     Integer xoa(String idCtsp, String idHD);
@@ -26,4 +27,6 @@ public interface IChiTietHDRepository {
     Integer xoaSoLuong(String idHD);
     Integer updateTrangThai(String trangThai, String idHD);
     Integer updateThanhTien(String thanhTien, String idHD, String idCtsp);
+    Integer updateSanPham (String donGia, String thanhTien, String idChiTietSP, String idHD, String idCTSP);
+    Integer getSoLuongByIdHD_IdCTSP(String idHD, String idCTSP);
 }

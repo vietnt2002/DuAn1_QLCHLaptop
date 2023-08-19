@@ -166,6 +166,8 @@ public class JplKhuyenMai extends javax.swing.JPanel {
 
         jLabel3.setText("Số tiền giảm:");
 
+        txtMa.setEditable(false);
+
         jLabel4.setText("Ngày bắt đầu:");
 
         jLabel5.setText("Ngày kết thúc:");
@@ -452,7 +454,6 @@ public class JplKhuyenMai extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (checkValidate()) {
-            String ma = txtMa.getText();
             BigDecimal tien = new BigDecimal(txtTien.getText());
             int soLuong = Integer.parseInt(txtSL.getText());
             Date ngayBD = txtNgayBD.getDate();
@@ -460,7 +461,7 @@ public class JplKhuyenMai extends javax.swing.JPanel {
             int trangThai;
             trangThai = getTrangThai(ngayBD, ngayKT);
             System.out.println(trangThai);
-            KhuyenMai khuyenMai = new KhuyenMai("", ma, tien, soLuong, ngayBD, ngayKT, trangThai);
+            KhuyenMai khuyenMai = new KhuyenMai("", "", tien, soLuong, ngayBD, ngayKT, trangThai);
             khuyenMaiRepository.them(khuyenMai);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
             loadDaTa(khuyenMaiRepository.getAll());
@@ -470,7 +471,6 @@ public class JplKhuyenMai extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (checkValidate()) {
-
             String ma = txtMa.getText();
             BigDecimal tien = new BigDecimal(txtTien.getText());
             int soLuong = Integer.parseInt(txtSL.getText());
@@ -521,12 +521,12 @@ public class JplKhuyenMai extends javax.swing.JPanel {
     }//GEN-LAST:event_rdoTatCaActionPerformed
 
     private void rdoDangDienRaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDangDienRaActionPerformed
-        loadDaTa(khuyenMaiRepository.getAllTrangThai(0));
+        loadDaTa(khuyenMaiRepository.getAllTrangThai_0SL(0));
         txtTimKiem.setText("");
     }//GEN-LAST:event_rdoDangDienRaActionPerformed
 
     private void rdoSapDienRaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoSapDienRaActionPerformed
-        loadDaTa(khuyenMaiRepository.getAllTrangThai(1));
+        loadDaTa(khuyenMaiRepository.getAllTrangThai_0SL(1));
         txtTimKiem.setText("");
     }//GEN-LAST:event_rdoSapDienRaActionPerformed
 
@@ -536,13 +536,10 @@ public class JplKhuyenMai extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemCaretUpdate
 
     private void rdoDaKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDaKetThucActionPerformed
-        loadDaTa(khuyenMaiRepository.getAllTrangThai(2));
+        loadDaTa(khuyenMaiRepository.getAllTrangThai_0SL(2));
         txtTimKiem.setText("");
     }//GEN-LAST:event_rdoDaKetThucActionPerformed
     private boolean checkValidate() {
-        if (utilities.ULHelper.checknull(txtMa, "Không được để trống !")) {
-            return false;
-        }
         if (utilities.ULHelper.checknull(txtSL, "Không được để trống !")) {
             return false;
         }

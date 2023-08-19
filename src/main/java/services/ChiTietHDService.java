@@ -78,4 +78,19 @@ public class ChiTietHDService implements IChiTietHDService{
         return chiTietHDRepo.xoaSoLuong(idHD);
     }
 
+    @Override
+    public Integer updateSanPham(String donGia, String thanhTien, String idChiTietSP, String idHD, String idCTSP) {
+        return chiTietHDRepo.updateSanPham(donGia, thanhTien, idChiTietSP, idHD, idCTSP);
+    }
+
+    @Override
+    public Integer getSoLuongByIdHD_IdCTSP(String idHD, String idChiTietSP) {
+        return chiTietHDRepo.getSoLuongByIdHD_IdCTSP(idHD, idChiTietSP);
+    }
+
+    @Override
+    public Integer themCTHD(ChiTietHD chiTietHD) {
+        return chiTietHDRepo.themCTHD(chiTietHD);
+    }
+
 }

@@ -206,7 +206,7 @@ public class ChiTietHDRepository implements IChiTietHDRepository{
         try {
             Integer result = 0;
             Connection connection = DBConnection.getConnection();
-            String sql = "UPDATE dbo.ChiTietHD SET SoLuong = SoLuong - 1 WHERE IdHD = ? AND IdChiTietSP = ?";
+            String sql = "UPDATE dbo.ChiTietHD SET ThanhTien = ThanhTien - Dongia, SoLuong = SoLuong - 1 WHERE IdHD = ? AND IdChiTietSP = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, idHD);
             ps.setString(2, idChiTietSP);
@@ -284,6 +284,68 @@ public class ChiTietHDRepository implements IChiTietHDRepository{
             ps.setString(1, idHD);
             
             result = ps.executeUpdate();
+            return result;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer updateSanPham(String donGia, String thanhTien, String idChiTietSP, String idHD, String idCTSP) {
+        try {
+            Integer result = 0;
+            Connection connection = DBConnection.getConnection();
+            String sql = "UPDATE dbo.ChiTietHD SET NgaySua = GETDATE(), Dongia = ?, ThanhTien = ?, IdChiTietSP = ? WHERE IdHD = ? AND IdChiTietSP = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, donGia);
+            ps.setString(2, thanhTien);
+            ps.setString(3, idChiTietSP);
+            ps.setString(4, idHD);
+            ps.setString(5, idCTSP);
+            
+            result = ps.executeUpdate();
+            return result;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer getSoLuongByIdHD_IdCTSP(String idHD, String idCTSP) {
+        try {
+            Integer soLuong = null;
+            ChiTietHD chiTietHD = new ChiTietHD();
+            Connection connection = DBConnection.getConnection();
+            String sql = "SELECT SoLuong FROM dbo.ChiTietHD WHERE IdHD = ? AND IdChiTietSP = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, idHD);
+            ps.setString(2, idCTSP);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                soLuong = rs.getInt("SoLuong");
+                chiTietHD.setSoLuong(soLuong);
+            }
+            return soLuong;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Integer themCTHD(ChiTietHD chiTietHD) {
+        try {
+            Integer result = 0;
+            Connection connection = DBConnection.getConnection();
+            String sql = "INSERT INTO ChiTietHD(IdHD, IdChiTietSP, Dongia, ThanhTien, SoLuong, TrangThai) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, chiTietHD.getIdHD());
+            ps.setString(2, chiTietHD.getIdChiTietSP()+"");
+            ps.setBigDecimal(3, chiTietHD.getDonGia());
+            ps.setBigDecimal(4, chiTietHD.getThanhTien());
+            ps.setInt(5, chiTietHD.getSoLuong());
+            ps.setInt(6, chiTietHD.getTrangThai());
+            result = ps.executeUpdate();
+            
             return result;
         } catch (Exception e) {
             return 0;

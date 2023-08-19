@@ -137,7 +137,7 @@ public class KhachHangRepository implements IKhachHangRepository {
     public List<KhachHang> sapXepTenTang() {
         List<KhachHang> listKhachHang = new ArrayList<>();
         String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang\n" +
-                    "ORDER BY HoTen ASC";
+                    "ORDER BY reverse(substring((reverse(HoTen)),0,charindex(' ',(reverse(HoTen))))) ASC";
         try (PreparedStatement PS = con.prepareStatement(sql); ResultSet RS = PS.executeQuery()) {
             while (RS.next()) {
                 String id = RS.getString("Id");
@@ -186,7 +186,7 @@ public class KhachHangRepository implements IKhachHangRepository {
     public List<KhachHang> sapXepTenGiam() {
         List<KhachHang> listKhachHang = new ArrayList<>();
         String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang\n" +
-                    "ORDER BY HoTen DESC";
+                    "ORDER BY reverse(substring((reverse(HoTen)),0,charindex(' ',(reverse(HoTen))))) DESC";
         try (PreparedStatement PS = con.prepareStatement(sql); ResultSet RS = PS.executeQuery()) {
             while (RS.next()) {
                 String id = RS.getString("Id");

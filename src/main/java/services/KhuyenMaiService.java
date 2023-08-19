@@ -19,6 +19,10 @@ public class KhuyenMaiService {
         return khuyenMaiRepo.getAllTrangThai(trangThai);
     }
     
+    public List<KhuyenMai> getAllTrangThai_0SL(int trangThai){
+        return khuyenMaiRepo.getAllTrangThai_0SL(trangThai);
+    }
+    
     public List<KhuyenMai> getAllByMa(String ma){
         return khuyenMaiRepo.getAllByMa(ma);
     }

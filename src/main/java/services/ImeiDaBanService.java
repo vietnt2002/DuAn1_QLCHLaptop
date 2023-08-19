@@ -66,5 +66,10 @@ public class ImeiDaBanService implements IImeiDaBanService{
     public Integer updateImei(String im, String imei) {
         return imeiDaBanRepo.updateImei(im, imei);
     }
+
+    @Override
+    public Integer themImeiDaBan(ImeiDaBan imeiDaBan) {
+        return imeiDaBanRepo.themImeiDaBan(imeiDaBan);
+    }
  
 }

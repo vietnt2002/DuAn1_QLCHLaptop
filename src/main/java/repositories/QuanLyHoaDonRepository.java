@@ -127,7 +127,7 @@ public class QuanLyHoaDonRepository {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT HD.Ma AS 'Ma', IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, HD.TrangThai AS 'TrangThai', LyDo FROM dbo.HoaDon HD JOIN dbo.KhachHang KH\n" +
                     "ON KH.Id = HD.IdKH\n" +
-                    "WHERE HD.Ma LIKE '%"+tim+"%' OR KH.Sdt LIKE '%"+tim+"%'";
+                    "WHERE HD.Ma LIKE '%"+tim+"%' OR KH.Sdt LIKE '%"+tim+"%' ORDER BY HD.NumOrder DESC";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -156,7 +156,7 @@ public class QuanLyHoaDonRepository {
         String sql = "SELECT HD.Ma AS 'Ma', IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, HD.TrangThai AS 'TrangThai', LyDo FROM dbo.HoaDon HD JOIN dbo.KhachHang KH\n" +
                     "ON KH.Id = HD.IdKH JOIN dbo.NhanVien NV\n" +
                     "ON NV.Id = HD.IdNV\n" +
-                    "WHERE NV.Ma = ? AND (HD.Ma LIKE '%"+tim+"%' OR KH.Sdt LIKE '%"+tim+"%')";
+                    "WHERE NV.Ma = ? AND (HD.Ma LIKE '%"+tim+"%' OR KH.Sdt LIKE '%"+tim+"%') ORDER BY HD.NumOrder DESC";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setString(1, maNV);
@@ -244,7 +244,7 @@ public class QuanLyHoaDonRepository {
     public List<viewChiTietHoaDon> locHoaDon(int trangThai) {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, TrangThai, LyDo FROM dbo.HoaDon\n" +
-                    "WHERE TrangThai = " + trangThai;
+                    "WHERE TrangThai = " + trangThai +" ORDER BY HD.NumOrder DESC";
         
         try {
             PreparedStatement PS = con.prepareStatement(sql);
@@ -272,7 +272,7 @@ public class QuanLyHoaDonRepository {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT HD.Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, HD.TrangThai, LyDo FROM dbo.HoaDon HD JOIN dbo.NhanVien NV\n" +
                     "ON NV.Id = HD.IdNV\n" +
-                    "WHERE NV.Ma = ? AND HD.TrangThai = " + trangThai;
+                    "WHERE NV.Ma = ? AND HD.TrangThai = " + trangThai +" ORDER BY HD.NumOrder DESC";
         
         try {
             PreparedStatement PS = con.prepareStatement(sql);

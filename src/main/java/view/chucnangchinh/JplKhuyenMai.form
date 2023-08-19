@@ -240,6 +240,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMa">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTien">
             </Component>

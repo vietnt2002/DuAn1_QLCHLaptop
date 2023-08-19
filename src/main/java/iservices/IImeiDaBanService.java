@@ -15,6 +15,7 @@ import java.util.List;
 public interface IImeiDaBanService {
     List<ImeiDaBan> getAll();
     List<ImeiDaBan> getImeiByIdHD_IdCTSP(String idHD, String idCtsp);
+    Integer themImeiDaBan(ImeiDaBan imeiDaBan);
     Integer them(ImeiDaBan imeiDaBan);
     Integer sua(ImeiDaBan imeiDaBan);
     Integer xoa(String ma);

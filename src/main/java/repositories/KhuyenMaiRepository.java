@@ -25,7 +25,7 @@ public class KhuyenMaiRepository {
 
     public List<KhuyenMai> getAll() {
         List<KhuyenMai> list = new ArrayList<>();
-        String sql = "Select * from KhuyenMai";
+        String sql = "Select * from KhuyenMai ORDER BY NumOrder DESC";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -45,15 +45,14 @@ public class KhuyenMaiRepository {
     }
 
     public Integer them(KhuyenMai km) {
-        String sql = " Insert into KhuyenMai(Ma,SoTienGiam,SoLuong,NgayBatDau,NgayKetThuc,TrangThai) Values (?,?,?,?,?,?)";
+        String sql = " Insert into KhuyenMai(SoTienGiam,SoLuong,NgayBatDau,NgayKetThuc,TrangThai) Values (?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setObject(1, km.getMa());
-            ps.setObject(2, km.getSoTienGiam());
-            ps.setObject(3, km.getSoLuong());
-            ps.setObject(4, km.getNgayBD());
-            ps.setObject(5, km.getNgayKT());
-            ps.setObject(6, km.getTrangThai());
+            ps.setObject(1, km.getSoTienGiam());
+            ps.setObject(2, km.getSoLuong());
+            ps.setObject(3, km.getNgayBD());
+            ps.setObject(4, km.getNgayKT());
+            ps.setObject(5, km.getTrangThai());
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -91,6 +90,27 @@ public class KhuyenMaiRepository {
     public List<KhuyenMai> getAllTrangThai(int trangThai) {
         List<KhuyenMai> list = new ArrayList<>();
         String sql = "Select * from KhuyenMai Where SoLuong > 0 AND TrangThai =" + trangThai;
+        try {
+            PreparedStatement PS = con.prepareStatement(sql);
+            ResultSet RS = PS.executeQuery();
+            while (RS.next()) {
+                KhuyenMai km = new KhuyenMai();
+                km.setMa(RS.getString("Ma"));
+                km.setSoTienGiam(RS.getBigDecimal("SoTienGiam"));
+                km.setSoLuong(RS.getInt("SoLuong"));
+                km.setNgayBD(RS.getDate("NgayBatDau"));
+                km.setNgayKT(RS.getDate("NgayKetThuc"));
+                km.setTrangThai(RS.getInt("TrangThai"));
+                list.add(km);
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    public List<KhuyenMai> getAllTrangThai_0SL(int trangThai) {
+        List<KhuyenMai> list = new ArrayList<>();
+        String sql = "Select * from KhuyenMai Where TrangThai =" + trangThai+" ORDER BY NumOrder DESC";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
