@@ -1136,7 +1136,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần nhập!");
                 return;
             } else {
-                System.out.println(index);
+                return;
             }
             String imp = JOptionPane.showInputDialog(this, "Nhập số lượng cần nhập");
 
@@ -1209,7 +1209,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần sửa!");
                 return;
             } else {
-                System.out.println(index);
+                return;
             }
             if (ULHelper.checknull(txtMota, "Không được để mô tả trống!")) {
                 return;
@@ -1300,7 +1300,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần xóa!");
                 return;
             } else {
-                System.out.println(index);
+                return;
             }
             String ma = lstCTSP.get(index).getId();
             num = Services2.xoaCTSP(ma);
@@ -1339,7 +1339,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     num++, a.getImei(), a.getStatus(a.getTrangThai())
                 });
             }
-            System.out.println("Index: " + index);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1397,7 +1396,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Chọn IMEI cần xóa!");
                 return;
             } else {
-                System.out.println(index);
+                return;
             }
             String ma = lstIMEI.get(index).getId();
             num = Services2.xoa(ma);
@@ -1478,7 +1477,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
         try {
             int index = tblIMEI.getSelectedRow();
             showIMEI(index);
-            System.out.println("Index: " + index + " ID: " + lblId.getText());
         } catch (Exception e) {
             e.printStackTrace();
         }
