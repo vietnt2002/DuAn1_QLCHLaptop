@@ -244,7 +244,7 @@ public class QuanLyHoaDonRepository {
     public List<viewChiTietHoaDon> locHoaDon(int trangThai) {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, TrangThai, LyDo FROM dbo.HoaDon\n" +
-                    "WHERE TrangThai = " + trangThai +" ORDER BY HD.NumOrder DESC";
+                    "WHERE TrangThai = " + trangThai +" ORDER BY NumOrder DESC";
         
         try {
             PreparedStatement PS = con.prepareStatement(sql);
