@@ -3,6 +3,7 @@ package view.chucnangchinh;
 import domainmodels.KhachHang;
 import iservices.IKhachHangService;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -378,19 +379,19 @@ public class JplKhachHang extends javax.swing.JPanel {
     private void btnSuakhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuakhActionPerformed
         try {
             if (checkValidate()) {
-
                 String ma = txtMa.getText();
                 String hoTen = txtHoTen.getText();
                 Date ngaySinh = (Date) txtNgaySinh.getDate();
                 String sdt = txtSdt.getText();
                 String diachi = txtDiaChi.getText();
-
+                Date ngaySua = java.sql.Date.valueOf(LocalDate.now());
                 KhachHang khachHang = new KhachHang();
                 khachHang.setMa(ma);
                 khachHang.setHoTen(hoTen);
                 khachHang.setNgaySinh(ngaySinh);
                 khachHang.setSdt(sdt);
                 khachHang.setDiaChi(diachi);
+                khachHang.setNgaySua(ngaySua);
 
                 iKhachHangService.sua(khachHang);
                 JOptionPane.showMessageDialog(this, "Sửa thành công");

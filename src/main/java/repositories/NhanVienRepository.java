@@ -28,10 +28,10 @@ public class NhanVienRepository implements INhanVienRepository {
         try {
             List<NhanVien> lstNhanVien = new ArrayList<>();
             Connection connection = DBConnection.getConnection();
-            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh',\n" +
-                        "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai'\n" +
-                        "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n" +
-                        "ON CV.Id = NV.IdCV";
+            String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh',\n"
+                    + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai'\n"
+                    + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
+                    + "ON CV.Id = NV.IdCV";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -113,7 +113,7 @@ public class NhanVienRepository implements INhanVienRepository {
 
     @Override
     public Integer sua(NhanVien nhanVien) {
-        String sql = "Update NhanVien Set idCV =?,HoTen=?,GioiTinh=?,NgaySinh=?,Sdt=?,DiaChi=?,MatKhau=?,TrangThai=? Where ma = ?";
+        String sql = "Update NhanVien Set idCV =?,HoTen=?,GioiTinh=?,NgaySinh=?,Sdt=?,DiaChi=?,MatKhau=?,TrangThai=?,NgaySua=? Where ma = ?";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, nhanVien.getIdCV());
@@ -124,7 +124,8 @@ public class NhanVienRepository implements INhanVienRepository {
             PS.setObject(6, nhanVien.getDiaChi());
             PS.setObject(7, nhanVien.getMatKhau());
             PS.setObject(8, nhanVien.getTrangThai());
-            PS.setObject(9, nhanVien.getMa());
+            PS.setObject(9, nhanVien.getNgaySua());
+            PS.setObject(10, nhanVien.getMa());
             PS.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

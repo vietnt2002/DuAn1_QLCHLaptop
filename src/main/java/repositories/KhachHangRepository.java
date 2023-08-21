@@ -67,16 +67,18 @@ public class KhachHangRepository implements IKhachHangRepository {
 
     @Override
     public Integer sua(KhachHang khachHang) {
-        String sql = "Update KhachHang Set HoTen=?,NgaySinh=?,Sdt=?,DiaChi=? Where Ma = ?";
+        String sql = "Update KhachHang Set HoTen=?,NgaySinh=?,Sdt=?,DiaChi=?,NgaySua=? Where Ma = ?";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, khachHang.getHoTen());
             PS.setObject(2, khachHang.getNgaySinh());
             PS.setObject(3, khachHang.getSdt());
             PS.setObject(4, khachHang.getDiaChi());
-            PS.setObject(5, khachHang.getMa());
+            PS.setObject(5, khachHang.getNgaySua());
+            PS.setObject(6, khachHang.getMa());
             PS.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return 0;
     }

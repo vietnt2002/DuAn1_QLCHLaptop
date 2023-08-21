@@ -7,7 +7,7 @@ package view.chucnangchinh;
 import domainmodels.NhanVien;
 import iservices.IChucVuService;
 import iservices.INhanVienService;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -689,6 +689,7 @@ public class JplNhanVien extends javax.swing.JPanel {
                 String ma = txtMa.getText();
                 String hoTen = txtHoTen.getText();
                 String gTinh = (String) cboGioiTinh.getSelectedItem();
+                Date ngaySua = java.sql.Date.valueOf(LocalDate.now());
                 Date ngaySinh = txtNgaySinh.getDate();
                 String sdt = txtSDT.getText();
                 String diachi = txtDiaChi.getText();
@@ -710,6 +711,7 @@ public class JplNhanVien extends javax.swing.JPanel {
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setTrangThai(trangThai);
                 nhanVien.setMa(ma);
+                nhanVien.setNgaySua(ngaySua);
                 iNhanVienSV.sua(nhanVien);
                 JOptionPane.showMessageDialog(this, "Sửa thành công");
                 loadDataNhanVienDanglam(iNhanVienSV.getAllDangLam());
