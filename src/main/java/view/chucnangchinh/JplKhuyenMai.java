@@ -26,9 +26,9 @@ public class JplKhuyenMai extends javax.swing.JPanel {
         initComponents();
         loadDaTa(khuyenMaiRepository.getAll());
         long millis = System.currentTimeMillis();
-//        Date now = new Date(millis);
-//        txtNgayBD.setMinSelectableDate(now);
-//        txtNgayKT.setMinSelectableDate(now);
+        Date now = new Date(millis);
+        txtNgayBD.setMinSelectableDate(now);
+        txtNgayKT.setMinSelectableDate(now);
         updateTrangThai();
 
     }

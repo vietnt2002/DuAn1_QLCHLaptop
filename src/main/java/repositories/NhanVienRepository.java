@@ -93,7 +93,7 @@ public class NhanVienRepository implements INhanVienRepository {
 
     @Override
     public Integer them(NhanVien nhanVien) {
-        String sql = "Insert into NhanVien (idCV,HoTen,GioiTinh,NgaySinh,Sdt,DiaChi,MatKhau) values (?,?,?,?,?,?,?)";
+        String sql = "Insert into NhanVien (idCV,HoTen,GioiTinh,NgaySinh,Sdt,DiaChi,MatKhau,TrangThai) values (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, nhanVien.getIdCV());
@@ -103,6 +103,7 @@ public class NhanVienRepository implements INhanVienRepository {
             PS.setObject(5, nhanVien.getSdt());
             PS.setObject(6, nhanVien.getDiaChi());
             PS.setObject(7, nhanVien.getMatKhau());
+            PS.setObject(8, nhanVien.getTrangThai());
             PS.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

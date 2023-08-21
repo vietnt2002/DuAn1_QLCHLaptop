@@ -16,17 +16,16 @@ import services.KhachHangService;
  * @author ADMIN
  */
 public class JplKhachHang extends javax.swing.JPanel {
-    
+
     private IKhachHangService iKhachHangService = new KhachHangService();
     DefaultTableModel moDel = new DefaultTableModel();
     DefaultComboBoxModel comboxmodel = new DefaultComboBoxModel();
-    
+
     public JplKhachHang() {
         initComponents();
         loadDataKhachHang(iKhachHangService.getAll());
-        
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -379,19 +378,20 @@ public class JplKhachHang extends javax.swing.JPanel {
     private void btnSuakhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuakhActionPerformed
         try {
             if (checkValidate()) {
+
                 String ma = txtMa.getText();
-                String hoTen = txtHoTen.getText();                
+                String hoTen = txtHoTen.getText();
                 Date ngaySinh = (Date) txtNgaySinh.getDate();
                 String sdt = txtSdt.getText();
                 String diachi = txtDiaChi.getText();
-                
+
                 KhachHang khachHang = new KhachHang();
                 khachHang.setMa(ma);
                 khachHang.setHoTen(hoTen);
                 khachHang.setNgaySinh(ngaySinh);
                 khachHang.setSdt(sdt);
                 khachHang.setDiaChi(diachi);
-                
+
                 iKhachHangService.sua(khachHang);
                 JOptionPane.showMessageDialog(this, "Sửa thành công");
                 clearForm();
@@ -409,7 +409,7 @@ public class JplKhachHang extends javax.swing.JPanel {
         tblKhachhang.clearSelection();
         loadDataKhachHang(iKhachHangService.getAll());
     }
-    
+
     private void loadDataKhachHang(List<KhachHang> listKhachHangView) {
         moDel = new DefaultTableModel();
         moDel = (DefaultTableModel) tblKhachhang.getModel();
@@ -461,11 +461,14 @@ public class JplKhachHang extends javax.swing.JPanel {
         if (utilities.ULHelper.checknull(txtHoTen, "Không được để trống !")) {
             return false;
         }
-      
+        if (txtNgaySinh.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Không được để trống !");
+            return false;
+        }
         if (utilities.ULHelper.checknull(txtSdt, "Không được để trống !")) {
             return false;
         }
-        if (utilities.ULHelper.CheckSDT(txtSdt, "Nhập số điện thoại đúng định dạng !")) {
+        if (utilities.ULHelper.CheckSDT(txtSdt, "Nhập số điện thoại gồm 10 kí tự !")) {
             return false;
         }
         if (utilities.ULHelper.checknull(txtDiaChi, "Không được để trống !")) {

@@ -408,7 +408,7 @@ public class JplNhanVien extends javax.swing.JPanel {
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
         jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
-        cboLocChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thủ kho", "Nhân viên", "Quản lý" }));
+        cboLocChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nhân viên", "Quản lý" }));
         cboLocChucVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboLocChucVuActionPerformed(evt);
@@ -641,15 +641,18 @@ public class JplNhanVien extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnthemActionPerformed
     private boolean checkValidate() {
-        if (utilities.ULHelper.checknull(txtHoTen, "Không được để trống họ tên!")) {
+        if (utilities.ULHelper.checknull(txtHoTen, "Không được để trống !")) {
+            return false;
+        }
+        if (txtNgaySinh.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Không được để trống !");
+            return false;
+        }
+        if (utilities.ULHelper.checknull(txtSDT, "Không được để trống !")) {
             return false;
         }
 
-        if (utilities.ULHelper.checknull(txtSDT, "Không được để trống số điện thoại!")) {
-            return false;
-        }
-
-        if (utilities.ULHelper.CheckSDT(txtSDT, "Nhập số điện thoại chưa đúng định dạng !")) {
+        if (utilities.ULHelper.CheckSDT(txtSDT, "Số điện thoại gồm 10 kí tự !")) {
             return false;
         }
 
@@ -683,6 +686,7 @@ public class JplNhanVien extends javax.swing.JPanel {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
             if (checkValidate()) {
+                String ma = txtMa.getText();
                 String hoTen = txtHoTen.getText();
                 String gTinh = (String) cboGioiTinh.getSelectedItem();
                 Date ngaySinh = txtNgaySinh.getDate();
@@ -705,6 +709,7 @@ public class JplNhanVien extends javax.swing.JPanel {
                 nhanVien.setIdCV(chucVu);
                 nhanVien.setMatKhau(matKhau);
                 nhanVien.setTrangThai(trangThai);
+                nhanVien.setMa(ma);
                 iNhanVienSV.sua(nhanVien);
                 JOptionPane.showMessageDialog(this, "Sửa thành công");
                 loadDataNhanVienDanglam(iNhanVienSV.getAllDangLam());
@@ -756,7 +761,7 @@ public class JplNhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_btnazActionPerformed
 
     private void cboLocChucVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLocChucVuActionPerformed
-        if (cboLocChucVu.getSelectedIndex() == -1) {
+        if (cboLocChucVu.getSelectedIndex() == 0) {
             List<NhanVien> list1 = iNhanVienSV.getAllDaNghi();
             List<NhanVien> list2 = iNhanVienSV.getAllDangLam();
             loadDataNhanVienDanglam(list2);
@@ -772,12 +777,6 @@ public class JplNhanVien extends javax.swing.JPanel {
                 loadDataNhanVienDaNghi(list2);
             } else if (cboLocChucVu.getSelectedItem().toString().equals("Quản lý")) {
                 chucVu = "Quản lý";
-                List<NhanVien> list1 = iNhanVienSV.locChucVuNVLam(chucVu);
-                List<NhanVien> list2 = iNhanVienSV.locChucVuNVNghi(chucVu);
-                loadDataNhanVienDanglam(list1);
-                loadDataNhanVienDaNghi(list2);
-            } else if (cboLocChucVu.getSelectedItem().toString().equals("Thủ kho")) {
-                chucVu = "Thủ kho";
                 List<NhanVien> list1 = iNhanVienSV.locChucVuNVLam(chucVu);
                 List<NhanVien> list2 = iNhanVienSV.locChucVuNVNghi(chucVu);
                 loadDataNhanVienDanglam(list1);
