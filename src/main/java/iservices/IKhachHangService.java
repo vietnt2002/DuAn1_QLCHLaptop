@@ -19,8 +19,6 @@ public interface IKhachHangService {
 
     Integer sua(KhachHang khachHang);
 
-    Integer xoa(String ma);
-
     String getIdBySDT(String sdt);
 
     String getIdByMa(String ma);

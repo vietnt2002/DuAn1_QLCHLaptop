@@ -21,7 +21,7 @@ public interface INhanVienService {
 
     Integer sua(NhanVien nhanVien);
 
-    Integer xoa(String ma);
+    Integer xoa(NhanVien nhanVien);
 
     String getIdByTen(String ten);
 

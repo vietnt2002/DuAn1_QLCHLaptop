@@ -5,7 +5,6 @@
 package repositories;
 
 import domainmodels.KhachHang;
-import domainmodels.NhanVien;
 import irepositories.IKhachHangRepository;
 import java.sql.Connection;
 import java.sql.Date;
@@ -83,17 +82,7 @@ public class KhachHangRepository implements IKhachHangRepository {
         return 0;
     }
 
-    @Override
-    public Integer xoa(String ma) {
-        String sql = "Delete from KhachHang Where ma = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setObject(1, ma);
-            int result = ps.executeUpdate();
-        } catch (Exception e) {
-        }
-        return null;
-    }
+
 
     @Override
     public String getIdBySDT(String sdt) {

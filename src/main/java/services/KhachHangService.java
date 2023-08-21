@@ -33,11 +33,6 @@ public class KhachHangService implements IKhachHangService {
     }
 
     @Override
-    public Integer xoa(String ma) {
-        return ikhachHangRepo.xoa(ma);
-    }
-
-    @Override
     public String getIdBySDT(String sdt) {
         return ikhachHangRepo.getIdBySDT(sdt);
     }

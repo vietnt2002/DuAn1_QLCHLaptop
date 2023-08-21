@@ -733,9 +733,13 @@ public class JplNhanVien extends javax.swing.JPanel {
             clearForm();
             return;
         } else {
+            Date ngaySua = java.sql.Date.valueOf(LocalDate.now());
             String ma = txtMa.getText();
-            iNhanVienSV.xoa(ma);
-            JOptionPane.showMessageDialog(this, "Xoá thành công");
+            NhanVien nv = new NhanVien();
+            nv.setMa(ma);
+            nv.setNgaySua(ngaySua);
+            iNhanVienSV.xoa(nv);
+            JOptionPane.showMessageDialog(this, "Nhân viên đã thuộc danh sách đã nghỉ");
             clearForm();
             loadDataNhanVienDanglam(iNhanVienSV.getAllDangLam());
             loadDataNhanVienDaNghi(iNhanVienSV.getAllDaNghi());

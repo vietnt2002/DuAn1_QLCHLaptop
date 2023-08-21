@@ -134,11 +134,12 @@ public class NhanVienRepository implements INhanVienRepository {
     }
 
     @Override
-    public Integer xoa(String ma) {
-        String sql = "Delete from NhanVien Where ma = ?";
+    public Integer xoa(NhanVien nhanVien) {
+        String sql = "Update NhanVien Set TrangThai= 0,NgaySua= ? Where ma = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setObject(1, ma);
+            ps.setObject(1,nhanVien.getNgaySua());
+            ps.setObject(2,nhanVien.getMa());
             int result = ps.executeUpdate();
             return result;
         } catch (Exception e) {

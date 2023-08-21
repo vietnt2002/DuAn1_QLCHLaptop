@@ -39,8 +39,8 @@ public class NhanVienService implements INhanVienService {
     }
 
     @Override
-    public Integer xoa(String ma) {
-        return iNhanVienRepo.xoa(ma);
+    public Integer xoa(NhanVien nhanVien) {
+        return iNhanVienRepo.xoa(nhanVien);
     }
 
     @Override
