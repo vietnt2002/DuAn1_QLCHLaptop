@@ -1413,9 +1413,9 @@ public class JplBanHang extends javax.swing.JPanel {
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTim))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(btnTaoKH, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTaoKH, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnLamMoi)
@@ -1630,10 +1630,10 @@ public class JplBanHang extends javax.swing.JPanel {
         String maGG = txtSoTienGiam.getText();
         showDetailHD();
         LoadTableGioHang();
-        if(!txtSoTienGiam.getText().equals("")){
+        if (!txtSoTienGiam.getText().equals("")) {
             capNhatThanhTien();
         }
-        if(txtSoTienGiam.getText().equals("")){
+        if (txtSoTienGiam.getText().equals("")) {
             txtSoTienGiam.setText(maGG);
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
@@ -1684,12 +1684,13 @@ public class JplBanHang extends javax.swing.JPanel {
         //update lại thành tiền
         String thanhTien = tblGioHang.getValueAt(indexGH, 5).toString();
         chiTietHDService.updateThanhTien(thanhTien, idhd, idCTSP + "");
-        
+
         capNhatThanhTien();
     }//GEN-LAST:event_btnThemImeiActionPerformed
 
     private void tblGioHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGioHangMouseClicked
         // hiển thị danh sách Imei theo idChiTietSP
+        txtTimKiemImei.setText("");
         LoadTableImei();
         LoadTableImeiDaChon();
         ChonIMei.setSize(800, 380);
@@ -1739,7 +1740,7 @@ public class JplBanHang extends javax.swing.JPanel {
 
         ChonIMei.dispose();
         capNhatThanhTien();
-        if(txtSoTienGiam.getText().equals("")){
+        if (txtSoTienGiam.getText().equals("")) {
             txtSoTienGiam.setText(maGG);
         }
     }//GEN-LAST:event_btnDoiSanPhamActionPerformed
@@ -1869,15 +1870,13 @@ public class JplBanHang extends javax.swing.JPanel {
         LoadTableSanPham();
 
         //update số lượng khuyến mãi
-        if (!txtSoLuongMaGG.getText().equals("")) {
-            if (!txtSoTienGiam.getText().equals("0")) {
-                String maKM = cbbMaGiamGia.getSelectedItem().toString();
-                khuyenMaiService.updateSoLuong(maKM);
-                List<KhuyenMai> lstKhuyenMai = khuyenMaiService.getAllByMa(maKM);
-                for (KhuyenMai khuyenMai : lstKhuyenMai) {
-                    txtSoLuongMaGG.setText(khuyenMai.getSoLuong() + "");
-                    txtSoTienGiam.setText(khuyenMai.getSoTienGiam() + "");
-                }
+        if (!txtSoTienGiam.getText().equals("0")) {
+            String maKM = cbbMaGiamGia.getSelectedItem().toString();
+            khuyenMaiService.updateSoLuong(maKM);
+            List<KhuyenMai> lstKhuyenMai = khuyenMaiService.getAllByMa(maKM);
+            for (KhuyenMai khuyenMai : lstKhuyenMai) {
+                txtSoLuongMaGG.setText(khuyenMai.getSoLuong() + "");
+                txtSoTienGiam.setText(khuyenMai.getSoTienGiam() + "");
             }
         }
 

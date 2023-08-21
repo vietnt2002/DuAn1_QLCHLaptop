@@ -27,6 +27,7 @@ import iservices.ISSDService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -539,8 +540,17 @@ public class JplHoaDon extends javax.swing.JPanel {
             loadTableSanPham();
             model = (DefaultTableModel) tblImei.getModel();
             model.setRowCount(0);
+            DecimalFormat decimalFormat = new DecimalFormat("###,###.##");
+            int soTienChenhLech = donGia.compareTo(BigDecimal.ZERO);
+            if(soTienChenhLech < 0){
+                JOptionPane.showMessageDialog(this, "Khách hàng phải trả thêm: "+decimalFormat.format(donGia.abs()) + " VND");
+            }else if (soTienChenhLech > 0){
+                JOptionPane.showMessageDialog(this, "Trả lại khách hàng số tiền: "+decimalFormat.format(donGia) + " VND");
+            }
         }
         JOptionPane.showMessageDialog(this, "Đổi hàng thành công");
+        model = (DefaultTableModel) tblImei.getModel();
+        model.setRowCount(0);
         model = (DefaultTableModel) tblImeiLoi.getModel();
         model.setRowCount(0);
         model = (DefaultTableModel) tblImeiCanDoi.getModel();
@@ -1321,6 +1331,10 @@ public class JplHoaDon extends javax.swing.JPanel {
 
     private void tblHoaDonChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChiTietMouseClicked
         // trả hàng
+        model = (DefaultTableModel) tblImei.getModel();
+        model.setRowCount(0);
+        model = (DefaultTableModel) tblImeiCanDoi.getModel();
+        model.setRowCount(0);
         DoiTraHang.setSize(1300, 550);
         DoiTraHang.setResizable(false);
         DoiTraHang.setLocationRelativeTo(null);

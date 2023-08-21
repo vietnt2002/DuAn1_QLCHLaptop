@@ -131,7 +131,7 @@ public class KhuyenMaiRepository {
 
     public List<KhuyenMai> timKiem(String ma) {
         List<KhuyenMai> list = new ArrayList<>();
-        String sql = "Select * from KhuyenMai Where ma Like '%" + ma + "%'";
+        String sql = "Select * from KhuyenMai Where ma Like '%" + ma + "%' ORDER BY NumOrder DESC";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
