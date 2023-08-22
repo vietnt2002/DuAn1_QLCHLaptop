@@ -1548,6 +1548,7 @@ public class JplBanHang extends javax.swing.JPanel {
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
         // Tạo hóa đơn
         TaoHoaDon();
+        showDetailHD();
     }//GEN-LAST:event_btnTaoHDActionPerformed
 
     private void btnTaoKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoKHActionPerformed
@@ -1871,7 +1872,7 @@ public class JplBanHang extends javax.swing.JPanel {
 
         //update số lượng khuyến mãi
         if (!txtSoTienGiam.getText().equals("0")) {
-            String maKM = cbbMaGiamGia.getSelectedItem().toString();
+            String maKM = (String) cbbMaGiamGia.getSelectedItem();
             khuyenMaiService.updateSoLuong(maKM);
             List<KhuyenMai> lstKhuyenMai = khuyenMaiService.getAllByMa(maKM);
             for (KhuyenMai khuyenMai : lstKhuyenMai) {

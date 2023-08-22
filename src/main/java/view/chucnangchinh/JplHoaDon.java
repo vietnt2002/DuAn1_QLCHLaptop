@@ -326,6 +326,13 @@ public class JplHoaDon extends javax.swing.JPanel {
             model = (DefaultTableModel) tblSanPham.getModel();
             model.setRowCount(0);
             for (ChiTietSP chiTietSP : lstChiTietSP) {
+                String ma = chiTietSP.getMa();
+                int soLuong = chiTietSP.getSoLuongTon();
+                if (soLuong == 0) {
+                    chiTietSPService.updateTrangThai("0", ma);
+                } else {
+                    chiTietSPService.updateTrangThai("1", ma);
+                }
                 model.addRow(new Object[]{
                     count++,
                     chiTietSP.getMa(),
@@ -355,6 +362,13 @@ public class JplHoaDon extends javax.swing.JPanel {
             model = (DefaultTableModel) tblSanPham.getModel();
             model.setRowCount(0);
             for (ChiTietSP chiTietSP : lstChiTietSP) {
+                String ma = chiTietSP.getMa();
+                int soLuong = chiTietSP.getSoLuongTon();
+                if (soLuong == 0) {
+                    chiTietSPService.updateTrangThai("0", ma);
+                } else {
+                    chiTietSPService.updateTrangThai("1", ma);
+                }
                 model.addRow(new Object[]{
                     count++,
                     chiTietSP.getMa(),
@@ -448,7 +462,7 @@ public class JplHoaDon extends javax.swing.JPanel {
 
         // Lấy thông tin & đổi sản phẩm
         indexHD = tblHoaDon.getSelectedRow();
-        if(indexHD == -1){
+        if (indexHD == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần đổi!");
             DoiTraHang.dispose();
             return;
@@ -476,10 +490,8 @@ public class JplHoaDon extends javax.swing.JPanel {
 
             //update imeiDaBan: đổi imei
             imeiDaBanService.updateImei(imeiCD, imeiLoi);
-            
+
             loadTableSanPhamTheoId();
-            model = (DefaultTableModel) tblImei.getModel();
-            model.setRowCount(0);
         } else {
             // Trường hợp đổi sản phẩm khác loại
             //update hóa đơn: khuyến mãi, thành tiền & lý do
@@ -536,19 +548,18 @@ public class JplHoaDon extends javax.swing.JPanel {
             //update imei: trạng thái 2 sp
             imeiService.updateTrangThai("0", imeiLoi);
             imeiService.updateTrangThai("1", imeiCD);
-            
+
             loadTableSanPham();
-            model = (DefaultTableModel) tblImei.getModel();
-            model.setRowCount(0);
             DecimalFormat decimalFormat = new DecimalFormat("###,###.##");
             int soTienChenhLech = donGia.compareTo(BigDecimal.ZERO);
-            if(soTienChenhLech < 0){
-                JOptionPane.showMessageDialog(this, "Khách hàng phải trả thêm: "+decimalFormat.format(donGia.abs()) + " VND");
-            }else if (soTienChenhLech > 0){
-                JOptionPane.showMessageDialog(this, "Trả lại khách hàng số tiền: "+decimalFormat.format(donGia) + " VND");
+            if (soTienChenhLech < 0) {
+                JOptionPane.showMessageDialog(this, "Khách hàng phải trả thêm: " + decimalFormat.format(donGia.abs()) + " VND");
+            } else if (soTienChenhLech > 0) {
+                JOptionPane.showMessageDialog(this, "Trả lại khách hàng số tiền: " + decimalFormat.format(donGia) + " VND");
             }
         }
         JOptionPane.showMessageDialog(this, "Đổi hàng thành công");
+        loadTableSanPham();
         model = (DefaultTableModel) tblImei.getModel();
         model.setRowCount(0);
         model = (DefaultTableModel) tblImeiLoi.getModel();
@@ -557,7 +568,6 @@ public class JplHoaDon extends javax.swing.JPanel {
         model.setRowCount(0);
         txtLyDo.setText("");
         txtTimImei.setText("");
-        loadTableImei();
         loadHoaDonTheoMaNV();
         if (indexHD < 0 || indexHD > QLHD.getHoaDon().size()) {
             return;
