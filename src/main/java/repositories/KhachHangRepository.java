@@ -26,7 +26,7 @@ public class KhachHangRepository implements IKhachHangRepository {
     @Override
     public List<KhachHang> getAll() {
         List<KhachHang> listKhachHang = new ArrayList<>();
-        String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang";
+        String sql = "SELECT Id, Ma, HoTen, NgaySinh, Sdt, DiaChi, NgayTao, NgaySua FROM dbo.KhachHang ORDER BY Ma";
         try (PreparedStatement PS = con.prepareStatement(sql); ResultSet RS = PS.executeQuery()) {
             while (RS.next()) {
                 KhachHang khachHang = new KhachHang();

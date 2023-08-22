@@ -184,7 +184,7 @@ public class QuanLyHoaDonRepository {
     public List<viewChiTietHoaDon> getTimHoaDonTheoNgay(LocalDate dau, LocalDate cuoi) {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, TrangThai, LyDo FROM dbo.HoaDon\n" +
-                    "WHERE (TrangThai = 1 OR TrangThai = 2) AND NgayThanhToan BETWEEN ? AND ?";
+                    "WHERE (TrangThai = 1 OR TrangThai = 2) AND NgayThanhToan BETWEEN ? AND ? ORDER BY NumOrder DESC";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, dau);
@@ -214,7 +214,7 @@ public class QuanLyHoaDonRepository {
         List<viewChiTietHoaDon> list = new ArrayList<>();
         String sql = "SELECT HD.Ma, IdNV, IdKH, NgayThanhToan, KhuyenMai, ThanhTien, HD.TrangThai, LyDo FROM dbo.HoaDon HD JOIN dbo.NhanVien NV\n" +
                     "ON NV.Id = HD.IdNV\n" +
-                    "WHERE (HD.TrangThai = 1 OR HD.TrangThai = 2) AND (NgayThanhToan BETWEEN ? AND ?) AND NV.Ma = ?";
+                    "WHERE (HD.TrangThai = 1 OR HD.TrangThai = 2) AND (NgayThanhToan BETWEEN ? AND ?) AND NV.Ma = ? ORDER BY NumOrder DESC";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             PS.setObject(1, dau);
