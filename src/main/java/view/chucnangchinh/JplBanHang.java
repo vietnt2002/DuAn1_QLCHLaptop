@@ -1580,6 +1580,10 @@ public class JplBanHang extends javax.swing.JPanel {
                 txtDiaChiKH.requestFocus();
                 return;
             }
+            if(txtNgaySinhKH.getDate()==null){
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập vào ngày sinh!");
+                return;
+            }
 
             //Check trùng số điện thoại
             List<KhachHang> lstKhachHang = khachHangService.getAll();
@@ -1591,8 +1595,22 @@ public class JplBanHang extends javax.swing.JPanel {
                     return;
                 }
             }
-            //check SDT
-            if (utilities.ULHelper.CheckSDT(txtSdtKH, "Nhập số điện thoại đúng định dạng !")) {
+            
+            //check kí tự đặc biệt
+            if(txtHoTenKH.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>].*")){
+                JOptionPane.showMessageDialog(this, "Họ tên không được chứa kí tự đặc biệt!");
+                txtHoTenKH.requestFocus();
+                return;
+            }
+            
+            if(txtDiaChiKH.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>].*")){
+                JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa kí tự đặc biệt!");
+                txtDiaChiKH.requestFocus();
+                return;
+            }
+            
+            //check SDT đúng định dạng
+            if (utilities.ULHelper.CheckSDT(txtSdtKH, "Nhập số điện thoại không đúng định dạng!")) {
                 return;
             }
 
