@@ -429,6 +429,16 @@ public class JplKhachHang extends javax.swing.JPanel {
         if (utilities.ULHelper.checknull(txtHoTen, "Không được để trống !")) {
             return false;
         }
+        if (txtHoTen.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>].*")) {
+            JOptionPane.showMessageDialog(this, "Họ tên không được chứa kí tự đặc biệt!");
+            txtHoTen.requestFocus();
+            return false;
+        }
+        if (txtHoTen.getText().matches(".*[0123456789].*")) {
+            JOptionPane.showMessageDialog(this, "Họ tên phải là chữ cái !");
+            txtHoTen.requestFocus();
+            return false;
+        }
         if (txtNgaySinh.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Không được để trống !");
             return false;
@@ -436,12 +446,18 @@ public class JplKhachHang extends javax.swing.JPanel {
         if (utilities.ULHelper.checknull(txtSdt, "Không được để trống !")) {
             return false;
         }
-        if (utilities.ULHelper.CheckSDT(txtSdt, "Nhập số điện thoại gồm 10 kí tự !")) {
+        if (utilities.ULHelper.CheckSDT(txtSdt, "Nhập số điện thoại là số, gồm 10 kí tự !")) {
             return false;
         }
         if (utilities.ULHelper.checknull(txtDiaChi, "Không được để trống !")) {
             return false;
         }
+        if (txtDiaChi.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>/].*")) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa kí tự đặc biệt!");
+            txtDiaChi.requestFocus();
+            return false;
+        }
+
         return true;
     }
     private void btnTangkhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTangkhActionPerformed

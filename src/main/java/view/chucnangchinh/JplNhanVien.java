@@ -25,10 +25,8 @@ public class JplNhanVien extends javax.swing.JPanel {
 
     public JplNhanVien() {
         initComponents();
-
         loadDataNhanVienDanglam(iNhanVienSV.getAllDangLam());
         loadDataNhanVienDaNghi(iNhanVienSV.getAllDaNghi());
-
         loadCombox(iNhanVienSV.getTenChucVu());
     }
 
@@ -39,10 +37,10 @@ public class JplNhanVien extends javax.swing.JPanel {
         }
     }
 
-    private void loadDataNhanVienDanglam(List<NhanVien> listl) {
+    private void loadDataNhanVienDanglam(List<NhanVien> list) {
         moDel = (DefaultTableModel) tblNhanVienDangLam.getModel();
         moDel.setRowCount(0);
-        for (NhanVien nhanVien : listl) {
+        for (NhanVien nhanVien : list) {
             moDel.addRow(new Object[]{
                 nhanVien.getMa(),
                 nhanVien.getHoTen(),
@@ -59,10 +57,10 @@ public class JplNhanVien extends javax.swing.JPanel {
         }
     }
 
-    private void loadDataNhanVienDaNghi(List<NhanVien> listl) {
+    private void loadDataNhanVienDaNghi(List<NhanVien> list) {
         moDel = (DefaultTableModel) tblNhanVienDaNghi.getModel();
         moDel.setRowCount(0);
-        for (NhanVien nhanVien : listl) {
+        for (NhanVien nhanVien : list) {
             moDel.addRow(new Object[]{
                 nhanVien.getMa(),
                 nhanVien.getHoTen(),
@@ -644,6 +642,16 @@ public class JplNhanVien extends javax.swing.JPanel {
         if (utilities.ULHelper.checknull(txtHoTen, "Không được để trống !")) {
             return false;
         }
+        if (txtHoTen.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>].*")) {
+            JOptionPane.showMessageDialog(this, "Họ tên không được chứa kí tự đặc biệt!");
+            txtHoTen.requestFocus();
+            return false;
+        }
+        if (txtHoTen.getText().matches(".*[0123456789].*")) {
+            JOptionPane.showMessageDialog(this, "Họ tên phải là chữ cái !");
+            txtHoTen.requestFocus();
+            return false;
+        }
         if (txtNgaySinh.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Không được để trống !");
             return false;
@@ -660,6 +668,11 @@ public class JplNhanVien extends javax.swing.JPanel {
             return false;
         }
         if (utilities.ULHelper.checknull(txtMatKhau, "Không được để trống !")) {
+            return false;
+        }
+        if (txtDiaChi.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>/].*")) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa kí tự đặc biệt!");
+            txtDiaChi.requestFocus();
             return false;
         }
         return true;
