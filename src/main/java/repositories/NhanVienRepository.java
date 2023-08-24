@@ -286,7 +286,7 @@ public class NhanVienRepository implements INhanVienRepository {
             String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
                     + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV Where NV.TrangThai = 1 ORDER BY NumOrder ASC";
+                    + "ON CV.Id = NV.IdCV Where NV.TrangThai = 1 ORDER BY NV.NumOrder ASC";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -343,7 +343,7 @@ public class NhanVienRepository implements INhanVienRepository {
             String sql = "SELECT NV.Id AS 'Id', CV.Id AS 'IdCV', CV.Ma AS 'MaCV', CV.Ten AS 'TenCV', NV.Ma AS 'Ma', NV.HoTen AS 'HoTen', NV.GioiTinh AS 'GioiTinh', \n"
                     + "NV.NgaySinh AS 'NgaySinh', NV.Sdt AS 'Sdt', NV.DiaChi AS 'DiaChi', NV.MatKhau AS 'MatKhau', NV.NgayTao AS 'NgayTao', NV.NgaySua AS 'NgaySua', NV.TrangThai AS 'TrangThai' \n"
                     + "FROM dbo.NhanVien NV JOIN dbo.ChucVu CV\n"
-                    + "ON CV.Id = NV.IdCV Where NV.TrangThai = 0 ORDER BY NumOrder ASC";
+                    + "ON CV.Id = NV.IdCV Where NV.TrangThai = 0 ORDER BY NV.NumOrder ASC";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

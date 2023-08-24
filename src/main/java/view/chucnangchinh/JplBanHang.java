@@ -177,6 +177,11 @@ public class JplBanHang extends javax.swing.JPanel {
             model = (DefaultTableModel) tblSanPham.getModel();
             model.setRowCount(0);
             for (ChiTietSP chiTietSP : lstChiTietSP) {
+                String ma = chiTietSP.getMa();
+                int soLuong = chiTietSP.getSoLuongTon();
+                if (soLuong == 0) {
+                    chiTietSPService.updateTrangThai("0", ma);
+                }
                 model.addRow(new Object[]{
                     count++,
                     chiTietSP.getMa(),
@@ -191,11 +196,6 @@ public class JplBanHang extends javax.swing.JPanel {
                     chiTietSP.getSoLuongTon(),
                     chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
                 });
-                String ma = chiTietSP.getMa();
-                int soLuong = chiTietSP.getSoLuongTon();
-                if (soLuong == 0) {
-                    chiTietSPService.updateTrangThai("0", ma);
-                }
             }
         }
 
@@ -1580,7 +1580,7 @@ public class JplBanHang extends javax.swing.JPanel {
                 txtDiaChiKH.requestFocus();
                 return;
             }
-            if(txtNgaySinhKH.getDate()==null){
+            if (txtNgaySinhKH.getDate() == null) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập vào ngày sinh!");
                 return;
             }
@@ -1595,20 +1595,20 @@ public class JplBanHang extends javax.swing.JPanel {
                     return;
                 }
             }
-            
+
             //check kí tự đặc biệt
-            if(txtHoTenKH.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>].*")){
+            if (txtHoTenKH.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>].*")) {
                 JOptionPane.showMessageDialog(this, "Họ tên không được chứa kí tự đặc biệt!");
                 txtHoTenKH.requestFocus();
                 return;
             }
-            
-            if(txtDiaChiKH.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>].*")){
+
+            if (txtDiaChiKH.getText().matches(".*[!@#$%^&*(),.?\\\":{}|<>].*")) {
                 JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa kí tự đặc biệt!");
                 txtDiaChiKH.requestFocus();
                 return;
             }
-            
+
             //check SDT đúng định dạng
             if (utilities.ULHelper.CheckSDT(txtSdtKH, "Nhập số điện thoại không đúng định dạng!")) {
                 return;
@@ -1898,7 +1898,7 @@ public class JplBanHang extends javax.swing.JPanel {
                 txtSoTienGiam.setText(khuyenMai.getSoTienGiam() + "");
             }
         }
-
+        LoadTableSanPham();
         LoadTableHoaDon();
         model = (DefaultTableModel) tblGioHang.getModel();
         model.setRowCount(0);
