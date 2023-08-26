@@ -58,13 +58,6 @@ public class FrmManHinh extends javax.swing.JFrame {
             txtMa4.setText(lstMH.get(index).getMa());
             txtDPG.setText(lstMH.get(index).getDoPhanGiai());
             txtInch.setText("" + lstMH.get(index).getInch());
-            if (lstMH.get(index).getTrangThai() == 0) {
-                radCon4.setSelected(true);
-            } else {
-                if (lstMH.get(index).getTrangThai() == 1) {
-                    radHet4.setSelected(true);
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,14 +72,10 @@ public class FrmManHinh extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btgMH = new javax.swing.ButtonGroup();
         pnlMH = new javax.swing.JPanel();
         pnlMHinfo = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        radCon4 = new javax.swing.JRadioButton();
-        radHet4 = new javax.swing.JRadioButton();
         pnlMHbtn = new javax.swing.JPanel();
         btnAdd4 = new javax.swing.JButton();
         btnEdit4 = new javax.swing.JButton();
@@ -109,19 +98,6 @@ public class FrmManHinh extends javax.swing.JFrame {
         jLabel37.setText("Mã");
 
         jLabel42.setText("Độ phân giải");
-
-        jLabel60.setText("Trạng thái");
-
-        btgMH.add(radCon4);
-        radCon4.setText("Còn hàng");
-        radCon4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radCon4ActionPerformed(evt);
-            }
-        });
-
-        btgMH.add(radHet4);
-        radHet4.setText("Hết hàng");
 
         btnAdd4.setBackground(new java.awt.Color(255, 51, 0));
         btnAdd4.setForeground(new java.awt.Color(255, 255, 255));
@@ -191,6 +167,8 @@ public class FrmManHinh extends javax.swing.JFrame {
 
         pnlMHbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4});
 
+        txtMa4.setEditable(false);
+
         txtDPG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDPGActionPerformed(evt);
@@ -214,17 +192,12 @@ public class FrmManHinh extends javax.swing.JFrame {
                 .addGroup(pnlMHinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel42)
                     .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel60, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(pnlMHinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtDPG, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                     .addComponent(txtMa4)
-                    .addComponent(txtInch)
-                    .addGroup(pnlMHinfoLayout.createSequentialGroup()
-                        .addComponent(radCon4)
-                        .addGap(18, 18, 18)
-                        .addComponent(radHet4)))
+                    .addComponent(txtInch))
                 .addGap(73, 73, 73)
                 .addComponent(pnlMHbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
@@ -245,12 +218,7 @@ public class FrmManHinh extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlMHinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtInch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlMHinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(radCon4)
-                            .addComponent(radHet4)
-                            .addComponent(jLabel60)))
+                            .addComponent(txtInch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlMHinfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pnlMHbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -312,10 +280,6 @@ public class FrmManHinh extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radCon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCon4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radCon4ActionPerformed
-
     private void btnAdd4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd4ActionPerformed
         // TODO add your handling code here:
         try {
@@ -333,8 +297,8 @@ public class FrmManHinh extends javax.swing.JFrame {
             if (ULHelper.checknull(txtDPG, "Không được để tên trống!")) {
                 return;
             }
-            int stt = (radHet4.isSelected() ? 1 : 0);
-            ManHinh mau = new ManHinh(txtMa4.getText(), txtDPG.getText(), Double.parseDouble(txtDPG.getText()), date, date, stt);
+            int stt = 0;
+            ManHinh mau = new ManHinh(txtDPG.getText(), Double.parseDouble(txtDPG.getText()), date, date, stt);
             int thongBao = svcMH.them(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -362,8 +326,8 @@ public class FrmManHinh extends javax.swing.JFrame {
             lstMH = svcMH.getAll();
 
             Date tao = lstMH.get(index).getNgayTao();
-            int stt = (radHet4.isSelected() ? 1 : 0);
-            ManHinh mau = new ManHinh(txtMa4.getText(), txtDPG.getText(), Double.parseDouble(txtDPG.getText()), tao, date, stt);
+            int stt = lstMH.get(index).getTrangThai();
+            ManHinh mau = new ManHinh(txtDPG.getText(), Double.parseDouble(txtDPG.getText()), tao, date, stt);
             int thongBao = svcMH.sua(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -460,7 +424,6 @@ public class FrmManHinh extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btgMH;
     private javax.swing.JButton btnAdd4;
     private javax.swing.JButton btnDelete4;
     private javax.swing.JButton btnEdit4;
@@ -468,13 +431,10 @@ public class FrmManHinh extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel60;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JPanel pnlMH;
     private javax.swing.JPanel pnlMHbtn;
     private javax.swing.JPanel pnlMHinfo;
-    private javax.swing.JRadioButton radCon4;
-    private javax.swing.JRadioButton radHet4;
     private javax.swing.JTable tblMH;
     private javax.swing.JTextField txtDPG;
     private javax.swing.JTextField txtInch;

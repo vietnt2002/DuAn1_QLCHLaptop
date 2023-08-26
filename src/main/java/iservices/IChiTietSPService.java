@@ -25,6 +25,7 @@ public interface IChiTietSPService {
     Integer xoaCTSP(String ma);
     Integer updateSoLuong(String soLuong, String ma);
     Integer updateTrangThai(String trangThai, String ma);
+    Integer doiTrangThai(String trangThai1, String trangThai2);
     String getMaById(String id);
     ChiTietSP getIdByMa(String ma);
     String getIdByTen(String ten);

@@ -246,6 +246,9 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JTextField" name="txtMa4">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTen4">
               <Events>

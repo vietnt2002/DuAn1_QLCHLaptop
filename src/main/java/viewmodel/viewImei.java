@@ -99,6 +99,10 @@ public class viewImei {
                 "Chưa bán";
             case 1 ->
                 "Đã bán";
+            case 2 ->
+                "Lỗi";
+            case 3 ->
+                "Ngừng bán";
             default ->
                 "Không rõ";
         };

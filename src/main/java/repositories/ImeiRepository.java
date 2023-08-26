@@ -447,4 +447,22 @@ public class ImeiRepository implements IImeiRepository {
             return null;
         }
     }
+
+    @Override
+    public Integer doiTrangThai(String trangThai1, String trangThai2) {
+        try {
+            Integer result = 0;
+            Connection connection = DBConnection.getConnection();
+            String sql = "UPDATE dbo.IMei SET TrangThai = ? WHERE TrangThai = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, trangThai1);
+            ps.setString(2, trangThai2);
+            result = ps.executeUpdate();
+            ps.close();
+            connection.close();
+            return result;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }

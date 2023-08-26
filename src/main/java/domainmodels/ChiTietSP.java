@@ -267,6 +267,8 @@ public class ChiTietSP {
                 "Hết hàng";
             case 1 ->
                 "Còn hàng";
+            case 2 ->
+                "Ngừng bán";
             default ->
                 "Không rõ";
         };

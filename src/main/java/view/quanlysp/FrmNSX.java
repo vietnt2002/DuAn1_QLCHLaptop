@@ -169,6 +169,8 @@ public class FrmNSX extends javax.swing.JFrame {
 
         pnlNSXbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnExit});
 
+        txtMa4.setEditable(false);
+
         txtTen4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTen4ActionPerformed(evt);
@@ -297,7 +299,7 @@ public class FrmNSX extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen4, "Không được để tên trống!")) {
                 return;
             }
-            NSX nsx = new NSX(txtMa4.getText(), txtTen4.getText(), txtQG.getText(), date, date, 0);
+            NSX nsx = new NSX(txtTen4.getText(), txtQG.getText(), date, date, 0);
             int thongBao = svcNSX.them(nsx);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -325,7 +327,7 @@ public class FrmNSX extends javax.swing.JFrame {
             lstNSX = svcNSX.getAll();
 
             Date tao = lstNSX.get(index).getNgayTao();
-            NSX mau = new NSX(txtMa4.getText(), txtTen4.getText(), txtQG.getText(), tao, date, 0);
+            NSX mau = new NSX(txtTen4.getText(), txtQG.getText(), tao, date, 0);
             int thongBao = svcNSX.sua(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");

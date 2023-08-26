@@ -408,4 +408,9 @@ public class ChiTietSPService implements IChiTietSPService {
         return Repository.getAllByIdCTSP(id);
     }
 
+    @Override
+    public Integer doiTrangThai(String trangThai1, String trangThai2) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

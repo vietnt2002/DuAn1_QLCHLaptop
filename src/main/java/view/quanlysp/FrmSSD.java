@@ -56,14 +56,7 @@ public class FrmSSD extends javax.swing.JFrame {
     public void showdetailSSD(int index) {
         try {
             txtMa3.setText(lstSSD.get(index).getMa());
-            txtTen3.setText(lstSSD.get(index).getTen());
-            if (lstSSD.get(index).getTrangThai() == 0) {
-                radCon3.setSelected(true);
-            } else {
-                if (lstSSD.get(index).getTrangThai() == 1) {
-                    radHet3.setSelected(true);
-                }
-            }
+            txtTen3.setText(lstSSD.get(index).getTen()); 
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,14 +71,10 @@ public class FrmSSD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btgSSD = new javax.swing.ButtonGroup();
         pnlSSD = new javax.swing.JPanel();
         pnlSSDinfo = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        radCon3 = new javax.swing.JRadioButton();
-        radHet3 = new javax.swing.JRadioButton();
         pnlSSDbtn = new javax.swing.JPanel();
         btnAdd3 = new javax.swing.JButton();
         btnEdit3 = new javax.swing.JButton();
@@ -106,19 +95,6 @@ public class FrmSSD extends javax.swing.JFrame {
         jLabel35.setText("Mã");
 
         jLabel36.setText("Tên");
-
-        jLabel56.setText("Trạng thái");
-
-        btgSSD.add(radCon3);
-        radCon3.setText("Còn hàng");
-        radCon3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radCon3ActionPerformed(evt);
-            }
-        });
-
-        btgSSD.add(radHet3);
-        radHet3.setText("Hết hàng");
 
         btnAdd3.setBackground(new java.awt.Color(255, 51, 0));
         btnAdd3.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,6 +164,8 @@ public class FrmSSD extends javax.swing.JFrame {
 
         pnlSSDbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd3, btnDelete3, btnEdit3, btnHide3});
 
+        txtMa3.setEditable(false);
+
         txtTen3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTen3ActionPerformed(evt);
@@ -201,16 +179,10 @@ public class FrmSSD extends javax.swing.JFrame {
             .addGroup(pnlSSDinfoLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(pnlSSDinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel56)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSSDinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel35)
-                        .addComponent(jLabel36)))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel35)
+                    .addComponent(jLabel36))
+                .addGap(53, 53, 53)
                 .addGroup(pnlSSDinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlSSDinfoLayout.createSequentialGroup()
-                        .addComponent(radCon3)
-                        .addGap(18, 18, 18)
-                        .addComponent(radHet3))
                     .addComponent(txtTen3, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                     .addComponent(txtMa3))
                 .addGap(42, 42, 42)
@@ -230,12 +202,7 @@ public class FrmSSD extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlSSDinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel36)
-                            .addComponent(txtTen3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlSSDinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel56)
-                            .addComponent(radCon3)
-                            .addComponent(radHet3))))
+                            .addComponent(txtTen3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -302,10 +269,6 @@ public class FrmSSD extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radCon3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCon3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radCon3ActionPerformed
-
     private void btnAdd3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd3ActionPerformed
         // TODO add your handling code here:
         try {
@@ -323,8 +286,8 @@ public class FrmSSD extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen3, "Không được để tên trống!")) {
                 return;
             }
-            int stt = (radHet3.isSelected() ? 1 : 0);
-            SSD ssd = new SSD(txtMa3.getText(), txtTen3.getText(), date, date, stt);
+            int stt = 0;
+            SSD ssd = new SSD(txtTen3.getText(), date, date, stt);
             int thongBao = svcSSD.them(ssd);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -352,8 +315,8 @@ public class FrmSSD extends javax.swing.JFrame {
             lstSSD = svcSSD.getAll();
 
             Date tao = lstSSD.get(index).getNgayTao();
-            int stt = (radHet3.isSelected() ? 1 : 0);
-            SSD ssd = new SSD(txtMa3.getText(), txtTen3.getText(), tao, date, stt);
+            int stt = lstSSD.get(index).getTrangThai();
+            SSD ssd = new SSD(txtTen3.getText(), tao, date, stt);
             int thongBao = svcSSD.sua(ssd);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -446,20 +409,16 @@ public class FrmSSD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btgSSD;
     private javax.swing.JButton btnAdd3;
     private javax.swing.JButton btnDelete3;
     private javax.swing.JButton btnEdit3;
     private javax.swing.JButton btnHide3;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel56;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JPanel pnlSSD;
     private javax.swing.JPanel pnlSSDbtn;
     private javax.swing.JPanel pnlSSDinfo;
-    private javax.swing.JRadioButton radCon3;
-    private javax.swing.JRadioButton radHet3;
     private javax.swing.JTable tblSSD;
     private javax.swing.JTextField txtMa3;
     private javax.swing.JTextField txtTen3;

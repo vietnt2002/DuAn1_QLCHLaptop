@@ -39,6 +39,13 @@ public class SSD {
         this.trangThai = trangThai;
     }
 
+    public SSD(String ten, Date ngayTao, Date ngaySua, int trangThai) {
+        this.ten = ten;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+
     public String getId() {
         return id;
     }
@@ -86,7 +93,7 @@ public class SSD {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
-    
+
     public String getStatus(int trangThai) {
         return switch (trangThai) {
             case 0 ->

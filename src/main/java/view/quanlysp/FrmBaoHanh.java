@@ -323,7 +323,7 @@ public class FrmBaoHanh extends javax.swing.JFrame {
             lstBaoHanh = svcBaoHanh.getAll();
 
             Date tao = lstBaoHanh.get(index).getNgayTao();
-            BaoHanh cpu = new BaoHanh(txtMa.getText(), Integer.parseInt(txtThang.getText()), date, date, 0);
+            BaoHanh cpu = new BaoHanh(txtMa.getText(), Integer.parseInt(txtThang.getText()), tao, date, 0);
             int thongBao = svcBaoHanh.sua(cpu);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");

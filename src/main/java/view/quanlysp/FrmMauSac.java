@@ -56,13 +56,6 @@ public class FrmMauSac extends javax.swing.JFrame {
         try {
             txtMa4.setText(lstMS.get(index).getMa());
             txtTen4.setText(lstMS.get(index).getTen());
-            if (lstMS.get(index).getTrangThai() == 0) {
-                radCon4.setSelected(true);
-            } else {
-                if (lstMS.get(index).getTrangThai() == 1) {
-                    radHet4.setSelected(true);
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,14 +70,10 @@ public class FrmMauSac extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btgMS = new javax.swing.ButtonGroup();
         pnlMauSac = new javax.swing.JPanel();
         pnlMauSacinfo = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        radCon4 = new javax.swing.JRadioButton();
-        radHet4 = new javax.swing.JRadioButton();
         pnlMauSacbtn = new javax.swing.JPanel();
         btnAdd4 = new javax.swing.JButton();
         btnEdit4 = new javax.swing.JButton();
@@ -105,19 +94,6 @@ public class FrmMauSac extends javax.swing.JFrame {
         jLabel37.setText("Mã");
 
         jLabel42.setText("Tên");
-
-        jLabel60.setText("Trạng thái");
-
-        btgMS.add(radCon4);
-        radCon4.setText("Còn hàng");
-        radCon4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radCon4ActionPerformed(evt);
-            }
-        });
-
-        btgMS.add(radHet4);
-        radHet4.setText("Hết hàng");
 
         btnAdd4.setBackground(new java.awt.Color(255, 51, 0));
         btnAdd4.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,6 +163,8 @@ public class FrmMauSac extends javax.swing.JFrame {
 
         pnlMauSacbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd4, btnDelete4, btnEdit4, btnHide4});
 
+        txtMa4.setEditable(false);
+
         txtTen4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTen4ActionPerformed(evt);
@@ -200,17 +178,12 @@ public class FrmMauSac extends javax.swing.JFrame {
             .addGroup(pnlMauSacinfoLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel60)
                     .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(18, 18, 18)
+                .addGap(53, 53, 53)
                 .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtTen4, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                    .addComponent(txtMa4)
-                    .addGroup(pnlMauSacinfoLayout.createSequentialGroup()
-                        .addComponent(radCon4)
-                        .addGap(18, 18, 18)
-                        .addComponent(radHet4)))
+                    .addComponent(txtMa4))
                 .addGap(40, 40, 40)
                 .addComponent(pnlMauSacbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -226,12 +199,7 @@ public class FrmMauSac extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel42)
-                            .addComponent(txtTen4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlMauSacinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel60)
-                            .addComponent(radCon4)
-                            .addComponent(radHet4)))
+                            .addComponent(txtTen4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(pnlMauSacbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -291,10 +259,6 @@ public class FrmMauSac extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radCon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCon4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radCon4ActionPerformed
-
     private void btnAdd4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd4ActionPerformed
         // TODO add your handling code here:
         try {
@@ -312,8 +276,8 @@ public class FrmMauSac extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen4, "Không được để màu trống!")) {
                 return;
             }
-            int stt = (radHet4.isSelected() ? 1 : 0);
-            MauSac mau = new MauSac(txtMa4.getText(), txtTen4.getText(), date, date, stt);
+            int stt = 0;
+            MauSac mau = new MauSac(txtTen4.getText(), date, date, stt);
             int thongBao = svcMS.them(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -341,8 +305,8 @@ public class FrmMauSac extends javax.swing.JFrame {
             lstMS = svcMS.getAll();
 
             Date tao = lstMS.get(index).getNgayTao();
-            int stt = (radHet4.isSelected() ? 1 : 0);
-            MauSac mau = new MauSac(txtMa4.getText(), txtTen4.getText(), tao, date, stt);
+            int stt = lstMS.get(index).getTrangThai();
+            MauSac mau = new MauSac(txtTen4.getText(), tao, date, stt);
             int thongBao = svcMS.sua(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -435,20 +399,16 @@ public class FrmMauSac extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btgMS;
     private javax.swing.JButton btnAdd4;
     private javax.swing.JButton btnDelete4;
     private javax.swing.JButton btnEdit4;
     private javax.swing.JButton btnHide4;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel60;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JPanel pnlMauSac;
     private javax.swing.JPanel pnlMauSacbtn;
     private javax.swing.JPanel pnlMauSacinfo;
-    private javax.swing.JRadioButton radCon4;
-    private javax.swing.JRadioButton radHet4;
     private javax.swing.JTable tblMauSac;
     private javax.swing.JTextField txtMa4;
     private javax.swing.JTextField txtTen4;

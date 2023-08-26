@@ -324,7 +324,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 0));
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("Xóa");
+        btnDelete.setText("Đổi TT");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -896,7 +896,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
 
         jLabel49.setText("IMEI:");
 
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa bán", "Đã bán", "Lỗi", "Không rõ" }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa bán", "Đã bán", "Lỗi", "Ngừng bán", "Không rõ" }));
         cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTrangThaiActionPerformed(evt);
@@ -1297,25 +1297,59 @@ public class JplQuanLySP extends javax.swing.JPanel {
         try {
             int index = tblCTSP.getSelectedRow();
             if (index == -1) {
-                JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần xóa!");
+                JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần đổi trạng thái!");
                 return;
             } else {
                 System.out.println("");
             }
-            String ma = lstCTSP.get(index).getId();
-            num = Services2.xoaCTSP(ma);
-            int thongBao = Services.xoa(ma);
-            if (thongBao == 1) {
-                JOptionPane.showMessageDialog(this, "Xóa CTSP thành công!");
-                filltable();
-                if (num == 1) {
-                    JOptionPane.showMessageDialog(this, "Xóa IMEI thành công!");
-                    filltableIMEI();
+            String ma = tblCTSP.getValueAt(index, 0).toString();            
+            int sl = Integer.parseInt(tblCTSP.getValueAt(index, 12).toString());
+            String trangThai = tblCTSP.getValueAt(index, 17).toString();
+            if (trangThai.equals("Còn hàng") || trangThai.equals("Hết hàng")) {
+                int thongBao = Services.updateTrangThai("2", ma);
+                if (thongBao == 1) {
+                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
+                    filltable();
+                    String imei = tblIMEI.getValueAt(index, 1).toString();
+                    num = Services2.updateTrangThai("3", imei);
+                    if (num == 1) {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thành công!");
+                        filltableIMEI();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng IMEI thái thất bại!");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Xóa thất bại!");
+                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thất bại!");
+                    return;
+                }
+            } else if (trangThai.equals("Ngừng bán") || sl > 0) {
+                int thongBao = Services.updateTrangThai("1", ma);
+                if (thongBao == 1) {
+                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
+                    filltable();
+                    String imei = tblIMEI.getValueAt(index, 1).toString();
+                    num = Services2.updateTrangThai("1", imei);
+                    if (num == 1) {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thành công!");
+                        filltableIMEI();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thất bại!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thất bại!");
+                    return;
+                }
+            } else if (trangThai.equals("Ngừng bán") || sl <= 0) {
+                int thongBao = Services.updateTrangThai("0", ma);
+                if (thongBao == 1) {
+                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
+                    filltable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thất bại!");
+                    return;
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại!");
+                JOptionPane.showMessageDialog(this, "Đổi trạng thái thất bại!");
                 return;
             }
         } catch (Exception e) {
@@ -1477,7 +1511,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
         try {
             int index = tblIMEI.getSelectedRow();
             showIMEI(index);
-            System.out.println("Index: " + index + " ID: " + lblId.getText());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1548,8 +1581,16 @@ public class JplQuanLySP extends javax.swing.JPanel {
                         num++, a.getImei(), a.getStatus(a.getTrangThai())
                     });
                 }
-            }
-            else{
+            } else if (cboTrangThai.getSelectedItem().equals("Ngừng bán")) {
+                num = 1;
+                modelIMEI.setRowCount(0);
+                lstIMEI = Services2.timTTImei(3);
+                for (Imei a : lstIMEI) {
+                    modelIMEI.addRow(new Object[]{
+                        num++, a.getImei(), a.getStatus(a.getTrangThai())
+                    });
+                }
+            } else {
                 num = 1;
                 modelIMEI.setRowCount(0);
                 lstIMEI = null;

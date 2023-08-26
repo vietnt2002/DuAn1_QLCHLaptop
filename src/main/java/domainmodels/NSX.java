@@ -42,6 +42,14 @@ public class NSX {
         this.trangThai = trangThai;
     }
 
+    public NSX(String ten, String quocGia, Date ngayTao, Date ngaySua, int trangThai) {
+        this.ten = ten;
+        this.quocGia = quocGia;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+
     public String getId() {
         return id;
     }
@@ -108,10 +116,10 @@ public class NSX {
                 "Không rõ";
         };
     }
-    
+
     @Override
     public String toString() {
-        return ten + " "+ quocGia;
+        return ten + " " + quocGia;
     }
 
 }

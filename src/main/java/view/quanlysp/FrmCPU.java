@@ -57,13 +57,6 @@ public class FrmCPU extends javax.swing.JFrame {
         try {
             txtMa.setText(lstCPU.get(index).getMa());
             txtTen.setText(lstCPU.get(index).getTen());
-            if (lstCPU.get(index).getTrangThai() == 0) {
-                radCon.setSelected(true);
-            } else {
-                if (lstCPU.get(index).getTrangThai() == 1) {
-                    radHet.setSelected(true);
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,14 +71,10 @@ public class FrmCPU extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btgCPU = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         pnlCPUInfo = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        radCon = new javax.swing.JRadioButton();
-        radHet = new javax.swing.JRadioButton();
         pnlCPUbtn = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -107,17 +96,6 @@ public class FrmCPU extends javax.swing.JFrame {
         jLabel27.setText("Mã");
 
         jLabel28.setText("Tên");
-
-        jLabel38.setText("Trạng thái");
-
-        radCon.setText("Còn hàng");
-        radCon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radConActionPerformed(evt);
-            }
-        });
-
-        radHet.setText("Hết hàng");
 
         btnAdd.setBackground(new java.awt.Color(255, 51, 0));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,6 +165,8 @@ public class FrmCPU extends javax.swing.JFrame {
 
         pnlCPUbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClose, btnDelete, btnEdit});
 
+        txtMa.setEditable(false);
+
         txtTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenActionPerformed(evt);
@@ -199,19 +179,13 @@ public class FrmCPU extends javax.swing.JFrame {
             pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCPUInfoLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel38)
-                    .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel27)
-                        .addComponent(jLabel28)))
-                .addGap(40, 40, 40)
+                .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel28))
+                .addGap(75, 75, 75)
                 .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                    .addComponent(txtMa)
-                    .addGroup(pnlCPUInfoLayout.createSequentialGroup()
-                        .addComponent(radCon)
-                        .addGap(35, 35, 35)
-                        .addComponent(radHet)))
+                    .addComponent(txtMa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(pnlCPUbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -230,12 +204,7 @@ public class FrmCPU extends javax.swing.JFrame {
                 .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(pnlCPUInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel38)
-                    .addComponent(radCon)
-                    .addComponent(radHet))
-                .addGap(73, 73, 73))
+                .addGap(120, 120, 120))
             .addGroup(pnlCPUInfoLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(pnlCPUbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,10 +266,6 @@ public class FrmCPU extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radConActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radConActionPerformed
-
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         try {
@@ -318,8 +283,8 @@ public class FrmCPU extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen, "Không được để tên trống!")) {
                 return;
             }
-            int stt = (radHet.isSelected() ? 1 : 0);
-            CPU cpu = new CPU(txtMa.getText(), txtTen.getText(), date, date, stt);
+            int stt = 0;
+            CPU cpu = new CPU(txtTen.getText(), date, date, stt);
             int thongBao = svcCPU.them(cpu);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -356,7 +321,7 @@ public class FrmCPU extends javax.swing.JFrame {
             lstCPU = svcCPU.getAll();
 
             Date tao = lstCPU.get(index).getNgayTao();
-            int stt = (radHet.isSelected() ? 1 : 0);
+            int stt = lstCPU.get(index).getTrangThai();
             CPU cpu = new CPU(txtMa.getText(), txtTen.getText(), tao, date, stt);
             int thongBao = svcCPU.sua(cpu);
             if (thongBao == 1) {
@@ -441,20 +406,16 @@ public class FrmCPU extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btgCPU;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pnlCPUInfo;
     private javax.swing.JPanel pnlCPUbtn;
-    private javax.swing.JRadioButton radCon;
-    private javax.swing.JRadioButton radHet;
     private javax.swing.JTable tblCPU;
     private javax.swing.JTextField txtMa;
     private javax.swing.JTextField txtTen;

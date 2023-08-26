@@ -57,13 +57,6 @@ public class FrmSanPham extends javax.swing.JFrame {
         try {
             txtMa5.setText(lstSP.get(index).getMa());
             txtTen5.setText(lstSP.get(index).getTen());
-            if (lstSP.get(index).getTrangThai() == 0) {
-                radCon5.setSelected(true);
-            } else {
-                if (lstSP.get(index).getTrangThai() == 1) {
-                    radHet5.setSelected(true);
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,6 +180,8 @@ public class FrmSanPham extends javax.swing.JFrame {
         );
 
         pnlSPbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd5, btnDelete5, btnEdit5, btnHide5});
+
+        txtMa5.setEditable(false);
 
         txtTen5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,8 +319,8 @@ public class FrmSanPham extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen5, "Không được để tên trống!")) {
                 return;
             }
-            int stt = (radHet5.isSelected() ? 1 : 0);
-            SanPham sp = new SanPham(txtMa5.getText(), txtTen5.getText(), date, date, stt);
+            int stt = 0;
+            SanPham sp = new SanPham(txtTen5.getText(), date, date, stt);
             int thongBao = svcSP.them(sp);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -353,7 +348,7 @@ public class FrmSanPham extends javax.swing.JFrame {
             lstSP = svcSP.getAll();
 
             Date tao = lstSP.get(index).getNgayTao();
-            int stt = (radHet5.isSelected() ? 1 : 0);
+            int stt = lstSP.get(index).getTrangThai();
             SanPham sp = new SanPham(txtMa5.getText(), txtTen5.getText(), tao, date, stt);
             int thongBao = svcSP.them(sp);
             if (thongBao == 1) {

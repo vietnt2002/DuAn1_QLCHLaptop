@@ -39,6 +39,13 @@ public class CPU {
         this.trangThai = trangThai;
     }
 
+    public CPU(String ten, Date ngayTao, Date ngaySua, int trangThai) {
+        this.ten = ten;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+
     public String getId() {
         return id;
     }

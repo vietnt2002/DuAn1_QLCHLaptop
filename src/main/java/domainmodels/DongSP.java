@@ -39,6 +39,13 @@ public class DongSP {
         this.trangThai = trangThai;
     }
 
+    public DongSP(String ten, Date ngayTao, Date ngaySua, int trangThai) {
+        this.ten = ten;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+
     public String getId() {
         return id;
     }

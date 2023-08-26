@@ -57,13 +57,6 @@ public class FrmDongSP extends javax.swing.JFrame {
         try {
             txtMa1.setText(lstDSP.get(index).getMa());
             txtTen1.setText(lstDSP.get(index).getTen());
-            if (lstDSP.get(index).getTrangThai() == 0) {
-                radCon1.setSelected(true);
-            } else {
-                if (lstDSP.get(index).getTrangThai() == 1) {
-                    radHet1.setSelected(true);
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,16 +71,12 @@ public class FrmDongSP extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btgDSP = new javax.swing.ButtonGroup();
         pnlDongSP = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblDSP = new javax.swing.JTable();
         pnlDongInfo = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
-        radCon1 = new javax.swing.JRadioButton();
-        radHet1 = new javax.swing.JRadioButton();
         pnlDSPbtn = new javax.swing.JPanel();
         btnAdd1 = new javax.swing.JButton();
         btnEdit1 = new javax.swing.JButton();
@@ -124,19 +113,6 @@ public class FrmDongSP extends javax.swing.JFrame {
         jLabel31.setText("Mã");
 
         jLabel32.setText("Tên");
-
-        jLabel48.setText("Trạng thái");
-
-        btgDSP.add(radCon1);
-        radCon1.setText("Còn hàng");
-        radCon1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radCon1ActionPerformed(evt);
-            }
-        });
-
-        btgDSP.add(radHet1);
-        radHet1.setText("Hết hàng");
 
         btnAdd1.setBackground(new java.awt.Color(255, 51, 0));
         btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
@@ -206,6 +182,8 @@ public class FrmDongSP extends javax.swing.JFrame {
 
         pnlDSPbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd1, btnClose1, btnDelete1, btnEdit1});
 
+        txtMa1.setEditable(false);
+
         txtTen1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTen1ActionPerformed(evt);
@@ -218,20 +196,13 @@ public class FrmDongSP extends javax.swing.JFrame {
             pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDongInfoLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel31)
-                        .addComponent(jLabel32))
-                    .addComponent(jLabel48))
-                .addGap(18, 18, 18)
+                .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel32))
+                .addGap(53, 53, 53)
                 .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtTen1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                    .addComponent(txtMa1)
-                    .addGroup(pnlDongInfoLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(radCon1)
-                        .addGap(30, 30, 30)
-                        .addComponent(radHet1)))
+                    .addComponent(txtMa1))
                 .addGap(42, 42, 42)
                 .addComponent(pnlDSPbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -251,12 +222,7 @@ public class FrmDongSP extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel32)
-                            .addComponent(txtTen1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addGroup(pnlDongInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel48)
-                            .addComponent(radCon1)
-                            .addComponent(radHet1)))
+                            .addComponent(txtTen1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlDongInfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pnlDSPbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -304,10 +270,6 @@ public class FrmDongSP extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radCon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCon1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radCon1ActionPerformed
-
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         // TODO add your handling code here:
         try {
@@ -325,8 +287,8 @@ public class FrmDongSP extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen1, "Không được để tên trống!")) {
                 return;
             }
-            int stt = (radHet1.isSelected() ? 1 : 0);
-            DongSP dsp = new DongSP(txtMa1.getText(), txtTen1.getText(), date, date, stt);
+            int stt = 0;
+            DongSP dsp = new DongSP(txtTen1.getText(), date, date, stt);
             int thongBao = svcDSP.them(dsp);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -354,8 +316,8 @@ public class FrmDongSP extends javax.swing.JFrame {
             lstDSP = svcDSP.getAll();
 
             Date tao = lstDSP.get(index).getNgayTao();
-            int stt = (radHet1.isSelected() ? 1 : 0);
-            DongSP dsp = new DongSP(txtMa1.getText(), txtTen1.getText(), tao, date, stt);
+            int stt = lstDSP.get(index).getTrangThai();
+            DongSP dsp = new DongSP(txtTen1.getText(), tao, date, stt);
             int thongBao = svcDSP.sua(dsp);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -449,20 +411,16 @@ public class FrmDongSP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btgDSP;
     private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnClose1;
     private javax.swing.JButton btnDelete1;
     private javax.swing.JButton btnEdit1;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel48;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPanel pnlDSPbtn;
     private javax.swing.JPanel pnlDongInfo;
     private javax.swing.JPanel pnlDongSP;
-    private javax.swing.JRadioButton radCon1;
-    private javax.swing.JRadioButton radHet1;
     private javax.swing.JTable tblDSP;
     private javax.swing.JTextField txtMa1;
     private javax.swing.JTextField txtTen1;

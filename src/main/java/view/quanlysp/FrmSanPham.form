@@ -278,6 +278,9 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JTextField" name="txtMa5">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTen5">
               <Events>

@@ -57,13 +57,6 @@ public class FrmRAM extends javax.swing.JFrame {
         try {
             txtMa2.setText(lstRAM.get(index).getMa());
             txtTen2.setText(lstRAM.get(index).getTen());
-            if (lstRAM.get(index).getTrangThai() == 0) {
-                radCon2.setSelected(true);
-            } else {
-                if (lstRAM.get(index).getTrangThai() == 1) {
-                    radHet2.setSelected(true);
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,14 +71,10 @@ public class FrmRAM extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btgRAM = new javax.swing.ButtonGroup();
         pnlRAM = new javax.swing.JPanel();
         pnlRAMinfo = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        radCon2 = new javax.swing.JRadioButton();
-        radHet2 = new javax.swing.JRadioButton();
         pnlRAMbtn = new javax.swing.JPanel();
         btnAdd2 = new javax.swing.JButton();
         btnEdit2 = new javax.swing.JButton();
@@ -106,19 +95,6 @@ public class FrmRAM extends javax.swing.JFrame {
         jLabel33.setText("Mã");
 
         jLabel34.setText("Tên");
-
-        jLabel52.setText("Trạng thái");
-
-        btgRAM.add(radCon2);
-        radCon2.setText("Còn hàng");
-        radCon2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radCon2ActionPerformed(evt);
-            }
-        });
-
-        btgRAM.add(radHet2);
-        radHet2.setText("Hết hàng");
 
         btnAdd2.setBackground(new java.awt.Color(255, 51, 0));
         btnAdd2.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,6 +164,8 @@ public class FrmRAM extends javax.swing.JFrame {
 
         pnlRAMbtnLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd2, btnDelete2, btnEdit2, btnHide2});
 
+        txtMa2.setEditable(false);
+
         txtTen2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTen2ActionPerformed(evt);
@@ -201,15 +179,10 @@ public class FrmRAM extends javax.swing.JFrame {
             .addGroup(pnlRAMinfoLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(pnlRAMinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel52)
                     .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(18, 18, 18)
+                .addGap(53, 53, 53)
                 .addGroup(pnlRAMinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlRAMinfoLayout.createSequentialGroup()
-                        .addComponent(radCon2)
-                        .addGap(18, 18, 18)
-                        .addComponent(radHet2))
                     .addComponent(txtMa2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                     .addComponent(txtTen2))
                 .addGap(28, 28, 28)
@@ -231,12 +204,7 @@ public class FrmRAM extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlRAMinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel34)
-                            .addComponent(txtTen2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlRAMinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel52)
-                            .addComponent(radCon2)
-                            .addComponent(radHet2)))
+                            .addComponent(txtTen2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlRAMinfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pnlRAMbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -308,10 +276,6 @@ public class FrmRAM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radCon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCon2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radCon2ActionPerformed
-
     private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
         // TODO add your handling code here:
         try {
@@ -329,8 +293,8 @@ public class FrmRAM extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen2, "Không được để tên trống!")) {
                 return;
             }
-            int stt = (radHet2.isSelected() ? 1 : 0);
-            RAM ram = new RAM(txtMa2.getText(), txtTen2.getText(), date, date, stt);
+            int stt = 0;
+            RAM ram = new RAM(txtTen2.getText(), date, date, stt);
             int thongBao = svcRAM.them(ram);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -358,8 +322,8 @@ public class FrmRAM extends javax.swing.JFrame {
             lstRAM = svcRAM.getAll();
 
             Date tao = lstRAM.get(index).getNgayTao();
-            int stt = (radHet2.isSelected() ? 1 : 0);
-            RAM ram = new RAM(txtMa2.getText(), txtTen2.getText(), tao, date, stt);
+            int stt = lstRAM.get(index).getTrangThai();
+            RAM ram = new RAM(txtTen2.getText(), tao, date, stt);
             int thongBao = svcRAM.sua(ram);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -452,20 +416,16 @@ public class FrmRAM extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btgRAM;
     private javax.swing.JButton btnAdd2;
     private javax.swing.JButton btnDelete2;
     private javax.swing.JButton btnEdit2;
     private javax.swing.JButton btnHide2;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel52;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JPanel pnlRAM;
     private javax.swing.JPanel pnlRAMbtn;
     private javax.swing.JPanel pnlRAMinfo;
-    private javax.swing.JRadioButton radCon2;
-    private javax.swing.JRadioButton radHet2;
     private javax.swing.JTable tblRAM;
     private javax.swing.JTextField txtMa2;
     private javax.swing.JTextField txtTen2;

@@ -43,6 +43,14 @@ public class ManHinh {
         this.trangThai = trangThai;
     }
 
+    public ManHinh(String doPhanGiai, double inch, Date ngayTao, Date ngaySua, int trangThai) {
+        this.doPhanGiai = doPhanGiai;
+        this.inch = inch;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+
     public String getId() {
         return id;
     }
@@ -114,7 +122,7 @@ public class ManHinh {
     public String toString() {
         DecimalFormat dmf = new DecimalFormat("#.#");
         String inchfm = dmf.format(inch);
-        return inchfm+" Inch "+doPhanGiai;
+        return inchfm + " Inch " + doPhanGiai;
     }
 
 }

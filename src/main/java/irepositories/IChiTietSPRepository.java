@@ -34,6 +34,7 @@ public interface IChiTietSPRepository {
     String getMaById(String id);
     Integer updateSoLuong(String soLuong, String ma);
     Integer updateTrangThai(String trangThai, String ma);
+    Integer doiTrangThai(String trangThai1, String trangThai2);
     Integer sua(ChiTietSP sp,String id);
     List<ChiTietSP> getAllCTSP();
     List<ChiTietSP> getAllCTSPbyDong(String tenDSP);

@@ -99,4 +99,9 @@ public class ImeiService implements IImeiService {
     public List<Imei> timTTImei(Integer tt) {
         return imeiRepo.timTTImei(tt);
     }
+
+    @Override
+    public Integer doiTrangThai(String trangThai1, String trangThai2) {
+        return imeiRepo.updateTrangThai(trangThai1, trangThai2);
+    }
 }

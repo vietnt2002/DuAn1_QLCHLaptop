@@ -260,7 +260,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+                    <Property name="text" type="java.lang.String" value="&#x110;&#x1ed5;i TT"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
@@ -1311,12 +1311,13 @@
             <Component class="javax.swing.JComboBox" name="cboTrangThai">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
+                  <StringArray count="6">
                     <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
                     <StringItem index="1" value="Ch&#x1b0;a b&#xe1;n"/>
                     <StringItem index="2" value="&#x110;&#xe3; b&#xe1;n"/>
                     <StringItem index="3" value="L&#x1ed7;i"/>
-                    <StringItem index="4" value="Kh&#xf4;ng r&#xf5;"/>
+                    <StringItem index="4" value="Ng&#x1eeb;ng b&#xe1;n"/>
+                    <StringItem index="5" value="Kh&#xf4;ng r&#xf5;"/>
                   </StringArray>
                 </Property>
               </Properties>
