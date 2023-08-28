@@ -178,9 +178,20 @@ public class JplBanHang extends javax.swing.JPanel {
             model.setRowCount(0);
             for (ChiTietSP chiTietSP : lstChiTietSP) {
                 String ma = chiTietSP.getMa();
-                int soLuong = chiTietSP.getSoLuongTon();
-                if (soLuong == 0) {
-                    chiTietSPService.updateTrangThai("0", ma);
+                int tt = chiTietSP.getTrangThai();
+                if (tt != 2) {
+                    int soLuong = chiTietSP.getSoLuongTon();
+                    if (soLuong == 0) {
+                        chiTietSPService.updateTrangThai("0", ma);
+                    }
+                }
+                String trangThai = "";
+                if (chiTietSP.getTrangThai() == 0) {
+                    trangThai = "Hết hàng";
+                } else if (chiTietSP.getTrangThai() == 1) {
+                    trangThai = "Còn hàng";
+                } else {
+                    trangThai = "Ngừng bán";
                 }
                 model.addRow(new Object[]{
                     count++,
@@ -194,7 +205,7 @@ public class JplBanHang extends javax.swing.JPanel {
                     chiTietSP.getIdBH(),
                     chiTietSP.getGiaBan(),
                     chiTietSP.getSoLuongTon(),
-                    chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                    trangThai
                 });
             }
         }
@@ -215,6 +226,14 @@ public class JplBanHang extends javax.swing.JPanel {
             String cpu = chiTietSP.getIdCPU();
             String manHinh = chiTietSP.getIdManHinh();
             BigDecimal donGia = chiTietSP.getGiaBan();
+            String trangThai = "";
+            if (chiTietSP.getTrangThai() == 0) {
+                trangThai = "Hết hàng";
+            } else if (chiTietSP.getTrangThai() == 1) {
+                trangThai = "Còn hàng";
+            } else {
+                trangThai = "Ngừng bán";
+            }
             //Kiểm tra từ khóa tìm kiếm
             if (tenSP.toLowerCase().contains(keyword)
                     || mauSac.toLowerCase().contains(keyword)
@@ -236,7 +255,7 @@ public class JplBanHang extends javax.swing.JPanel {
                     chiTietSP.getIdBH(),
                     chiTietSP.getGiaBan(),
                     chiTietSP.getSoLuongTon(),
-                    chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                    trangThai
                 });
             }
         }
@@ -286,6 +305,14 @@ public class JplBanHang extends javax.swing.JPanel {
                     model = (DefaultTableModel) tblSanPham.getModel();
                     model.setRowCount(0);
                     for (ChiTietSP chiTietSP : lstChiTietSP) {
+                        String trangThai = "";
+                        if (chiTietSP.getTrangThai() == 0) {
+                            trangThai = "Hết hàng";
+                        } else if (chiTietSP.getTrangThai() == 1) {
+                            trangThai = "Còn hàng";
+                        } else {
+                            trangThai = "Ngừng bán";
+                        }
                         model.addRow(new Object[]{
                             count++,
                             chiTietSP.getMa(),
@@ -298,7 +325,7 @@ public class JplBanHang extends javax.swing.JPanel {
                             chiTietSP.getIdBH(),
                             chiTietSP.getGiaBan(),
                             chiTietSP.getSoLuongTon(),
-                            chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                            trangThai
                         });
                     }
                 }
@@ -346,6 +373,12 @@ public class JplBanHang extends javax.swing.JPanel {
         indexSP = tblSanPham.getSelectedRow();
         if (indexSP == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm muốn thêm vào giỏ hàng!");
+            return;
+        }
+
+        String trangThai = tblSanPham.getValueAt(indexSP, 11).toString();
+        if (trangThai.equals("Ngừng bán")) {
+            JOptionPane.showMessageDialog(this, "Hiện tại sản phẩm này đã ngừng bán. Vui lòng chọn sản phẩm khác!");
             return;
         }
 

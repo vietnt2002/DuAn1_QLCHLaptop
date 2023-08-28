@@ -169,6 +169,14 @@ public class JplHoaDon extends javax.swing.JPanel {
                 model = (DefaultTableModel) tblSanPham.getModel();
                 model.setRowCount(0);
                 for (ChiTietSP chiTietSP : lstChiTietSP) {
+                    String trangThai = "";
+                    if (chiTietSP.getTrangThai() == 0) {
+                        trangThai = "Hết hàng";
+                    } else if (chiTietSP.getTrangThai() == 1) {
+                        trangThai = "Còn hàng";
+                    } else {
+                        trangThai = "Ngừng bán";
+                    }
                     model.addRow(new Object[]{
                         count++,
                         chiTietSP.getMa(),
@@ -181,7 +189,7 @@ public class JplHoaDon extends javax.swing.JPanel {
                         chiTietSP.getIdBH(),
                         chiTietSP.getGiaBan(),
                         chiTietSP.getSoLuongTon(),
-                        chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                        trangThai
                     });
                 }
             }
@@ -198,6 +206,14 @@ public class JplHoaDon extends javax.swing.JPanel {
                 model = (DefaultTableModel) tblSanPham.getModel();
                 model.setRowCount(0);
                 for (ChiTietSP chiTietSP : lstChiTietSP) {
+                    String trangThai = "";
+                    if (chiTietSP.getTrangThai() == 0) {
+                        trangThai = "Hết hàng";
+                    } else if (chiTietSP.getTrangThai() == 1) {
+                        trangThai = "Còn hàng";
+                    } else {
+                        trangThai = "Ngừng bán";
+                    }
                     model.addRow(new Object[]{
                         count++,
                         chiTietSP.getMa(),
@@ -210,7 +226,7 @@ public class JplHoaDon extends javax.swing.JPanel {
                         chiTietSP.getIdBH(),
                         chiTietSP.getGiaBan(),
                         chiTietSP.getSoLuongTon(),
-                        chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                        trangThai
                     });
                 }
             }
@@ -227,6 +243,14 @@ public class JplHoaDon extends javax.swing.JPanel {
                 model = (DefaultTableModel) tblSanPham.getModel();
                 model.setRowCount(0);
                 for (ChiTietSP chiTietSP : lstChiTietSP) {
+                    String trangThai = "";
+                    if (chiTietSP.getTrangThai() == 0) {
+                        trangThai = "Hết hàng";
+                    } else if (chiTietSP.getTrangThai() == 1) {
+                        trangThai = "Còn hàng";
+                    } else {
+                        trangThai = "Ngừng bán";
+                    }
                     model.addRow(new Object[]{
                         count++,
                         chiTietSP.getMa(),
@@ -239,7 +263,7 @@ public class JplHoaDon extends javax.swing.JPanel {
                         chiTietSP.getIdBH(),
                         chiTietSP.getGiaBan(),
                         chiTietSP.getSoLuongTon(),
-                        chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                        trangThai
                     });
                 }
             }
@@ -257,6 +281,14 @@ public class JplHoaDon extends javax.swing.JPanel {
             String mauSac = chiTietSP.getIdMauSac();
             //Kiểm tra từ khóa tìm kiếm
             if (tenSP.toLowerCase().contains(keyword) || mauSac.toLowerCase().contains(keyword)) {
+                String trangThai = "";
+                if (chiTietSP.getTrangThai() == 0) {
+                    trangThai = "Hết hàng";
+                } else if (chiTietSP.getTrangThai() == 1) {
+                    trangThai = "Còn hàng";
+                } else {
+                    trangThai = "Ngừng bán";
+                }
                 model.addRow(new Object[]{
                     count++,
                     chiTietSP.getMa(),
@@ -269,7 +301,7 @@ public class JplHoaDon extends javax.swing.JPanel {
                     chiTietSP.getIdBH(),
                     chiTietSP.getGiaBan(),
                     chiTietSP.getSoLuongTon(),
-                    chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                    trangThai
                 });
             }
         }
@@ -327,11 +359,22 @@ public class JplHoaDon extends javax.swing.JPanel {
             model.setRowCount(0);
             for (ChiTietSP chiTietSP : lstChiTietSP) {
                 String ma = chiTietSP.getMa();
-                int soLuong = chiTietSP.getSoLuongTon();
-                if (soLuong == 0) {
-                    chiTietSPService.updateTrangThai("0", ma);
-                } else {
-                    chiTietSPService.updateTrangThai("1", ma);
+                int tt = chiTietSP.getTrangThai();
+                if (tt != 2) {
+                    int soLuong = chiTietSP.getSoLuongTon();
+                    if (soLuong == 0) {
+                        chiTietSPService.updateTrangThai("0", ma);
+                    } else {
+                        chiTietSPService.updateTrangThai("1", ma);
+                    }
+                }
+                String trangThai = "";
+                if (chiTietSP.getTrangThai() == 0) {
+                    trangThai = "Hết hàng";
+                } else if (chiTietSP.getTrangThai() == 1) {
+                    trangThai = "Còn hàng";
+                } else if (chiTietSP.getTrangThai() == 2) {
+                    trangThai = "Ngừng bán";
                 }
                 model.addRow(new Object[]{
                     count++,
@@ -345,7 +388,7 @@ public class JplHoaDon extends javax.swing.JPanel {
                     chiTietSP.getIdBH(),
                     chiTietSP.getGiaBan(),
                     chiTietSP.getSoLuongTon(),
-                    chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                    trangThai
                 });
             }
         }
@@ -363,11 +406,22 @@ public class JplHoaDon extends javax.swing.JPanel {
             model.setRowCount(0);
             for (ChiTietSP chiTietSP : lstChiTietSP) {
                 String ma = chiTietSP.getMa();
-                int soLuong = chiTietSP.getSoLuongTon();
-                if (soLuong == 0) {
-                    chiTietSPService.updateTrangThai("0", ma);
-                } else {
-                    chiTietSPService.updateTrangThai("1", ma);
+                int tt = chiTietSP.getTrangThai();
+                if (tt != 2) {
+                    int soLuong = chiTietSP.getSoLuongTon();
+                    if (soLuong == 0) {
+                        chiTietSPService.updateTrangThai("0", ma);
+                    } else {
+                        chiTietSPService.updateTrangThai("1", ma);
+                    }
+                }
+                String trangThai = "";
+                if (chiTietSP.getTrangThai() == 0) {
+                    trangThai = "Hết hàng";
+                } else if (chiTietSP.getTrangThai() == 1) {
+                    trangThai = "Còn hàng";
+                } else if (chiTietSP.getTrangThai() == 2) {
+                    trangThai = "Ngừng bán";
                 }
                 model.addRow(new Object[]{
                     count++,
@@ -381,7 +435,7 @@ public class JplHoaDon extends javax.swing.JPanel {
                     chiTietSP.getIdBH(),
                     chiTietSP.getGiaBan(),
                     chiTietSP.getSoLuongTon(),
-                    chiTietSP.getTrangThai() == 1 ? "Còn hàng" : "Hết hàng"
+                    trangThai
                 });
             }
         }
@@ -403,8 +457,10 @@ public class JplHoaDon extends javax.swing.JPanel {
                     trangThai = "Chưa bán";
                 } else if (imei.getTrangThai() == 1) {
                     trangThai = "Đã bán";
-                } else {
+                } else if (imei.getTrangThai() == 2) {
                     trangThai = "Lỗi!";
+                } else {
+                    trangThai = "Ngừng bán";
                 }
                 model.addRow(new Object[]{count++, imei.getImei(), imei.getIdChiTietSP().getIdSP(), trangThai});
             }
@@ -1362,6 +1418,11 @@ public class JplHoaDon extends javax.swing.JPanel {
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
         // Load table imei theo idChiTietSP
         indexSP = tblSanPham.getSelectedRow();
+        String trangThai = tblSanPham.getValueAt(indexSP, 11).toString();
+        if (trangThai.equals("Ngừng bán")) {
+            JOptionPane.showMessageDialog(this, "Sản phẩm hiện tại đã ngừng bán. Vui lòng chọn sản phẩm khác!");
+            return;
+        }
         loadTableImei();
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
