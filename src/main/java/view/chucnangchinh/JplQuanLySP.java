@@ -1311,9 +1311,8 @@ public class JplQuanLySP extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
                     filltable();
                     String ctsp = lstCTSP.get(index).getId();
-                    System.out.println(ctsp);
                     num = Services2.doiTrangThai("3", ctsp, "0");
-                    if (num == 1) {
+                    if (num < 0) {
                         JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thất bại!");
                         modelIMEI.setRowCount(0);
                         lstIMEI = Services2.getAllByIdCTSP_0TT(ctsp);
@@ -1343,9 +1342,8 @@ public class JplQuanLySP extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
                         filltable();
                         String ctsp = lstCTSP.get(index).getId();
-                        System.out.println(ctsp);
                         num = Services2.doiTrangThai("0", ctsp, "3");
-                        if (num == 1) {
+                        if (num < 0) {
                             JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thất bại!");
                             modelIMEI.setRowCount(0);
                             lstIMEI = Services2.getAllByIdCTSP_0TT(ctsp);
@@ -1490,7 +1488,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
             if (tenDSP.equalsIgnoreCase("Hiện tất cả")) {
                 filltable();
                 filltableIMEI();
-                showdetail(index);
+                showdetail(0);
             } else {
                 List<ChiTietSP> lstChiTietSP = Services.getByDongSP(tenDSP);
                 if (lstChiTietSP == null) {
