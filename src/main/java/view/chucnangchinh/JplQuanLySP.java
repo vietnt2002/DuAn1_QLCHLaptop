@@ -1302,7 +1302,7 @@ public class JplQuanLySP extends javax.swing.JPanel {
             } else {
                 System.out.println("");
             }
-            String ma = tblCTSP.getValueAt(index, 0).toString();            
+            String ma = tblCTSP.getValueAt(index, 0).toString();
             int sl = Integer.parseInt(tblCTSP.getValueAt(index, 12).toString());
             String trangThai = tblCTSP.getValueAt(index, 17).toString();
             if (trangThai.equals("Còn hàng") || trangThai.equals("Hết hàng")) {
@@ -1310,43 +1310,73 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 if (thongBao == 1) {
                     JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
                     filltable();
-                    String imei = tblIMEI.getValueAt(index, 1).toString();
-                    num = Services2.updateTrangThai("3", imei);
+                    String ctsp = lstCTSP.get(index).getId();
+                    System.out.println(ctsp);
+                    num = Services2.doiTrangThai("3", ctsp, "0");
                     if (num == 1) {
-                        JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thành công!");
-                        filltableIMEI();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Đổi trạng IMEI thái thất bại!");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thất bại!");
-                    return;
-                }
-            } else if (trangThai.equals("Ngừng bán") || sl > 0) {
-                int thongBao = Services.updateTrangThai("1", ma);
-                if (thongBao == 1) {
-                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
-                    filltable();
-                    String imei = tblIMEI.getValueAt(index, 1).toString();
-                    num = Services2.updateTrangThai("1", imei);
-                    if (num == 1) {
-                        JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thành công!");
-                        filltableIMEI();
-                    } else {
                         JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thất bại!");
+                        modelIMEI.setRowCount(0);
+                        lstIMEI = Services2.getAllByIdCTSP_0TT(ctsp);
+                        for (Imei a : lstIMEI) {
+                            modelIMEI.addRow(new Object[]{
+                                num++, a.getImei(), a.getStatus(a.getTrangThai())
+                            });
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng IMEI thái thành công!");
+                        modelIMEI.setRowCount(0);
+                        lstIMEI = Services2.getAllByIdCTSP_0TT(ctsp);
+                        for (Imei a : lstIMEI) {
+                            modelIMEI.addRow(new Object[]{
+                                num++, a.getImei(), a.getStatus(a.getTrangThai())
+                            });
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thất bại!");
                     return;
                 }
-            } else if (trangThai.equals("Ngừng bán") || sl <= 0) {
-                int thongBao = Services.updateTrangThai("0", ma);
-                if (thongBao == 1) {
-                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
-                    filltable();
+            } else if (trangThai.equals("Ngừng bán")) {
+                if (sl > 0) {
+                    int thongBao = Services.updateTrangThai("1", ma);
+                    if (thongBao == 1) {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
+                        filltable();
+                        String ctsp = lstCTSP.get(index).getId();
+                        System.out.println(ctsp);
+                        num = Services2.doiTrangThai("0", ctsp, "3");
+                        if (num == 1) {
+                            JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thất bại!");
+                            modelIMEI.setRowCount(0);
+                            lstIMEI = Services2.getAllByIdCTSP_0TT(ctsp);
+                            for (Imei a : lstIMEI) {
+                                modelIMEI.addRow(new Object[]{
+                                    num++, a.getImei(), a.getStatus(a.getTrangThai())
+                                });
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Đổi trạng thái IMEI thành công!");
+                            modelIMEI.setRowCount(0);
+                            lstIMEI = Services2.getAllByIdCTSP_0TT(ctsp);
+                            for (Imei a : lstIMEI) {
+                                modelIMEI.addRow(new Object[]{
+                                    num++, a.getImei(), a.getStatus(a.getTrangThai())
+                                });
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thất bại!");
+                        return;
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thất bại!");
-                    return;
+                    int thongBao = Services.updateTrangThai("0", ma);
+                    if (thongBao == 1) {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thành công!");
+                        filltable();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đổi trạng thái CTSP thất bại!");
+                        return;
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Đổi trạng thái thất bại!");

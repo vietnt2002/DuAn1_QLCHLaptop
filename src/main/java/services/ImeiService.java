@@ -101,7 +101,8 @@ public class ImeiService implements IImeiService {
     }
 
     @Override
-    public Integer doiTrangThai(String trangThai1, String trangThai2) {
-        return imeiRepo.updateTrangThai(trangThai1, trangThai2);
+    public Integer doiTrangThai(String trangThai, String IdChiTietSP, String trangThaiN) {
+        return imeiRepo.doiTrangThai(trangThai, IdChiTietSP, trangThaiN);
     }
+
 }

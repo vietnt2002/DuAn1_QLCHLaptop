@@ -26,7 +26,7 @@ public interface IImeiRepository {
     Integer xoaCTSP(String idChiTietSP);
     String getIdByIMei(String imei);
     Integer updateTrangThai(String trangThai, String imei);
-    Integer doiTrangThai(String trangThai1, String trangThai2);
+    Integer doiTrangThai(String trangThai, String IdChiTietSP, String trangThaiN);
     Map<String, String> hashMapMaCTSP();
     List<Imei> getAllByIdCTSP_0TT(String idChiTietSP);
     List<Imei> timKiemImei_0TT(String idCTSP, String imei);

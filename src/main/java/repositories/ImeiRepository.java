@@ -449,14 +449,15 @@ public class ImeiRepository implements IImeiRepository {
     }
 
     @Override
-    public Integer doiTrangThai(String trangThai1, String trangThai2) {
+    public Integer doiTrangThai(String trangThai, String IdChiTietSP, String trangThaiN) {
         try {
             Integer result = 0;
             Connection connection = DBConnection.getConnection();
-            String sql = "UPDATE dbo.IMei SET TrangThai = ? WHERE TrangThai = ?";
+            String sql = "UPDATE dbo.IMei SET TrangThai = ? WHERE IdChiTietSP = ? AND TrangThai = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, trangThai1);
-            ps.setString(2, trangThai2);
+            ps.setString(1, trangThai);
+            ps.setString(2, IdChiTietSP);
+            ps.setString(3, trangThaiN);
             result = ps.executeUpdate();
             ps.close();
             connection.close();
