@@ -518,14 +518,15 @@ public class JplBanHang extends javax.swing.JPanel {
             BigDecimal soTienGiam = new BigDecimal(txtSoTienGiam.getText());
             BigDecimal thanhTien = new BigDecimal(txtThanhTien.getText());
 
+            Double tongt = Double.parseDouble(tongTien+"");
             //tính thành tiền
-            if (soTienGiam.equals("")) {
+            if (tongt == 0) {
                 thanhTien = tongTien;
+                txtThanhTien.setText(thanhTien.toString());
             } else {
                 thanhTien = tongTien.subtract(soTienGiam);
                 txtThanhTien.setText(thanhTien.toString());
             }
-
         } catch (NumberFormatException e) {
             txtThanhTien.setText("");
         }
@@ -540,6 +541,9 @@ public class JplBanHang extends javax.swing.JPanel {
                 for (KhuyenMai khuyenMai : lstKhuyenMai) {
                     txtSoLuongMaGG.setText(khuyenMai.getSoLuong() + "");
                     txtSoTienGiam.setText(khuyenMai.getSoTienGiam() + "");
+                    if(txtSoLuongMaGG.getText().equals("0")){
+                        txtSoTienGiam.setText("0");
+                    }
                 }
                 capNhatThanhTien();
             }
@@ -1808,6 +1812,7 @@ public class JplBanHang extends javax.swing.JPanel {
         HuyHoaDon.setResizable(false);
         HuyHoaDon.setLocationRelativeTo(null);
         HuyHoaDon.setVisible(true);
+        clearForm();
     }//GEN-LAST:event_btnHuyHDActionPerformed
 
     private void btnTimKiemImeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemImeiActionPerformed
@@ -1929,6 +1934,10 @@ public class JplBanHang extends javax.swing.JPanel {
             for (KhuyenMai khuyenMai : lstKhuyenMai) {
                 txtSoLuongMaGG.setText(khuyenMai.getSoLuong() + "");
                 txtSoTienGiam.setText(khuyenMai.getSoTienGiam() + "");
+                if(txtSoLuongMaGG.getText().equals("0")){
+                    txtSoLuongMaGG.setText("");
+                    txtSoTienGiam.setText("");
+                }
             }
         }
         LoadTableSanPham();
