@@ -232,11 +232,11 @@ public class JplQuanLySP extends javax.swing.JPanel {
         pnlCTSP = new javax.swing.JPanel();
         pnlCTSPInfo = new javax.swing.JPanel();
         pnlCTSPbtn = new javax.swing.JPanel();
-        btnAdd = new javax.swing.JButton();
         btnImport = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         pnlDong = new javax.swing.JPanel();
         cboDongsp = new javax.swing.JComboBox<>();
         btnDong = new javax.swing.JButton();
@@ -295,15 +295,6 @@ public class JplQuanLySP extends javax.swing.JPanel {
         pnlCTSPInfo.setBackground(new java.awt.Color(255, 255, 255));
         pnlCTSPInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "THÔNG TIN SẢN PHẨM", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
-        btnAdd.setBackground(new java.awt.Color(255, 51, 0));
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Thêm");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
         btnImport.setBackground(new java.awt.Color(255, 51, 0));
         btnImport.setForeground(new java.awt.Color(255, 255, 255));
         btnImport.setText("Nhập");
@@ -340,17 +331,27 @@ public class JplQuanLySP extends javax.swing.JPanel {
             }
         });
 
+        btnAdd.setBackground(new java.awt.Color(255, 51, 0));
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlCTSPbtnLayout = new javax.swing.GroupLayout(pnlCTSPbtn);
         pnlCTSPbtn.setLayout(pnlCTSPbtnLayout);
         pnlCTSPbtnLayout.setHorizontalGroup(
             pnlCTSPbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCTSPbtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlCTSPbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSearch)
-                    .addComponent(btnDelete)
-                    .addComponent(btnEdit)
-                    .addComponent(btnImport)
+                .addGroup(pnlCTSPbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCTSPbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnSearch)
+                        .addComponent(btnDelete)
+                        .addComponent(btnEdit)
+                        .addComponent(btnImport))
                     .addComponent(btnAdd))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -364,9 +365,9 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 .addComponent(btnImport)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(btnAdd)
                 .addGap(18, 18, 18)
+                .addComponent(btnAdd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(btnEdit)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete)
@@ -736,9 +737,10 @@ public class JplQuanLySP extends javax.swing.JPanel {
                             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMota, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTon, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtMota, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTon, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pnlGeneralLayout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 8, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1139,7 +1141,21 @@ public class JplQuanLySP extends javax.swing.JPanel {
                 System.out.println("");
             }
             String imp = JOptionPane.showInputDialog(this, "Nhập số lượng cần nhập");
-
+            if (imp == null) {
+                return;
+            } else {
+                try {
+                    Double a = Double.valueOf(imp);
+                    if (a <= 0) {
+                        JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0!");
+                        return;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.println(e);
+                    return;
+                }
+            }
             if (ULHelper.checknull(txtTon, "Không được để số lượng trống!")) {
                 return;
             } else {
