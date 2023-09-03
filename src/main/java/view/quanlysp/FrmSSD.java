@@ -56,7 +56,7 @@ public class FrmSSD extends javax.swing.JFrame {
     public void showdetailSSD(int index) {
         try {
             txtMa3.setText(lstSSD.get(index).getMa());
-            txtTen3.setText(lstSSD.get(index).getTen()); 
+            txtTen3.setText(lstSSD.get(index).getTen());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -272,17 +272,6 @@ public class FrmSSD extends javax.swing.JFrame {
     private void btnAdd3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd3ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa3, "Không được để mã trống!")) {
-                return;
-            } else {
-                int trungMa = CheckTrungService.checkTrung(txtMa3.getText(),
-                        "SSD", "ma");
-                if (trungMa != -1) {
-                    JOptionPane.showMessageDialog(this, "Mã đã tồn tại!");
-                    return;
-                }
-            }
-
             if (ULHelper.checknull(txtTen3, "Không được để tên trống!")) {
                 return;
             }
@@ -305,15 +294,17 @@ public class FrmSSD extends javax.swing.JFrame {
     private void btnEdit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit3ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa3, "Không được để mã trống!")) {
+            int index = tblSSD.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn SSD cần sửa!");
                 return;
+            } else {
+                System.out.println("");
             }
-
             if (ULHelper.checknull(txtTen3, "Không được để tên trống!")) {
                 return;
             }
             lstSSD = svcSSD.getAll();
-
             Date tao = lstSSD.get(index).getNgayTao();
             int stt = lstSSD.get(index).getTrangThai();
             SSD ssd = new SSD(txtTen3.getText(), tao, date, stt);
@@ -334,6 +325,13 @@ public class FrmSSD extends javax.swing.JFrame {
     private void btnDelete3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete3ActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblSSD.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn SSD cần xóa!");
+                return;
+            } else {
+                System.out.println("");
+            }
             String ma = txtMa3.getText();
             int thongBao = svcSSD.xoa(ma);
             if (thongBao == 1) {

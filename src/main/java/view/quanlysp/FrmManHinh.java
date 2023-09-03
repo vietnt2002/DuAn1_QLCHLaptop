@@ -283,17 +283,6 @@ public class FrmManHinh extends javax.swing.JFrame {
     private void btnAdd4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd4ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa4, "Không được để mã trống!")) {
-                return;
-            } else {
-                int trungMa = CheckTrungService.checkTrung(txtMa4.getText(),
-                        "manhinh", "ma");
-                if (trungMa != -1) {
-                    JOptionPane.showMessageDialog(this, "Mã đã tồn tại!");
-                    return;
-                }
-            }
-
             if (ULHelper.checknull(txtDPG, "Không được để tên trống!")) {
                 return;
             }
@@ -316,10 +305,13 @@ public class FrmManHinh extends javax.swing.JFrame {
     private void btnEdit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit4ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa4, "Không được để mã trống!")) {
+            int index = tblMH.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn màn hình cần sửa!");
                 return;
+            } else {
+                System.out.println("");
             }
-
             if (ULHelper.checknull(txtDPG, "Không được để tên trống!")) {
                 return;
             }
@@ -345,6 +337,13 @@ public class FrmManHinh extends javax.swing.JFrame {
     private void btnDelete4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete4ActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblMH.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn màn hình cần xóa!");
+                return;
+            } else {
+                System.out.println("");
+            }
             String ma = txtMa4.getText();
             int thongBao = svcMH.xoa(ma);
             if (thongBao == 1) {

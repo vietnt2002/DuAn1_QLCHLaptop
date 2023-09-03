@@ -57,7 +57,7 @@ public class FrmBaoHanh extends javax.swing.JFrame {
         try {
             txtMa.setText(lstBaoHanh.get(index).getMa());
             txtThang.setText(lstBaoHanh.get(index).getSoThangBH().toString());
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -272,19 +272,20 @@ public class FrmBaoHanh extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa, "Không được để mã trống!")) {
+            if (ULHelper.checknull(txtThang, "Không được để tháng trống!")) {
                 return;
             } else {
-                int trungMa = CheckTrungService.checkTrung(txtMa.getText(),
-                    "cpu", "ma");
-                if (trungMa != -1) {
-                    JOptionPane.showMessageDialog(this, "Mã đã tồn tại!");
+                try {
+                    Integer a = Integer.valueOf(txtThang.toString());
+                    if (a <= 0) {
+                        JOptionPane.showMessageDialog(this, "Số tháng phải lớn hơn 0!");
+                        return;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.println(e);
                     return;
                 }
-            }
-
-            if (ULHelper.checknull(txtThang, "Không được để tên trống!")) {
-                return;
             }
             BaoHanh cpu = new BaoHanh(txtMa.getText(), Integer.parseInt(txtThang.getText()), date, date, 0);
             int thongBao = svcBaoHanh.them(cpu);
@@ -313,15 +314,29 @@ public class FrmBaoHanh extends javax.swing.JFrame {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa, "Không được để mã trống!")) {
+            int index = tblBaoHanh.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn mục bảo hành cần sửa!");
                 return;
+            } else {
+                System.out.println("");
             }
-
-            if (ULHelper.checknull(txtThang, "Không được để tên trống!")) {
+            if (ULHelper.checknull(txtThang, "Không được để tháng trống!")) {
                 return;
+            } else {
+                try {
+                    Integer a = Integer.valueOf(txtThang.toString());
+                    if (a <= 0) {
+                        JOptionPane.showMessageDialog(this, "Số tháng phải lớn hơn 0!");
+                        return;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.println(e);
+                    return;
+                }
             }
             lstBaoHanh = svcBaoHanh.getAll();
-
             Date tao = lstBaoHanh.get(index).getNgayTao();
             BaoHanh cpu = new BaoHanh(txtMa.getText(), Integer.parseInt(txtThang.getText()), tao, date, 0);
             int thongBao = svcBaoHanh.sua(cpu);
@@ -341,6 +356,13 @@ public class FrmBaoHanh extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblBaoHanh.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn mục bảo hành cần xóa!");
+                return;
+            } else {
+                System.out.println("");
+            }
             String ma = txtMa.getText();
             int thongBao = svcBaoHanh.xoa(ma);
             if (thongBao == 1) {

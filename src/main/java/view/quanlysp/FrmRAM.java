@@ -279,17 +279,6 @@ public class FrmRAM extends javax.swing.JFrame {
     private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa2, "Không được để mã trống!")) {
-                return;
-            } else {
-                int trungMa = CheckTrungService.checkTrung(txtMa2.getText(),
-                        "RAM", "ma");
-                if (trungMa != -1) {
-                    JOptionPane.showMessageDialog(this, "Mã đã tồn tại!");
-                    return;
-                }
-            }
-
             if (ULHelper.checknull(txtTen2, "Không được để tên trống!")) {
                 return;
             }
@@ -312,10 +301,13 @@ public class FrmRAM extends javax.swing.JFrame {
     private void btnEdit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit2ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa2, "Không được để mã trống!")) {
+            int index = tblRAM.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn RAM cần sửa!");
                 return;
+            } else {
+                System.out.println("");
             }
-
             if (ULHelper.checknull(txtTen2, "Không được để tên trống!")) {
                 return;
             }
@@ -341,6 +333,14 @@ public class FrmRAM extends javax.swing.JFrame {
     private void btnDelete2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete2ActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblRAM.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn RAM cần xóa!");
+                return;
+            } else {
+                System.out.println("");
+            }
+            
             String ma = txtMa2.getText();
             int thongBao = svcRAM.xoa(ma);
             if (thongBao == 1) {

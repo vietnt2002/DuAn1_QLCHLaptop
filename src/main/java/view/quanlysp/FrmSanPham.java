@@ -71,14 +71,10 @@ public class FrmSanPham extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btgSP = new javax.swing.ButtonGroup();
         pnlSP = new javax.swing.JPanel();
         pnlSPInfo = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        radCon5 = new javax.swing.JRadioButton();
-        radHet5 = new javax.swing.JRadioButton();
         pnlSPbtn = new javax.swing.JPanel();
         btnAdd5 = new javax.swing.JButton();
         btnEdit5 = new javax.swing.JButton();
@@ -99,19 +95,6 @@ public class FrmSanPham extends javax.swing.JFrame {
         jLabel29.setText("Mã");
 
         jLabel30.setText("Tên");
-
-        jLabel43.setText("Trạng thái");
-
-        btgSP.add(radCon5);
-        radCon5.setText("Còn hàng");
-        radCon5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radCon5ActionPerformed(evt);
-            }
-        });
-
-        btgSP.add(radHet5);
-        radHet5.setText("Hết hàng");
 
         btnAdd5.setBackground(new java.awt.Color(255, 51, 0));
         btnAdd5.setForeground(new java.awt.Color(255, 255, 255));
@@ -196,16 +179,10 @@ public class FrmSanPham extends javax.swing.JFrame {
             .addGroup(pnlSPInfoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(pnlSPInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel43)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSPInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel29)
-                        .addComponent(jLabel30)))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel30))
+                .addGap(53, 53, 53)
                 .addGroup(pnlSPInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlSPInfoLayout.createSequentialGroup()
-                        .addComponent(radCon5)
-                        .addGap(18, 18, 18)
-                        .addComponent(radHet5))
                     .addComponent(txtTen5, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                     .addComponent(txtMa5))
                 .addGap(31, 31, 31)
@@ -230,12 +207,7 @@ public class FrmSanPham extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlSPInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel30)
-                            .addComponent(txtTen5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlSPInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel43)
-                            .addComponent(radCon5)
-                            .addComponent(radHet5))))
+                            .addComponent(txtTen5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -298,24 +270,9 @@ public class FrmSanPham extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radCon5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCon5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radCon5ActionPerformed
-
     private void btnAdd5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd5ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa5, "Không được để mã trống!")) {
-                return;
-            } else {
-                int trungMa = CheckTrungService.checkTrung(txtMa5.getText(),
-                        "sanpham", "ma");
-                if (trungMa != -1) {
-                    JOptionPane.showMessageDialog(this, "Mã đã tồn tại!");
-                    return;
-                }
-            }
-
             if (ULHelper.checknull(txtTen5, "Không được để tên trống!")) {
                 return;
             }
@@ -338,15 +295,17 @@ public class FrmSanPham extends javax.swing.JFrame {
     private void btnEdit5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit5ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa5, "Không được để mã trống!")) {
+            int index = tblSP.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần sửa!");
                 return;
+            } else {
+                System.out.println("");
             }
-
             if (ULHelper.checknull(txtTen5, "Không được để tên trống!")) {
                 return;
             }
             lstSP = svcSP.getAll();
-
             Date tao = lstSP.get(index).getNgayTao();
             int stt = lstSP.get(index).getTrangThai();
             SanPham sp = new SanPham(txtMa5.getText(), txtTen5.getText(), tao, date, stt);
@@ -367,6 +326,13 @@ public class FrmSanPham extends javax.swing.JFrame {
     private void btnDelete5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete5ActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblSP.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn sản phẩm cần xóa!");
+                return;
+            } else {
+                System.out.println("");
+            }
             String ma = txtMa5.getText();
             int thongBao = svcSP.xoa(ma);
             if (thongBao == 1) {
@@ -442,20 +408,16 @@ public class FrmSanPham extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btgSP;
     private javax.swing.JButton btnAdd5;
     private javax.swing.JButton btnDelete5;
     private javax.swing.JButton btnEdit5;
     private javax.swing.JButton btnHide5;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel43;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel pnlSP;
     private javax.swing.JPanel pnlSPInfo;
     private javax.swing.JPanel pnlSPbtn;
-    private javax.swing.JRadioButton radCon5;
-    private javax.swing.JRadioButton radHet5;
     private javax.swing.JTable tblSP;
     private javax.swing.JTextField txtMa5;
     private javax.swing.JTextField txtTen5;

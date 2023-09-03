@@ -317,10 +317,16 @@ public class FrmNSX extends javax.swing.JFrame {
     private void btnEdit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit4ActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblNSX.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn nhà sản xuất cần sửa!");
+                return;
+            } else {
+                System.out.println("");
+            }
             if (ULHelper.checknull(txtMa4, "Không được để mã trống!")) {
                 return;
             }
-
             if (ULHelper.checknull(txtTen4, "Không được để tên trống!")) {
                 return;
             }
@@ -345,6 +351,13 @@ public class FrmNSX extends javax.swing.JFrame {
     private void btnDelete4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete4ActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblNSX.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn nhà sản xuất cần xóa!");
+                return;
+            } else {
+                System.out.println("");
+            }
             String ma = txtMa4.getText();
             int thongBao = svcNSX.xoa(ma);
             if (thongBao == 1) {

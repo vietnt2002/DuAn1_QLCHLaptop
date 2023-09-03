@@ -269,17 +269,6 @@ public class FrmCPU extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa, "Không được để mã trống!")) {
-                return;
-            } else {
-                int trungMa = CheckTrungService.checkTrung(txtMa.getText(),
-                    "cpu", "ma");
-                if (trungMa != -1) {
-                    JOptionPane.showMessageDialog(this, "Mã đã tồn tại!");
-                    return;
-                }
-            }
-
             if (ULHelper.checknull(txtTen, "Không được để tên trống!")) {
                 return;
             }
@@ -311,10 +300,13 @@ public class FrmCPU extends javax.swing.JFrame {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa, "Không được để mã trống!")) {
+            int index = tblCPU.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn CPU cần sửa!");
                 return;
+            } else {
+                System.out.println("");
             }
-
             if (ULHelper.checknull(txtTen, "Không được để tên trống!")) {
                 return;
             }
@@ -340,6 +332,13 @@ public class FrmCPU extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblCPU.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn CPU cần sửa!");
+                return;
+            } else {
+                System.out.println("");
+            }
             String ma = txtMa.getText();
             int thongBao = svcCPU.xoa(ma);
             if (thongBao == 1) {

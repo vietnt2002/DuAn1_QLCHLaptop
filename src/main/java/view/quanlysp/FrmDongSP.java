@@ -273,17 +273,6 @@ public class FrmDongSP extends javax.swing.JFrame {
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa1, "Không được để mã trống!")) {
-                return;
-            } else {
-                int trungMa = CheckTrungService.checkTrung(txtMa1.getText(),
-                        "dongsp", "ma");
-                if (trungMa != -1) {
-                    JOptionPane.showMessageDialog(this, "Mã đã tồn tại!");
-                    return;
-                }
-            }
-
             if (ULHelper.checknull(txtTen1, "Không được để tên trống!")) {
                 return;
             }
@@ -306,10 +295,13 @@ public class FrmDongSP extends javax.swing.JFrame {
     private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit1ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa1, "Không được để mã trống!")) {
+            int index = tblDSP.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn dòng sản phẩm cần sửa!");
                 return;
+            } else {
+                System.out.println("");
             }
-
             if (ULHelper.checknull(txtTen1, "Không được để tên trống!")) {
                 return;
             }
@@ -335,6 +327,13 @@ public class FrmDongSP extends javax.swing.JFrame {
     private void btnDelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete1ActionPerformed
         // TODO add your handling code here:
         try {
+            int index = tblDSP.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn CPU cần xóa!");
+                return;
+            } else {
+                System.out.println("");
+            }
             String ma = txtMa1.getText();
             int thongBao = svcDSP.xoa(ma);
             if (thongBao == 1) {
