@@ -311,7 +311,6 @@ public class FrmCPU extends javax.swing.JFrame {
                 return;
             }
             lstCPU = svcCPU.getAll();
-
             Date tao = lstCPU.get(index).getNgayTao();
             int stt = lstCPU.get(index).getTrangThai();
             CPU cpu = new CPU(txtMa.getText(), txtTen.getText(), tao, date, stt);

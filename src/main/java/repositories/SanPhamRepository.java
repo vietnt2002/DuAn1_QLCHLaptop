@@ -43,13 +43,12 @@ public class SanPhamRepository implements ISanPhamRepository {
     public Integer them(SanPham sp) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into sanpham(Ma,Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
+            String lenh = "insert into sanpham(Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, sp.getMa());
-            st.setString(2, sp.getTen());
-            st.setDate(3, sp.getNgayTao());
-            st.setDate(4, sp.getNgaySua());
-            st.setInt(5, sp.getTrangThai());
+            st.setString(1, sp.getTen());
+            st.setDate(2, sp.getNgayTao());
+            st.setDate(3, sp.getNgaySua());
+            st.setInt(4, sp.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

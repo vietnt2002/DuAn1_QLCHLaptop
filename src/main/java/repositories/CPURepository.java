@@ -42,13 +42,12 @@ public class CPURepository implements ICPURepository {
     public Integer them(CPU cpu) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into CPU(Ma,Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
+            String lenh = "insert into CPU(Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, cpu.getMa());
-            st.setString(2, cpu.getTen());
-            st.setDate(3, cpu.getNgayTao());
-            st.setDate(4, cpu.getNgaySua());
-            st.setInt(5, cpu.getTrangThai());
+            st.setString(1, cpu.getTen());
+            st.setDate(2, cpu.getNgayTao());
+            st.setDate(3, cpu.getNgaySua());
+            st.setInt(4, cpu.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

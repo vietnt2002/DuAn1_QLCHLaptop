@@ -42,14 +42,13 @@ public class ManHinhRepository implements IManHinhRepository {
     public Integer them(ManHinh manhinh) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into ManHinh(Ma,dophangiai,inch,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
+            String lenh = "insert into ManHinh(dophangiai,inch,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, manhinh.getMa());
-            st.setString(2, manhinh.getDoPhanGiai());
-            st.setDouble(3, manhinh.getInch());
-            st.setDate(4, manhinh.getNgayTao());
-            st.setDate(5, manhinh.getNgaySua());
-            st.setInt(6, manhinh.getTrangThai());
+            st.setString(1, manhinh.getDoPhanGiai());
+            st.setDouble(2, manhinh.getInch());
+            st.setDate(3, manhinh.getNgayTao());
+            st.setDate(4, manhinh.getNgaySua());
+            st.setInt(5, manhinh.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

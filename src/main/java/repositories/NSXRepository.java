@@ -42,14 +42,13 @@ public class NSXRepository implements INSXRepository {
     public Integer them(NSX nsx) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into NSX(Ma,Ten,quocgia,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
+            String lenh = "insert into NSX(Ten,quocgia,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, nsx.getMa());
-            st.setString(2, nsx.getTen());
-            st.setString(3, nsx.getQuocGia());
-            st.setDate(4, nsx.getNgayTao());
-            st.setDate(5, nsx.getNgaySua());
-            st.setInt(6, nsx.getTrangThai());
+            st.setString(1, nsx.getTen());
+            st.setString(2, nsx.getQuocGia());
+            st.setDate(3, nsx.getNgayTao());
+            st.setDate(4, nsx.getNgaySua());
+            st.setInt(5, nsx.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

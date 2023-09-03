@@ -57,7 +57,7 @@ public class FrmNSX extends javax.swing.JFrame {
         try {
             txtMa4.setText(lstNSX.get(index).getMa());
             txtTen4.setText(lstNSX.get(index).getTen());
-            txtQG.setText(lstNSX.get(index).getTen());
+            txtQG.setText(lstNSX.get(index).getQuocGia());
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -285,17 +285,6 @@ public class FrmNSX extends javax.swing.JFrame {
     private void btnAdd4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd4ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtMa4, "Không được để mã trống!")) {
-                return;
-            } else {
-                int trungMa = CheckTrungService.checkTrung(txtMa4.getText(),
-                        "nsx", "ma");
-                if (trungMa != -1) {
-                    JOptionPane.showMessageDialog(this, "Mã đã tồn tại!");
-                    return;
-                }
-            }
-
             if (ULHelper.checknull(txtTen4, "Không được để tên trống!")) {
                 return;
             }
@@ -324,16 +313,15 @@ public class FrmNSX extends javax.swing.JFrame {
             } else {
                 System.out.println("");
             }
-            if (ULHelper.checknull(txtMa4, "Không được để mã trống!")) {
-                return;
-            }
             if (ULHelper.checknull(txtTen4, "Không được để tên trống!")) {
                 return;
             }
+            if (ULHelper.checknull(txtQG, "Không được để tên trống!")) {
+                return;
+            }
             lstNSX = svcNSX.getAll();
-
             Date tao = lstNSX.get(index).getNgayTao();
-            NSX mau = new NSX(txtTen4.getText(), txtQG.getText(), tao, date, 0);
+            NSX mau = new NSX(txtMa4.getText(), txtTen4.getText(), txtQG.getText(), tao, date, 0);
             int thongBao = svcNSX.sua(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");

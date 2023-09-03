@@ -39,6 +39,13 @@ public class BaoHanh {
         this.trangThai = trangThai;
     }
 
+    public BaoHanh(Integer soThangBH, Date ngayTao, Date ngaySua, int trangThai) {
+        this.soThangBH = soThangBH;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+
     public String getId() {
         return id;
     }

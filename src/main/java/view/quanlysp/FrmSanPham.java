@@ -309,7 +309,7 @@ public class FrmSanPham extends javax.swing.JFrame {
             Date tao = lstSP.get(index).getNgayTao();
             int stt = lstSP.get(index).getTrangThai();
             SanPham sp = new SanPham(txtMa5.getText(), txtTen5.getText(), tao, date, stt);
-            int thongBao = svcSP.them(sp);
+            int thongBao = svcSP.sua(sp);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
                 filltableSP();

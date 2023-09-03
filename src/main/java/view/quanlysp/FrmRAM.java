@@ -315,7 +315,7 @@ public class FrmRAM extends javax.swing.JFrame {
 
             Date tao = lstRAM.get(index).getNgayTao();
             int stt = lstRAM.get(index).getTrangThai();
-            RAM ram = new RAM(txtTen2.getText(), tao, date, stt);
+            RAM ram = new RAM(txtMa2.getText(),txtTen2.getText(), tao, date, stt);
             int thongBao = svcRAM.sua(ram);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");

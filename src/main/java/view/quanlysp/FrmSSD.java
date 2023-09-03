@@ -307,7 +307,7 @@ public class FrmSSD extends javax.swing.JFrame {
             lstSSD = svcSSD.getAll();
             Date tao = lstSSD.get(index).getNgayTao();
             int stt = lstSSD.get(index).getTrangThai();
-            SSD ssd = new SSD(txtTen3.getText(), tao, date, stt);
+            SSD ssd = new SSD(txtMa3.getText(),txtTen3.getText(), tao, date, stt);
             int thongBao = svcSSD.sua(ssd);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");

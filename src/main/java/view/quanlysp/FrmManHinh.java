@@ -319,7 +319,7 @@ public class FrmManHinh extends javax.swing.JFrame {
 
             Date tao = lstMH.get(index).getNgayTao();
             int stt = lstMH.get(index).getTrangThai();
-            ManHinh mau = new ManHinh(txtDPG.getText(), Double.parseDouble(txtDPG.getText()), tao, date, stt);
+            ManHinh mau = new ManHinh(txtMa4.getText(), txtDPG.getText(), Double.parseDouble(txtDPG.getText()), tao, date, stt);
             int thongBao = svcMH.sua(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");

@@ -40,13 +40,12 @@ public class DongSPRepository implements IDongSPRepository {
     public Integer them(DongSP dongSP) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into DongSP(Ma,Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
+            String lenh = "insert into DongSP(Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, dongSP.getMa());
-            st.setString(2, dongSP.getTen());
-            st.setDate(3, dongSP.getNgayTao());
-            st.setDate(4, dongSP.getNgaySua());
-            st.setInt(5, dongSP.getTrangThai());
+            st.setString(1, dongSP.getTen());
+            st.setDate(2, dongSP.getNgayTao());
+            st.setDate(3, dongSP.getNgaySua());
+            st.setInt(4, dongSP.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

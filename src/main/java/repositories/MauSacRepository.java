@@ -40,13 +40,12 @@ public class MauSacRepository implements IMauSacRepository {
     public Integer them(MauSac mauSac) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into MauSac(Ma,Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
+            String lenh = "insert into MauSac(Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, mauSac.getMa());
-            st.setString(2, mauSac.getTen());
-            st.setDate(3, mauSac.getNgayTao());
-            st.setDate(4, mauSac.getNgaySua());
-            st.setInt(5, mauSac.getTrangThai());
+            st.setString(1, mauSac.getTen());
+            st.setDate(2, mauSac.getNgayTao());
+            st.setDate(3, mauSac.getNgaySua());
+            st.setInt(4, mauSac.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

@@ -299,17 +299,14 @@ public class FrmDongSP extends javax.swing.JFrame {
             if (index == -1) {
                 JOptionPane.showMessageDialog(this, "Chọn dòng sản phẩm cần sửa!");
                 return;
-            } else {
-                System.out.println("");
             }
             if (ULHelper.checknull(txtTen1, "Không được để tên trống!")) {
                 return;
             }
             lstDSP = svcDSP.getAll();
-
             Date tao = lstDSP.get(index).getNgayTao();
             int stt = lstDSP.get(index).getTrangThai();
-            DongSP dsp = new DongSP(txtTen1.getText(), tao, date, stt);
+            DongSP dsp = new DongSP(txtMa1.getText(), txtTen1.getText(), tao, date, stt);
             int thongBao = svcDSP.sua(dsp);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");

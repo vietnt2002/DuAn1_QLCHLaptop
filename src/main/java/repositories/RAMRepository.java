@@ -43,13 +43,12 @@ public class RAMRepository implements IRAMRepository {
     public Integer them(RAM ram) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into RAM(Ma,Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
+            String lenh = "insert into RAM(Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, ram.getMa());
-            st.setString(2, ram.getTen());
-            st.setDate(3, ram.getNgayTao());
-            st.setDate(4, ram.getNgaySua());
-            st.setInt(5, ram.getTrangThai());
+            st.setString(1, ram.getTen());
+            st.setDate(2, ram.getNgayTao());
+            st.setDate(3, ram.getNgaySua());
+            st.setInt(4, ram.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

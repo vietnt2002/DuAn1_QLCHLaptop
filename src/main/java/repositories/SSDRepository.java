@@ -42,13 +42,12 @@ public class SSDRepository implements ISSDRepository {
     public Integer them(SSD ssd) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into SSD(Ma,Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?,?)";
+            String lenh = "insert into SSD(Ten,ngayTao,ngaySua,trangThai) values(?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, ssd.getMa());
-            st.setString(2, ssd.getTen());
-            st.setDate(3, ssd.getNgayTao());
-            st.setDate(4, ssd.getNgaySua());
-            st.setInt(5, ssd.getTrangThai());
+            st.setString(1, ssd.getTen());
+            st.setDate(2, ssd.getNgayTao());
+            st.setDate(3, ssd.getNgaySua());
+            st.setInt(4, ssd.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

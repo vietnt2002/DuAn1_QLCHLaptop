@@ -299,7 +299,7 @@ public class FrmMauSac extends javax.swing.JFrame {
 
             Date tao = lstMS.get(index).getNgayTao();
             int stt = lstMS.get(index).getTrangThai();
-            MauSac mau = new MauSac(txtTen4.getText(), tao, date, stt);
+            MauSac mau = new MauSac(txtMa4.getText(), txtTen4.getText(), tao, date, stt);
             int thongBao = svcMS.sua(mau);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");

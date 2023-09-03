@@ -44,13 +44,12 @@ public class BaoHanhRepository implements IBaoHanhRepository {
     public Integer them(BaoHanh baohanh) {
         try {
             Connection con = DBConnection.getConnection();
-            String lenh = "insert into BaoHanh(ma,soThangBH,ngayTao,ngaySua,trangThai) values(?,?,?,?,?,?)";
+            String lenh = "insert into BaoHanh(soThangBH,ngayTao,ngaySua,trangThai) values(?,?,?,?)";
             PreparedStatement st = con.prepareStatement(lenh);
-            st.setString(1, baohanh.getMa());
-            st.setInt(2, baohanh.getSoThangBH());
-            st.setDate(3, baohanh.getNgayTao());
-            st.setDate(4, baohanh.getNgaySua());
-            st.setInt(5, baohanh.getTrangThai());
+            st.setInt(1, baohanh.getSoThangBH());
+            st.setDate(2, baohanh.getNgayTao());
+            st.setDate(3, baohanh.getNgaySua());
+            st.setInt(4, baohanh.getTrangThai());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

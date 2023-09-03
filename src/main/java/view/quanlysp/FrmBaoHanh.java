@@ -276,7 +276,9 @@ public class FrmBaoHanh extends javax.swing.JFrame {
                 return;
             } else {
                 try {
-                    Integer a = Integer.valueOf(txtThang.toString());
+                    String b = txtThang.getText();
+                    System.out.println(b);
+                    Integer a = Integer.valueOf(b);
                     if (a <= 0) {
                         JOptionPane.showMessageDialog(this, "Số tháng phải lớn hơn 0!");
                         return;
@@ -287,7 +289,7 @@ public class FrmBaoHanh extends javax.swing.JFrame {
                     return;
                 }
             }
-            BaoHanh cpu = new BaoHanh(txtMa.getText(), Integer.parseInt(txtThang.getText()), date, date, 0);
+            BaoHanh cpu = new BaoHanh(txtMa.getText(), Integer.valueOf(txtThang.getText()), date, date, 0);
             int thongBao = svcBaoHanh.them(cpu);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
@@ -325,7 +327,7 @@ public class FrmBaoHanh extends javax.swing.JFrame {
                 return;
             } else {
                 try {
-                    Integer a = Integer.valueOf(txtThang.toString());
+                    Integer a = Integer.valueOf(txtThang.getText());
                     if (a <= 0) {
                         JOptionPane.showMessageDialog(this, "Số tháng phải lớn hơn 0!");
                         return;
