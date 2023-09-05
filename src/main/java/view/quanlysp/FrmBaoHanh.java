@@ -93,7 +93,7 @@ public class FrmBaoHanh extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 230, 234));
 
         pnlCPUInfo.setBackground(new java.awt.Color(255, 255, 255));
-        pnlCPUInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin CPU", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        pnlCPUInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin bảo hành", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
         jLabel27.setText("Mã");
 

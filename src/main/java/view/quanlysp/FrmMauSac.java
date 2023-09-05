@@ -319,7 +319,7 @@ public class FrmMauSac extends javax.swing.JFrame {
         try {
             int index = tblMauSac.getSelectedRow();
             if (index == -1) {
-                JOptionPane.showMessageDialog(this, "Chọn màu cần sửa!");
+                JOptionPane.showMessageDialog(this, "Chọn màu cần xóa!");
                 return;
             } else {
                 System.out.println("");

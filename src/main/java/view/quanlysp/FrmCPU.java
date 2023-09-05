@@ -333,7 +333,7 @@ public class FrmCPU extends javax.swing.JFrame {
         try {
             int index = tblCPU.getSelectedRow();
             if (index == -1) {
-                JOptionPane.showMessageDialog(this, "Chọn CPU cần sửa!");
+                JOptionPane.showMessageDialog(this, "Chọn CPU cần xóa!");
                 return;
             } else {
                 System.out.println("");
