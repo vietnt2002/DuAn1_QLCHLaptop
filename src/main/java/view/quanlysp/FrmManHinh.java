@@ -283,8 +283,25 @@ public class FrmManHinh extends javax.swing.JFrame {
     private void btnAdd4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd4ActionPerformed
         // TODO add your handling code here:
         try {
-            if (ULHelper.checknull(txtDPG, "Không được để tên trống!")) {
+            if (ULHelper.checknull(txtDPG, "Không được để độ phân giải trống!")) {
                 return;
+            }
+            if (ULHelper.checknull(txtInch, "Không được để inch trống!")) {
+                return;
+            } else {
+                try {
+                    String b = txtInch.getText();
+                    System.out.println(b);
+                    Integer a = Integer.valueOf(b);
+                    if (a <= 0) {
+                        JOptionPane.showMessageDialog(this, "Số tháng phải lớn hơn 0!");
+                        return;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu!");
+                    System.out.println(e);
+                    return;
+                }
             }
             int stt = 0;
             ManHinh mau = new ManHinh(txtDPG.getText(), Double.parseDouble(txtDPG.getText()), date, date, stt);

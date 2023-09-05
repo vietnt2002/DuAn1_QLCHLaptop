@@ -288,6 +288,9 @@ public class FrmNSX extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen4, "Không được để tên trống!")) {
                 return;
             }
+            if (ULHelper.checknull(txtQG, "Không được để quốc gia trống!")) {
+                return;
+            }
             NSX nsx = new NSX(txtTen4.getText(), txtQG.getText(), date, date, 0);
             int thongBao = svcNSX.them(nsx);
             if (thongBao == 1) {
@@ -316,7 +319,7 @@ public class FrmNSX extends javax.swing.JFrame {
             if (ULHelper.checknull(txtTen4, "Không được để tên trống!")) {
                 return;
             }
-            if (ULHelper.checknull(txtQG, "Không được để tên trống!")) {
+            if (ULHelper.checknull(txtQG, "Không được để quốc gia trống!")) {
                 return;
             }
             lstNSX = svcNSX.getAll();
