@@ -45,7 +45,7 @@ public class JplThongKe extends javax.swing.JPanel {
         new Thread() {
             @Override
             public void run() {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("MM");
                 while (true) {
                     try {
                         Date d = new Date();
@@ -382,7 +382,7 @@ public class JplThongKe extends javax.swing.JPanel {
 
         lblTieuDe1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblTieuDe1.setForeground(new java.awt.Color(102, 102, 102));
-        lblTieuDe1.setText("DOANH THU TRONG NGÀY ");
+        lblTieuDe1.setText("DOANH THU TRONG THÁNG: ");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);

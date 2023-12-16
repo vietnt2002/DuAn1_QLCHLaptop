@@ -24,7 +24,7 @@ public class ThongKeRepository {
 
     public int getSLDonHangNgay() {
         int sl;
-        String sql = "select Count(id) as 'SoLuong' From HoaDon Where NgayThanhToan = GetDate() AND TrangThai = '1' ";
+        String sql = "select Count(id) as 'SoLuong' From HoaDon Where MONTH(NgayThanhToan) = MONTH(GetDate()) AND TrangThai = '1' ";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -40,7 +40,7 @@ public class ThongKeRepository {
 
     public int getSLKhachHangNgay() {
         int sl;
-        String sql = "select Count(Idkh) as 'SoLuong' From HoaDon Where  NgayThanhToan = GetDate() AND TrangThai = '1' ";
+        String sql = "select Count(Idkh) as 'SoLuong' From HoaDon Where  MONTH(NgayThanhToan) = MONTH(GetDate()) AND TrangThai = '1' ";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();
@@ -56,8 +56,8 @@ public class ThongKeRepository {
 
     public int getDoanhThuNgay() {
         int sl;
-        String sql = "Select Sum(ThanhTien) AS 'ThanhTien' from HoaDon\n" +
-                    "Where NgayThanhToan = GetDate() AND TrangThai = '1'";
+        String sql = "SELECT Sum(ThanhTien) AS 'ThanhTien' from HoaDon\n" +
+                    "Where MONTH(NgayThanhToan) = MONTH(GetDate()) AND TrangThai = 1";
         try {
             PreparedStatement PS = con.prepareStatement(sql);
             ResultSet RS = PS.executeQuery();

@@ -235,7 +235,7 @@ public class FrmGiaoDien extends javax.swing.JFrame {
         jplKhuyenMai.setLayout(new java.awt.GridLayout(1, 0));
 
         lblKhuyenMai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/KhuyenMai.png"))); // NOI18N
-        lblKhuyenMai.setText("Khuyến mãi");
+        lblKhuyenMai.setText("Khuyến mại");
         lblKhuyenMai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblKhuyenMaiMouseClicked(evt);

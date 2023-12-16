@@ -572,7 +572,7 @@ public class JplBanHang extends javax.swing.JPanel {
 
             DecimalFormat decimalFormat = new DecimalFormat("###,###.##");
             // Sử dụng font có hỗ trợ tiếng Việt
-            BaseFont bf = BaseFont.createFont("D:\\Ki_4\\Du_an_1\\font arial việt hóa\\SVN-Arial Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bf = BaseFont.createFont("D:\\Ki_4\\Du_an_1\\DuAn1_QLCHLaptop\\font arial\\SVN-Arial Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             Font fontTo = new Font(bf, 12);
             Font fontNho = new Font(bf, 9);
 
@@ -663,7 +663,7 @@ public class JplBanHang extends javax.swing.JPanel {
             document.add(tongThanhToan);
 
             document.close();
-            JOptionPane.showMessageDialog(this, "Xuất hóa đơn thành công: D:\\Ki_4\\Du_an_1\\Hoa_Don\\" + maHD + ".pdf");
+            JOptionPane.showMessageDialog(this, "Xuất hóa đơn thành công: D:\\Ki_4\\Du_an_1\\DuAn1_QLCHLaptop\\Hoa_Don\\" + maHD + ".pdf");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1916,7 +1916,7 @@ public class JplBanHang extends javax.swing.JPanel {
         }
         JOptionPane.showMessageDialog(this, "Thanh toán thành công");
         //Xuất hóa đơn
-        xuatHoaDon("D:\\Ki_4\\Du_an_1\\Hoa_Don\\" + maHD + ".pdf");
+        xuatHoaDon("D:\\Ki_4\\Du_an_1\\DuAn1_QLCHLaptop\\Hoa_Don\\" + maHD + ".pdf");
         clearForm();
 
         //update số lượng chiTietSP
